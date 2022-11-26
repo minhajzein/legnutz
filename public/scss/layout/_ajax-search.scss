@@ -1,0 +1,86 @@
+/**=====================
+    Ajax Search start
+==========================**/
+
+.ajax-search {
+    &.form_search {
+        overflow: unset;
+    }
+
+    .twitter-typeahead {
+        width: 100%;
+    }
+
+    .typeahead {
+        padding: 15px 20px;
+        width: 100% !important;
+        background-color: #fff !important;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+
+    .empty-message {
+        color: var(--theme-color);
+        text-align: center;
+        padding: 10px 0px;
+        font-size: 16px;
+    }
+
+    .tt-menu {
+        display: block;
+        width: 100%;
+        background-color: #fff;
+        border: unset !important;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        max-height: 350px;
+        overflow: auto;
+        top: 55px !important;
+        border-radius: 5px;
+        padding: 8px 0;
+    }
+
+    .tt-suggestion {
+        padding: 0px 14px;
+        font-size: 18px;
+        line-height: 24px;
+        cursor: pointer;
+    }
+
+    .man-section {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .image-section {
+        padding: 5px 0;
+
+        img {
+            width: 50px;
+
+            filter: invert(0) !important;
+
+        }
+    }
+
+    .description-section {
+        width: 80%;
+
+        h4 {
+            margin: 0px;
+            padding: 0px 7px;
+            font-size: 17px;
+            color: #222222;
+            margin-top: 0;
+            margin-bottom: 2px;
+            text-transform: capitalize;
+        }
+
+        span {
+            padding: 7px;
+            font-size: 16px;
+            color: #a09999;
+        }
+    }
+}

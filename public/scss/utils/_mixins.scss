@@ -1,0 +1,18 @@
+@mixin size($size) {
+    width: $size;
+    height: $size;
+}
+
+// cyber monday modal
+$noise-steps: 10;
+@mixin randomNoise($name) {
+  @keyframes #{$name} {
+    @for $i from 0 through $noise-steps {
+      #{percentage($i/$noise-steps)} {
+        clip-path: inset(#{random(100) * 1%} 0 #{random(100) * 1%} 0);
+      }
+    }
+  }
+}
+@include randomNoise(textNoise1);
+@include randomNoise(textNoise2);

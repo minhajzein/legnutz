@@ -1,0 +1,91 @@
+/**=====================
+    Timer css start
+==========================**/
+
+.banner-timer {
+    background-image: url("../images/offer-banner.jpg");
+    background-size: cover;
+    margin-left: 20px;
+    margin-right: 20px;
+
+    .banner-text {
+        padding-top: 45px;
+        padding-bottom: 45px;
+
+        h2 {
+            margin-bottom: 0;
+            text-align: center;
+
+            span {
+                color: var(--theme-color);
+            }
+        }
+    }
+
+    .timer-box {
+        justify-content: center;
+        display: flex;
+    }
+}
+
+.timer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+    margin-top: 30px;
+    background-color: $grey-dark;
+    display: inline-block;
+
+    p {
+        font-size: 18px;
+        color: $white;
+        margin-bottom: 0;
+    }
+
+    span {
+        width: 70px;
+        display: inline-block;
+
+        .timer-cal {
+            font-size: 12px;
+            color: $grey;
+        }
+
+        .padding-l {
+            padding-left: 22px;
+            display: inline;
+        }
+    }
+}
+
+
+.timer-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .timer {
+        margin-top: 0;
+        background-color: var(--theme-color);
+
+        span {
+            .timer-cal {
+                color: rgba(white, 0.9);
+            }
+        }
+    }
+}
+
+
+.product-box-timer {
+    &.timer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(white, 0.85);
+        position: absolute;
+        z-index: 1;
+        bottom: 60px;
+    }
+}

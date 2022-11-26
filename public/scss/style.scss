@@ -1,0 +1,177 @@
+.theme-color-1 {
+    --theme-color: #ff4c3b;
+}
+
+.theme-color-2 {
+    --theme-color: #f0583d;
+}
+
+.theme-color-3 {
+    --theme-color: #f0b54d;
+}
+
+.theme-color-4 {
+    --theme-color: #e4604a;
+}
+
+.theme-color-5 {
+    --theme-color: #d4b196;
+}
+
+.theme-color-6 {
+    --theme-color: #866e6c;
+}
+
+.theme-color-7 {
+    --theme-color: #cc2121;
+}
+
+.theme-color-8 {
+    --theme-color: #dc457e;
+}
+
+.theme-color-9 {
+    --theme-color: #6d7e87;
+}
+
+.theme-color-10 {
+    --theme-color: #fa869b;
+}
+
+.theme-color-11 {
+    --theme-color: #81ba00;
+}
+
+.theme-color-12 {
+    --theme-color: #fe816d;
+}
+
+.theme-color-13 {
+    --theme-color: #01effc;
+    --theme-color2: #485ff2;
+}
+
+.theme-color-14 {
+    --theme-color: #5d7227;
+    --theme-color2: #203f15;
+}
+
+.theme-color-15 {
+    --theme-color: #ff9944;
+}
+
+.theme-color-16 {
+    --theme-color: #5fcbc4;
+}
+
+.theme-color-17 {
+    --theme-color: #e38888;
+}
+
+.theme-color-18 {
+    --theme-color: #000000;
+}
+
+.theme-color-19 {
+    --theme-color: #3e5067;
+}
+
+.theme-color-20 {
+    --theme-color: #3fc1c9;
+}
+
+.theme-color-21 {
+    --theme-color: #5ecee4;
+}
+
+.theme-color-22 {
+    --theme-color: #38c6bb;
+}
+
+.theme-color-23 {
+    --theme-color: #2874f0;
+}
+
+.theme-color-24 {
+    --theme-color: #90453e;
+}
+
+.theme-color-25 {
+    --theme-color: #3fd09e;
+}
+
+.theme-color-26 {
+    --theme-color: #6d6659;
+}
+
+.theme-color-27 {
+    --theme-color: #f39910;
+    --theme-color2: #394868;
+}
+
+.theme-color-28 {
+    --theme-color: #387ef0;
+}
+
+.theme-color-29 {
+    --theme-color: #DD5E89;
+    --theme-color2: #F7BB97;
+}
+
+.theme-color-30 {
+    --theme-color: #206664;
+    --theme-color2: #ee7a63;
+}
+
+.theme-color-31 {
+    --theme-color: #ee7a63;
+}
+
+// utils
+@import "utils/variables";
+@import "utils/mixins";
+
+//base
+@import "base/typography";
+@import "base/reset";
+
+// components
+@import "components/animation";
+@import "components/button";
+@import "components/ratio";
+@import "components/slick-slider";
+@import "components/timer";
+@import "components/title";
+@import "components/theme-tab";
+
+//layout
+@import "layout/ajax-search";
+@import "layout/banner";
+@import "layout/blog";
+@import "layout/cart";
+@import "layout/category";
+@import "layout/cookie-bar";
+@import "layout/demo";
+@import "layout/footer";
+@import "layout/header";
+@import "layout/home-slider";
+@import "layout/instagram";
+@import "layout/loader";
+@import "layout/menu";
+@import "layout/modal";
+@import "layout/other";
+@import "layout/portfolio";
+@import "layout/product-box";
+@import "layout/service";
+@import "layout/slider";
+@import "layout/tap-top";
+
+//pages
+@import "pages/inner-page";
+@import "pages/invoice";
+
+// themes
+@import "themes/dark";
+@import "themes/theme-setting";
+@import "themes/responsive";
+@import "themes/rtl";

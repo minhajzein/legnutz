@@ -1,0 +1,83 @@
+/**=====================
+    cookiebar css start
+==========================**/
+
+.cookie-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: -70px;
+    left: 0;
+    width: 100%;
+    background-color: $grey-dark;
+    padding: 10px;
+    transition: all 0.5s ease;
+    z-index: 9;
+
+    p {
+        margin-bottom: 0;
+        color: $white;
+    }
+
+    .btn {
+        margin-left: 20px;
+    }
+
+    &.show {
+        bottom: 0;
+        transition: all 0.5s ease;
+    }
+
+    &.left-bottom {
+        width: 270px;
+        display: block;
+        text-align: center;
+        left: 30px;
+        padding: 35px 25px;
+        box-shadow: 0 19px 38px rgba($black, 0.12), 0 15px 12px rgba($black, 0.13);
+        background-color: $white;
+        bottom: 20px;
+        display: none;
+        animation: fadeInUp 1s;
+
+        img {
+            width: 70px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: $grey;
+            line-height: 20px;
+        }
+
+        .btn {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .btn-close {
+            position: absolute;
+            right: 13px;
+            top: 7px;
+
+            i {
+                color: $grey;
+            }
+        }
+
+        &.show {
+            display: block;
+        }
+
+        &.subscribe-box {
+            width: 420px;
+        }
+    }
+
+    &.right {
+        left: unset;
+        right: 30px;
+    }
+}

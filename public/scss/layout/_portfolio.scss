@@ -1,0 +1,339 @@
+/**=====================
+    Portfolio css start
+==========================**/
+
+.portfolio-padding {
+    padding-bottom: 40px;
+}
+
+.portfolio-section {
+    overflow: hidden;
+
+    .article-title {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: 0;
+        color: white;
+        transition: all 0.5s ease;
+        text-align: center;
+        float: left;
+        font-size: 18px;
+        line-height: 24px;
+
+        a {
+            color: white;
+        }
+    }
+
+    .isotopeSelector {
+        float: left;
+        position: relative;
+
+        .overlay {
+            position: relative;
+            border: 1px solid $round-border;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .isotopeSelector {
+        margin-bottom: 30px;
+
+        img {
+            transition: all 0.4s ease;
+        }
+
+        .overlay-background {
+            transform: scale(0);
+            transition: all 0.4s ease;
+
+            &:after {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                content: "";
+                background-color: var(--theme-color);
+                opacity: 0;
+            }
+
+            i {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                background-color: white;
+                padding: 10px;
+                border-radius: 100%;
+                transform: translate(-50%, -50%);
+                color: var(--theme-color);
+                font-size: 22px;
+                display: none;
+                transition: all 0.4s ease;
+                width: 40px;
+                height: 40px;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        &:hover {
+            img {
+                transform: scale(1.2) rotate(2deg);
+                transition: all 0.4s ease;
+            }
+
+            .overlay-background {
+                transform: scale(1);
+                border: 3px solid white;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                transition: all 0.4s ease;
+
+                &:after {
+                    opacity: 0.1;
+                }
+
+                i {
+                    display: flex;
+                    transition: all 0.4s ease;
+                }
+            }
+        }
+    }
+
+    .border-portfolio {
+        margin: 3px;
+        overflow: hidden;
+    }
+
+    #form1 {
+        padding-bottom: 20px;
+    }
+
+    .filter-button {
+        padding: 0 24px;
+        font-size: 20px;
+        line-height: 35px;
+        border: none;
+        background-color: white;
+
+        &.active {
+            background-color: var(--theme-color);
+            color: $white;
+        }
+    }
+
+    &.fullwidth-portfolio {
+        .isotopeSelector {
+            padding-left: 7px;
+            padding-right: 7px;
+            margin-bottom: 14px;
+        }
+    }
+
+    &.metro-section {
+        .product-box {
+            .product-detail {
+                opacity: 0;
+                position: absolute;
+                background-color: $white;
+                padding: 10px;
+                transition: all 0.5s ease;
+                width: 65%;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                bottom: -10px;
+                text-align: center;
+
+                h6 {
+                    color: #525252;
+                    padding-top: 0;
+                    margin-top: -2px;
+                }
+
+                h4 {
+                    font-weight: 400;
+                    color: $black;
+                }
+
+                &.default-view {
+                    opacity: 1;
+                    bottom: 15px;
+                }
+            }
+
+            .cart-wrap {
+                top: 7px;
+                right: 7px;
+                opacity: 1;
+
+                button {
+                    border: 1px solid $white;
+                    border-radius: 100%;
+                    background-color: rgba($white, 0.8);
+                    opacity: 1;
+
+                    i {
+                        padding: 7px;
+                        color: $font-color;
+                    }
+                }
+
+                a {
+                    i {
+                        border-radius: 100%;
+                        border: 1px solid $white;
+                        margin: 5px 0;
+                        background-color: rgba($white, 0.8);
+                        padding: 7px;
+                        color: $font-color;
+                        opacity: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            &:hover {
+                .product-detail {
+                    opacity: 1;
+                    transition: all 0.5s ease;
+                    bottom: 15px;
+                }
+
+                .cart-wrap {
+                    button {
+                        animation: none;
+                    }
+
+                    a {
+                        i {
+                            opacity: 1;
+                        }
+
+                        &:nth-child(2) {
+                            i {
+                                animation: fadeInDown 500ms ease-in-out;
+                            }
+                        }
+
+                        &:nth-child(3) {
+                            i {
+                                animation: fadeInDown 700ms ease-in-out;
+                            }
+                        }
+
+                        &:nth-child(4) {
+                            i {
+                                animation: fadeInDown 1000ms ease-in-out;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.filter-section {
+    .filter-container {
+        text-align: center;
+        padding: 0 0 20px;
+
+        ul {
+            &.filter {
+                >li {
+                    padding: 0 25px;
+
+                    >a {
+                        color: var(--theme-color);
+                        font-size: 20px;
+                        line-height: 40px;
+
+                        &:hover,
+                        &:focus {
+                            text-decoration: none;
+                            color: var(--theme-color);
+                            outline: none;
+                        }
+                    }
+
+                    &.active {
+                        background-color: var(--theme-color);
+
+                        a {
+                            color: $white;
+                        }
+                    }
+
+                    span {
+                        color: #ddd;
+                        font-size: 20px;
+                        display: inline-block;
+                        margin: 0 5px;
+                    }
+                }
+            }
+        }
+
+        .filter {
+            >li {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+
+    .title1 {
+        .title-inner1 {
+            margin-top: -5px;
+        }
+    }
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.demo-colored-wrap {
+    background: #ecf0f1;
+}
+
+.mfp-with-zoom .mfp-container,
+.mfp-with-zoom.mfp-bg {
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.mfp-with-zoom.mfp-ready .mfp-container {
+    opacity: 1;
+}
+
+.mfp-with-zoom.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+.mfp-with-zoom.mfp-removing .mfp-container,
+.mfp-with-zoom.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+.mfp-title {
+    display: none;
+}

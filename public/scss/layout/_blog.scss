@@ -1,0 +1,194 @@
+/**=====================
+    blog css start
+==========================**/
+
+.blog {
+    .slick-slide {
+        line-height: 1;
+    }
+}
+
+.blog-bg {
+    background-color: $border-grey;
+}
+
+.classic-effect {
+    position: relative;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+        background: var(--theme-color);
+        width: 25%;
+        position: absolute;
+        content: "";
+        opacity: 0;
+        -webkit-transition: all 0.3s steps(4);
+        transition: all 0.3s steps(4);
+        z-index: 1;
+        bottom: 100%;
+        top: 0;
+    }
+
+    &:before {
+        left: 0;
+        transition-delay: 0s;
+    }
+
+    &:after {
+        left: 25%;
+        transition-delay: 0.025s;
+    }
+
+    span {
+
+        &:before,
+        &:after {
+            background: var(--theme-color);
+            width: 25%;
+            position: absolute;
+            content: "";
+            opacity: 0;
+            -webkit-transition: all 0.3s steps(4);
+            transition: all 0.3s steps(4);
+            z-index: 1;
+            bottom: 100%;
+            top: 0;
+        }
+
+        &:before {
+            left: 50%;
+            transition-delay: 0.05s;
+        }
+
+        &:after {
+            left: 75%;
+            transition-delay: 0.15s;
+        }
+    }
+
+    &:hover {
+
+        &:before,
+        &:after {
+            bottom: 0;
+            opacity: 0.5;
+        }
+
+        span {
+
+            &:before,
+            &:after {
+                bottom: 0;
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+.basic-effect {
+    position: relative;
+    overflow: hidden;
+
+    >div {
+        transition: all 0.5s ease;
+    }
+
+    &:after {
+        position: absolute;
+        content: "";
+        background: linear-gradient(-180deg, var(--theme-color) 0%, var(--theme-color2) 99%);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: all 0.5s ease;
+    }
+
+    &:hover {
+        &:after {
+            opacity: 0.7;
+            transition: all 0.5s ease;
+        }
+
+        >div {
+            transform: scale(1.2) rotate(5deg);
+            transition: all 0.5s ease;
+        }
+    }
+}
+
+.blog-details {
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    h4 {
+        color: var(--theme-color);
+        margin-top: 25px;
+        line-height: 1;
+        margin-bottom: 0;
+    }
+
+    p {
+        color: $dark-font;
+        font-size: 18px;
+        text-transform: capitalize;
+        font-weight: 700;
+        line-height: 1.5;
+        letter-spacing: 0.03em;
+        margin-top: 10px;
+        margin-bottom: -5px;
+        transition: all 0.5s ease;
+
+        &:hover {
+            color: var(--theme-color);
+            transition: all 0.5s ease;
+        }
+    }
+
+    h6 {
+        line-height: 1;
+        letter-spacing: 0.1em;
+        margin-bottom: 0;
+    }
+}
+
+.blog-2 {
+    .blog-details {
+        h6 {
+            padding: 5px 0;
+        }
+    }
+}
+
+.blog-left {
+    .blog-details {
+        text-align: left;
+        padding: 0;
+
+        h4 {
+            font-weight: 700;
+            color: $black;
+        }
+
+        p {
+            font-size: 14px;
+            text-transform: capitalize;
+            font-weight: 400;
+            margin-top: -3px;
+        }
+
+        h6 {
+            color: black;
+            margin: 12px 0;
+        }
+    }
+}
+
+.shadow-effect {
+    .classic-effect {
+        box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15) !important;
+    }
+}

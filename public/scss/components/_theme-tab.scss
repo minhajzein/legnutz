@@ -1,0 +1,193 @@
+/*=====================
+    Theme tab CSS start
+==========================*/
+
+.theme-tab {
+    position: relative;
+
+    .tab-content {
+        display: none;
+
+        &[style="display: block;"] {
+
+            .product-box,
+            .tab-box,
+            .cycle-box {
+                animation: zoomIn 300ms ease-in-out;
+            }
+        }
+
+        .product-tab {
+            .tab-box {
+                background-color: $white;
+                width: 100%;
+                flex: 0 0 25%;
+                max-width: calc(25% - 10px);
+                margin: 0 5px 10px;
+
+                &:nth-last-child(-n+4) {
+                    margin: 0 5px 0;
+                }
+
+                .product-box2 {
+                    img {
+                        height: 250px;
+                        padding: 15px;
+                        transition: all 0.5s ease;
+                    }
+
+                    .media {
+                        .media-body {
+                            .rating {
+                                margin-top: 0;
+
+                                i {
+                                    padding-right: 0;
+
+                                    &:nth-child(-n+4) {
+                                        color: $star-yellow;
+                                    }
+
+                                    &:last-child {
+                                        color: $round-border;
+                                    }
+                                }
+                            }
+
+                            a {
+                                h6 {
+                                    margin-right: 35px;
+                                    line-height: 17px;
+                                    margin-top: 5px;
+                                    margin-bottom: 0;
+                                }
+                            }
+
+                            h4 {
+                                font-size: 20px;
+                                margin-top: 5px;
+                                font-weight: 700;
+                                color: $dark-font;
+                                margin-bottom: 0;
+                            }
+
+                            .color-variant {
+                                li {
+                                    display: inline-block;
+                                    height: 20px;
+                                    width: 20px;
+                                    border-radius: 100%;
+                                    margin-right: 2px;
+                                    margin-top: 20px;
+                                    transition: all 0.1s ease;
+                                    margin-bottom: 0;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    .product-box2 {
+                        img {
+                            transform: scale(1.03);
+                            transition: all 0.5s ease;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-title,
+    .tab-title2 {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 30px;
+        margin-top: -6px;
+
+        .current {
+            a {
+                color: var(--theme-color);
+            }
+        }
+
+        li {
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+
+        a {
+            color: $grey-dark;
+            text-transform: uppercase;
+        }
+
+        &.border-title {
+            li {
+                border-left: 1px solid $gray;
+
+                &:first-child {
+                    border-left: none;
+                }
+            }
+        }
+    }
+
+    .tab-title2 {
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: -8px;
+
+        &:after {
+            content: "";
+            position: absolute;
+            border: 1px solid $border-grey;
+            width: 100%;
+            left: 0;
+            top: 17px;
+            z-index: -1;
+        }
+
+        .current {
+            background-color: $white;
+
+            a {
+                background-color: $white;
+            }
+        }
+    }
+}
+
+.tab-bg {
+    position: relative;
+    z-index: 1;
+    padding: 70px 50px 60px 50px;
+
+    &.tab-grey-bg {
+        background-color: $grey-lighter;
+    }
+
+    &:after {
+        position: absolute;
+        content: "";
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--theme-color);
+        opacity: 0.09;
+        z-index: -1;
+    }
+
+    .theme-tab {
+        .tab-title {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.pt-cls-slider {
+    padding-top: 10px;
+}
