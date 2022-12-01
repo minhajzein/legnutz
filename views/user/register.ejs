@@ -1,26 +1,6 @@
 <div class="theme-color-1">
   <%- include('../partials/user-header') %>
-  <div class="breadcrumb-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="page-title">
-            <h2>create account</h2>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <nav aria-label="breadcrumb" class="theme-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">
-                create account
-              </li>
-            </ol>
-          </nav>
-        </div>
-      </div>
-    </div>
-  </div>
+  
   <!-- breadcrumb End -->
 
   <!--section start-->
@@ -30,25 +10,27 @@
         <div class="col-lg-12">
           <h3>create account</h3>
           <div class="theme-card">
-            <form class="theme-form">
+            <form class="theme-form" action="/register" method="post">
               <div class="form-row row">
                 <div class="col-md-6">
-                  <label for="email">First Name</label>
+                  <label for="email">Username</label>
                   <input
                     type="text"
+                    name="username"
                     class="form-control"
                     id="fname"
-                    placeholder="First Name"
+                    placeholder=" enter username"
                     required=""
                   />
                 </div>
                 <div class="col-md-6">
-                  <label for="review">Last Name</label>
+                  <label for="review">Mobile No</label>
                   <input
-                    type="password"
+                    type="text"
                     class="form-control"
+                    name="phone"
                     id="lname"
-                    placeholder="Last Name"
+                    placeholder="enter Mobile No"
                     required=""
                   />
                 </div>
@@ -58,9 +40,10 @@
                   <label for="email">email</label>
                   <input
                     type="text"
+                    name="Email"
                     class="form-control"
                     id="email"
-                    placeholder="Email"
+                    placeholder="enter Email address"
                     required=""
                   />
                 </div>
@@ -68,13 +51,39 @@
                   <label for="review">Password</label>
                   <input
                     type="password"
+                    name="password"
                     class="form-control"
                     id="review"
                     placeholder="Enter your password"
                     required=""
                   />
                 </div>
-                <a href="#" class="btn btn-solid w-auto">create Account</a>
+                <div class="col-md-6">
+                  <label for="review">confirm Password</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    class="form-control"
+                    id="review"
+                    placeholder="Re-enter password"
+                    required=""
+                  />
+                </div>
+                <div class="form-row row ms-5">
+                  <a href="/send-otp" class="btn btn-solid ms-3 mb-2" style="width: 150px; height: 50px;">send OTP</a>
+                  <div class="col-md-6">
+                    <input
+                      type="text"
+                      class="form-control"
+                      style="width: 250px;"
+                      name="OTP"
+                      id="lname"
+                      placeholder="enter OTP"
+                      required=""
+                    />
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
               </div>
             </form>
           </div>
@@ -82,5 +91,4 @@
       </div>
     </div>
   </section>
-  <%- include('../partials/user-footer') %>
 </div>

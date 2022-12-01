@@ -1,19 +1,16 @@
 const express = require('express')
 const router = express.Router()
+const userControl = require('../controllers/user-cnt')
+const control = require('../controllers/admin-cnt')
+const productControl = require('../controllers/product-cnt')
 
 //==========================================================================================
 
-router.get('/',(req,res)=>{
-    res.render('admin/login')
-})
+router.get('/')
 
-router.get('/home',(req,res)=>{
-    res.render('admin/home',{admin:true})
-})
+router.post('/login')
 
-router.get('/logout',(req,res)=>{
-    res.redirect('/admin')
-})
+router.get('/logout')
 
 //==========================================================================================
 
