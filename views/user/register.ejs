@@ -68,22 +68,12 @@
                     placeholder="Re-enter password"
                     required=""
                   />
+                  <% if (err_msg) { %>
+                    <label for="fl"> <%= err_msg %>  </label>
+                  <% } %>
                 </div>
-                <div class="form-row row ms-5">
-                  <a href="/send-otp" class="btn btn-solid ms-3 mb-2" style="width: 150px; height: 50px;">send OTP</a>
-                  <div class="col-md-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      style="width: 250px;"
-                      name="OTP"
-                      id="lname"
-                      placeholder="enter OTP"
-                      required=""
-                    />
-                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary">Get OTP</button>
               </div>
             </form>
           </div>

@@ -14,6 +14,10 @@ router.route('/register')
     .get(controller.signup)
     .post(controller.doSignup)
 
+router.route('/get-otp')
+    .get(controller.otpPage)
+    .post(controller.otpVerification)
+
 router.get('/not-found',controller.errorPage)
 
 

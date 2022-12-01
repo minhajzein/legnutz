@@ -15,11 +15,10 @@ module.exports = {
     },
     signup: (req,res)=>{
         try{
-            res.render('user/register')
             if(req.session.loggedIn){
                 res.redirect('/')
             }else{
-                res.render('user/register')
+                res.render('user/register',{err_msg:false})
             }
         }catch (err) {
             res.redirect('/not-found')
@@ -27,46 +26,25 @@ module.exports = {
     },
     doSignup: async (req,res)=>{
         try{
-            let user = await User.find({Email:req.body.Email})
-            let userWithPhone = await User.findOne({phone:req.body.phone})
+            const user = await User.find({Email:req.body.Email})
+            const userWithPhone = await User.findOne({phone:req.body.phone})
+            let err_msg = ''
             if(user[0]){
-                res.json({status : 'This email is already registered'})
+                err_msg = 'This email is already registered'
+                res.render('user/register',{err_msg:err_msg})
             }else if(userWithPhone){
-                res.json({status: 'This mobile number is already registered'})
+                err_msg = 'This mobile number is already registered'
+                res.render('user/register',{err_msg:err_msg})
             }else if(req.body.password !== req.body.confirmPassword){
-                res.json({status: 'Password and confirm password must be same'})
+                err_msg = 'Password and confirm password must be same'
+                res.render('user/register',{err_msg:err_msg})
             }else{
                 return new Promise ( async (resolve,reject) => {
-                    const username = req.body.username
-                    const Email = req.body.Email
-                    const phone = req.body.phone
-                    const password = await bcrypt.hash(req.body.password,10)
-                    const number = parseInt(phone)
-
-                    const user = new User({
-                        username:username,
-                        Email:Email,
-                        phone:phone,
-                        password:password,
-                        verification: 'pending',
-                        createdDate: new Date()
-                    })
-
-                    mobileNum = number
-
-                    user
-                        .save()
-                        .then((result) => {
-                            userSession = result
-                            userDetails = result
-                            userSession.password = null
-                            checkOtp.sendOtp(number)
-                            res.json({status:true})
-                        })
-                        .catch((error)=>{
-                            console.log(error);
-                        })
-
+                    const userDetails = req.body
+                    const number = parseInt(userDetails.phone)
+                    checkOtp.sendOtp(number)
+                    console.log(userDetails);
+                    res.render('user/otp-page',{userDetails})
                 })
             }
         }catch (err){
@@ -74,5 +52,28 @@ module.exports = {
             res.redirect('/not-fount')
         }
         
+    },
+    otpPage: (req, res) => {
+        res.render('user/otp-page',{errorMsg:false})
+    },
+    otpVerification: async (req, res) => {
+        let otp = req.body
+        otp = otp.join()
+        otp = otp.split(',').join('') 
+        const userDetails = req.session.userDetails
+        const number = parseInt(userDetails.phone)
+        const otpStatus = checkOtp.verifyOtp(number)
+        if(otpStatus.valid) {
+            userDetails.password = await bcrypt.hash(userDetails.password,10)
+            const user = await User.create(userDetails)
+            req.session.loggedin = true
+            req.session.user = user._id
+            res.redirect('/')
+        }else{ 
+            res.render('user/otp-page',{errorMsg:'Entered OTP is incorrect'})
+        }
+    },
+    otpVerification: (req,res) => {
+
     }
 }
