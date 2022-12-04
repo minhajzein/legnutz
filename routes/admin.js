@@ -7,13 +7,20 @@ const productControl = require('../controllers/product-cnt')
 
 //==========================================================================================
 
-router.get('/not-found',control.errPage)
+router.get('/',control.home)
 
-router.get('/',checkSession.sessionAdmin,control.home)
 
-router.post('/login',control.postLogin)
+router.route('/login')
+    .get(control.login)
+    .post(control.postLogin)
+
+router.route('/addProduct')
+    .get(productControl.addProduct)
+    .post(productControl.postAddproduct)
 
 router.get('/logout',control.logout)
+
+router.get('/not-available',control.errPage)
 
 //==========================================================================================
 
