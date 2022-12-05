@@ -18,6 +18,8 @@ router.route('/addProduct')
     .get(productControl.addProduct)
     .post(productControl.postAddproduct)
 
+router.get('/productList',productControl.productList)
+
 router.get('/logout',control.logout)
 
 router.get('/not-available',control.errPage)
