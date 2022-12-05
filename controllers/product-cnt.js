@@ -17,13 +17,12 @@ module.exports = {
             res.redirect('/admin/not-available')
         }
     },
-    productList : (req,res) => {
-        try{
-            console.log('qqqqqqqqqqqqqqqqqqqqqqqqqq');
+    getProductList : (req,res) => {
+        try {
             res.render('admin/product-list')
-        }catch (err) {
-            console.log(err);
-            res.redirect('/admin/not-available')
+        } catch (error) {
+            console.log(error);
         }
     }
 }
+
