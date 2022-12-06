@@ -6,12 +6,13 @@ module.exports = {
         try{
             const session = req.session.loggedIn
             if(session){
+                userDetails = req.session.userDetails
                 next()
             }else{
-                res.redirect('/admin/login')
+                res.redirect('/login')
             }
         }catch (err){
-            res.redirect('/admin/not-available')
+            res.redirect('/not-found')
         }
         
     },
@@ -20,6 +21,7 @@ module.exports = {
         try{
             const session = req.session.adminLoggedIn
             if(session){
+                adminData = req.session.adminData
                 next()
             }else{
                 res.redirect('/admin/login')

@@ -11,7 +11,7 @@ module.exports = {
     home : async (req,res) => {
         try{
             if(req.session.adminLoggedIn){
-                res.render('admin/home',{adminData})
+                res.render('admin/home',{adminData:req.session.adminData})
             }else{
                 res.redirect('/admin/login')
             }
@@ -31,9 +31,9 @@ module.exports = {
             const adminData = await Admin.findOne({Email:req.body.Email})
             if(adminData){
                 if(adminData.password==req.body.password){
-                    res.render('admin/home',{
-                        adminData
-                    })
+                    req.session.adminLoggedIn = true
+                    req.session.adminData = adminData
+                    res.redirect('/admin')
                 }else{
                     res.render('admin/login',{
                         err_msg:"Password is incorrect"

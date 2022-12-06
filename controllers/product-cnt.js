@@ -1,9 +1,10 @@
 const Product = require('../models/productSchema')
 
 module.exports = {
-    addProduct : (req,res) => {
+    addProduct : async (req,res) => {
         try{
-            res.render('admin/add-product')
+            const products = await Product.find()
+            res.render('admin/add-product',{products})
         }catch{
             res.redirect('/admin/not-available')
         }
@@ -11,8 +12,20 @@ module.exports = {
     postAddproduct : async (req,res) => {
         try{
             const productDetails = {
-
+                productName : req.body.productName,
+                productDescription : req.body.productDescription,
+                productCategory : req.body.productCategory,
+                productPrice : req.body.productPrice,
+                oldPrice : req.body.oldPrice,
+                productImg : req.body.images,
+                productBrand : req.body.productBrand,
+                productStock : req.body.productStock,
+                productDiscount : req.body.productDiscount,
+                productSize : req.body.productSize,
+                productColor : req.body.productColor
             }
+            console.log(productDetails);
+            await Product.create(productDetails)
         }catch{
             res.redirect('/admin/not-available')
         }

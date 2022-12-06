@@ -21,7 +21,7 @@
                                         points="442.383,222.765 256.652,222.765 256.652,354.496 442.383,354.496 442.383,222.765 	" />
                                     <polyline style="fill:#13c9ca;"
                                         points="434.552,329.733 265.552,329.733 265.552,346.265 434.552,346.265 434.552,329.733 	" />
-                                     <polyline style="fill:#a5a5a5;"
+                                    <polyline style="fill:#a5a5a5;"
                                         points="286.552,297.744 265.552,297.744 265.552,314.276 286.552,314.276 286.552,297.744 	" />
                                     <polyline style="fill:#ffbc58;"
                                         points="350.552,265.754 265.552,265.754 265.552,282.286 350.552,282.286 350.552,265.754 	" />
@@ -120,8 +120,23 @@
                         <div class="single-item">
                             <div>
                                 <div>
-                                    <h3>Welcome to Admin Page</h3>
-                                    <h2 class="text-center text-light">LEGNUTZ</h2>
+                                    <h3>Welcome to Legnutz</h3>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <h3>Welcome to Legnutz</h3>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <h3>Welcome to Legnutz</h3>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        Lorem Ipsum has been the industry's standard dummy.</p>
                                 </div>
                             </div>
                         </div>
@@ -130,23 +145,47 @@
                 <div class="col-md-7 p-0 card-right">
                     <div class="card tab2-card card-login">
                         <div class="card-body">
+                            <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="top-profile-tab" data-bs-toggle="tab"
+                                        href="#top-profile" role="tab" aria-controls="top-profile"
+                                        aria-selected="true"><span class="icon-user me-2"></span>Login</a>
+                                </li>
+                            </ul>
                             <div class="tab-content" id="top-tabContent">
                                 <div class="tab-pane fade show active" id="top-profile" role="tabpanel"
                                     aria-labelledby="top-profile-tab">
                                     <form class="form-horizontal auth-form" action="/admin/login" method="post">
                                         <div class="form-group">
-                                            <input required="" name="Email" type="email" placeholder="Email"
-                                                class="form-control" value="admin@gmail.com" id="exampleInputEmail1">
+                                            <input required="" name="Email" type="email" value="admin@gmail.com"
+                                                class="form-control" placeholder="Username" id="exampleInputEmail1">
                                         </div>
                                         <div class="form-group">
                                             <input required="" name="password" type="password" value="mnbvcxz"
-                                                class="form-control" placeholder="password">
+                                                class="form-control" placeholder="Password">
+                                        </div>
+                                        <div class="form-terms">
+                                            <div class="form-check mesm-2">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="customControlAutosizing">
+                                                <label class="form-check-label ps-2"
+                                                    for="customControlAutosizing">Remember me</label>
+                                                <a href="javascript:void(0)"
+                                                    class="btn btn-default forgot-pass">Forgot Password!</a>
+                                            </div>
                                         </div>
                                         <div class="form-button">
                                             <button class="btn btn-primary" type="submit">Login</button>
                                         </div>
-                                    </form>
-                                </div>
+                                        <div class="form-footer">
+                                            <span>Or Login up with social platforms</span>
+                                            <ul class="social">
+                                                <li><a class="ti-facebook" href=""></a></li>
+                                                <li><a class="ti-twitter" href=""></a></li>
+                                                <li><a class="ti-instagram" href=""></a></li>
+                                                <li><a class="ti-pinterest" href=""></a></li>
+                                            </ul>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -154,6 +193,10 @@
                     </div>
                 </div>
             </div>
+            <a href="/home" class="btn btn-primary back-btn"><i data-feather="arrow-left"></i>back</a>
         </div>
     </div>
 </div>
+
+
+

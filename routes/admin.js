@@ -4,6 +4,7 @@ const userControl = require('../controllers/user-cnt')
 const control = require('../controllers/admin-cnt')
 const checkSession = require ('../middlewares/session') 
 const productControl = require('../controllers/product-cnt')
+const fileupload = require('../middlewares/multer')
 
 //==========================================================================================
 
@@ -14,9 +15,15 @@ router.route('/login')
     .get(control.login)
     .post(control.postLogin)
 
+router.get('/users-list',userControl.usersList)
+
+router.get('/block-user',userControl.blockUser)
+
+router.get('/unBlock-user',userControl.unBlockUser)
+
 router.route('/addProduct')
     .get(productControl.addProduct)
-    .post(productControl.postAddproduct)
+    .post(fileupload.uploadImages,fileupload.resizeImages,productControl.postAddproduct)
 
 router.get('/productList',productControl.getProductList)
 

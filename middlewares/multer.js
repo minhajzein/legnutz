@@ -16,7 +16,7 @@ const upload = multer({
   fileFilter: multerFilter
 });
 
-const uploadFiles = upload.array("PImage",4);
+const uploadFiles = upload.array("productImg",4);
 
 const uploadImages = (req, res, next) => {
   uploadFiles(req, res, err => {
@@ -42,7 +42,7 @@ const resizeImages = async (req, res, next) => {
       const newFilename = `${file.fieldname}-${Date.now()}-${Math.random()}.jpeg`;
 
       await sharp(file.buffer)
-        .resize(350, 350)
+        .resize(736, 1000)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`./public/images/${newFilename}`);

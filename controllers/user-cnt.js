@@ -11,14 +11,16 @@ module.exports = {
     },
     home: async (req,res)=> {
         try{
-            res.render('user/home',{userDetails:false})
+           if(req.session.loggedIn){
+            res.render('user/home',{userDetails:req.session.userDetails})
+           }
         }catch (err) {
             res.redirect('/not-found')
         }
     },
     login: (req,res)=>{
         try{
-            res.render('user/login',{userDetails:false,err_msg:false})
+            res.render('user/login',{err_msg:false})
         }catch{
             res.redirect('/not-found')
         }
@@ -31,8 +33,9 @@ module.exports = {
                 const password = await bcrypt.compare(body.password,userDetails.password)
                 if(password){
                     req.session.loggedIn = true
-                    res.render('user/home',{userDetails})
-                }else{
+                    req.session.userDetails = userDetails
+                    res.redirect('/')
+                }else{ails
                     res.render('user/login',{err_msg:"Entered password is incorrect"})
                 }
             } else {
@@ -94,9 +97,35 @@ module.exports = {
             res.render('user/otp-page',{errorMsg:'Entered OTP is incorrect'})
         }
     },
-    logout : (req,res) => {
+    logout :  (req,res) => {
         req.session.loggedIn = false
         res.redirect('/')
+    },
+    usersList : async (req,res) => {
+        try{
+            const users = await User.find()
+            res.render('admin/users-list',{users})
+        }catch{
+            res.redirect('/admin/not-available')
+        }
+    },
+    blockUser : async (req,res) => {
+        try{
+            const id = req.query.id
+            await User.updateOne({_id:id},{isBlock:true})
+            res.redirect('/admin/users-list')
+        }catch{
+            res.redirect('admin/not-available')
+        }
+    },
+    unBlockUser : async (req,res) => {
+        try{
+            const id = req.query.id
+            await User.updateOne({_id:id},{isBlock:false})
+            res.redirect('/admin/users-list')
+        }catch{
+            res.redirect('admin/not-available')
+        }
     }
     
 }

@@ -1,62 +1,56 @@
 const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema(
   {
-    ProductName: {
+    productName: {
       type: String,
       required: true,
       trim: true,
     },
-    ProductDes: {
+    productDescription: {
       type: String,
       required: true,
       trim: true,
     },
-    ProductCategory: {
+    productCategory: {
       type: String,
       required: true,
       trim: true,
     },
-    ProductSubCategory: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    ProductPrice: {
+    productPrice: {
       type: Number,
       required: true,
       trim: true,
     },
-    POldPrice: {
+    oldPrice: {
       type: Number,
       required: true,
       trim: true,
     },
-    PImage: {
+    productImg: {
+      type: Array,
+      required: true
+    },
+    productBrand: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    productStock: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    productDiscount: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    productSize: {
       type: Array,
       required: true,
       trim: true,
     },
-    PBrand: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    PStock: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    PDiscount: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    PSize: {
-      type: Array,
-      required: true,
-      trim: true,
-    },
-    PColor: {
+    productColor: {
       type: Array,
       required: true,
       trim: true,
@@ -65,5 +59,5 @@ const productSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const product = mongoose.model("product", productSchema);
-module.exports = product;
+const Product = mongoose.model("product", productSchema);
+module.exports = Product;

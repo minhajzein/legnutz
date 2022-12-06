@@ -33,7 +33,6 @@
                     <i data-feather="home"></i>
                   </a>
                 </li>
-                <li class="breadcrumb-item">Physical</li>
                 <li class="breadcrumb-item active">Add Product</li>
               </ol>
             </div>
@@ -47,74 +46,42 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
-              <div class="card-body">
-                <div class="row product-adding">
-                  <div class="col-xl-5">
-                    <div class="add-product">
-                      <div class="row">
-                        <div class="col-xl-9 xl-50 col-sm-6 col-9">
-                          <img
-                            src="/assets/images/pro3/1.jpg"
-                            alt=""
-                            class="img-fluid image_zoom_1 blur-up lazyloaded"
-                          />
-                        </div>
-                        <div class="col-xl-3 xl-50 col-sm-6 col-3">
-                          <ul class="file-upload-product">
-                            <li>
-                              <div class="box-input-file">
-                                <input name="image-1" class="upload" type="file" /><i
-                                  class="fa fa-plus"
-                                ></i>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="box-input-file">
-                                <input name="image-2" class="upload" type="file" /><i
-                                  class="fa fa-plus"
-                                ></i>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="box-input-file">
-                                <input name="image-3" class="upload" type="file" /><i
-                                  class="fa fa-plus"
-                                ></i>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="box-input-file">
-                                <input name="image-4" class="upload" type="file" /><i
-                                  class="fa fa-plus"
-                                ></i>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="box-input-file">
-                                <input name="image-5" class="upload" type="file" /><i
-                                  class="fa fa-plus"
-                                ></i>
-                              </div>
-                            </li>
-                            <li>
-                              <div class="box-input-file">
-                                <input name="image-6" class="upload" type="file" /><i
-                                  class="fa fa-plus"
-                                ></i>
-                              </div>
-                            </li>
-                          </ul>
+              <form
+                class="needs-validation add-product-form"
+                novalidate=""
+                action="/admin/addProduct"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="card-body">
+                  <div class="row product-adding">
+                    <div class="col-xl-5">
+                      <div class="add-product">
+                        <div class="row">
+                          <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                            <img
+                              src="/assets/images/pro3/1.jpg"
+                              alt=""
+                              class="img-fluid image_zoom_1 blur-up lazyloaded"
+                            />
+                          </div>
+                          <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                            <ul class="file-upload-product">
+                              <li>
+                                <div class="box-input-file">
+                                  <input
+                                    name="productImg"
+                                    class="upload"
+                                    type="file"
+                                  /><i class="fa fa-plus"></i>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xl-7">
-                    <form
-                      class="needs-validation add-product-form"
-                      novalidate=""
-                      action="/admin/add-product"
-                      method="post"
-                    >
+                    <div class="col-xl-7">
                       <div class="form">
                         <div class="form-group mb-3 row">
                           <label
@@ -149,21 +116,69 @@
                           </div>
                         </div>
                         <div class="form-group mb-3 row">
-                            <label
-                              for="validationCustom02"
-                              class="col-xl-3 col-sm-4 mb-0"
-                              >Original Price :</label
-                            >
-                            <div class="col-xl-8 col-sm-7">
-                              <input
-                                class="form-control"
-                                name="oldPrice"
-                                id="validationCustom02"
-                                type="text"
-                                required=""
-                              />
-                            </div>
+                          <label
+                            for="validationCustom02"
+                            class="col-xl-3 col-sm-4 mb-0"
+                            >Original Price :</label
+                          >
+                          <div class="col-xl-8 col-sm-7">
+                            <input
+                              class="form-control"
+                              name="oldPrice"
+                              id="validationCustom02"
+                              type="text"
+                              required=""
+                            />
                           </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                          <label
+                            for="validationCustom02"
+                            class="col-xl-3 col-sm-4 mb-0"
+                            >Brand :</label
+                          >
+                          <div class="col-xl-8 col-sm-7">
+                            <input
+                              class="form-control"
+                              name="productBrand"
+                              id="validationCustom02"
+                              type="text"
+                              required=""
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                          <label
+                            for="validationCustom02"
+                            class="col-xl-3 col-sm-4 mb-0"
+                            >Color :</label
+                          >
+                          <div class="col-xl-8 col-sm-7">
+                            <input
+                              class="form-control"
+                              name="productColor"
+                              id="validationCustom02"
+                              type="text"
+                              required=""
+                            />
+                          </div>
+                        </div>
+                        <div class="form-group mb-3 row">
+                          <label
+                            for="validationCustom02"
+                            class="col-xl-3 col-sm-4 mb-0"
+                            >Discount :</label
+                          >
+                          <div class="col-xl-8 col-sm-7">
+                            <input
+                              class="form-control"
+                              name="productDiscount"
+                              id="validationCustom02"
+                              type="text"
+                              required=""
+                            />
+                          </div>
+                        </div>
                         <div class="form-group mb-3 row">
                           <label
                             for="validationCustomUsername"
@@ -207,18 +222,23 @@
                           >
                           <fieldset class="qty-box col-xl-9 col-xl-8 col-sm-7">
                             <div class="input-group">
-                              <input name="totalProduct" class="touchspin" type="text" value="1" />
+                              <input
+                                name="productStock"
+                                class="touchspin"
+                                type="text"
+                                value="1"
+                              />
                             </div>
                           </fieldset>
                         </div>
                         <div class="form-group row">
                           <label class="col-xl-3 col-sm-4"
-                            >Add Description :</label
+                            >Add Description:</label
                           >
                           <div class="col-xl-8 col-sm-7 description-sm">
                             <textarea
                               id="editor1"
-                              name="editor1"
+                              name="productDescription"
                               cols="10"
                               rows="4"
                             ></textarea>
@@ -233,10 +253,10 @@
                           </div>
                         </div>
                       </div>
-                    </form>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
