@@ -7,9 +7,7 @@ const userCheck = require('../middlewares/session')
 
 router.get('/',controller.home)
 
-router.get('/go-to-shop',(req,res)=>{
-    res.render('user/go-to-shop')
-})
+router.get('/go-to-shop',controller.goToShop)
 
 router.route('/login')
     .get(controller.loginPage)

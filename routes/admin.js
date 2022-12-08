@@ -29,10 +29,14 @@ router.get('/productList',productControl.getProductList)
 
 router.route('/editProduct')
     .get(productControl.editPage)
-    .post(productControl.editProduct)
+    .post(fileupload.uploadImages,fileupload.resizeImages,productControl.editProduct)
 router.get('/category-page',control.categoryPage)
 
+router.get('/deleteProduct',productControl.deleteProduct)
+
 router.post('/add-category',control.addCategory)
+
+router.get('/deleteCategory',control.deleteCategory)
 
 router.get('/logout',control.logout)
 

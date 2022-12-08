@@ -1,6 +1,7 @@
 const { render } = require("ejs");
 const { default: mongoose } = require("mongoose");
 const User = require("../models/userSchema");
+const Product = require('../models/productSchema')
 const bcrypt = require("bcrypt");
 const checkOtp = require("../utils/otp-auth");
 let userSignup;
@@ -12,12 +13,24 @@ module.exports = {
   home: async (req, res) => {
     try {
       if(req.session.loggedIn){
-        res.render("user/home", { userDetails: req.session.userDetails });
+        const products = await Product.find()
+        res.render("user/home", { userDetails: req.session.userDetails,products });
       }else{
         res.render('user/home',{userDetails:false})
       }
     } catch (err) {
       res.redirect("/not-found");
+    }
+  },
+  goToShop : async (req,res) => {
+    try{
+      const products = await Product.find()
+      if(products){
+        res.render('user/shop',{products})
+      }
+    }catch (err){
+      console.log(err);
+      res.redirect('/not-found')
     }
   },
   loginPage : (req, res) => {

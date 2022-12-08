@@ -89,7 +89,7 @@
                       <tr>
                         <th class="text-center" scope="row"><%= x %></th>
                         <td><%= obj.category %></td>
-                        <td><i class="btn fa fa-trash" title="Delete"></i></td>
+                        <td><a href="/admin/deleteCategory?id=<%= obj._id %> "><i class="btn fa fa-trash"  title="Delete"></i></a></td>
                         <% x++;}); %>
                       </tr>
                     </tbody>

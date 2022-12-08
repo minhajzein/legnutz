@@ -3,6 +3,7 @@ const { render } = require('ejs')
 const { default: mongoose } = require('mongoose')
 const Admin = require('../models/adminSchema')
 const Category = require('../models/categorySchema')
+const Product = require('../models/productSchema')
 
 module.exports = {
     errPage : (res,req) => {
@@ -79,9 +80,18 @@ module.exports = {
     },
     deleteCategory : async (req,res) => {
         try{
-
+            const id = req.query.id
+            const category = await Category.findById({_id:id})
+            const listedIn = await Product.findOne({productCategory:category.category})
+            if(listedIn){
+                const categories = await Category.find()
+                res.render('admin/category',{categories,err_msg : `Cannot delete ${category.category} category, some products still in this category`})
+            }else{
+                await Category.deleteOne({_id:id})
+                res.redirect('/admin/category-page')
+            }
         }catch{
-
+            res.redirect('/admin/not-available')
         }
     }
 }
