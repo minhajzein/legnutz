@@ -6,7 +6,7 @@
   <!-- Page Body Start-->
   <div class="page-body-wrapper">
     <!-- Page Sidebar Start-->
-    <%- include('../partials/admin-leftside') %>
+    <%- include ('../partials/admin-leftside') %>
     <!-- Page Sidebar Ends-->
 
     <!-- Right sidebar Start-->
@@ -21,7 +21,7 @@
             <div class="col-lg-6">
               <div class="page-header-left">
                 <h3>
-                  Add Products
+                  Edit Product
                   <small>Legnutz Admin panel</small>
                 </h3>
               </div>
@@ -33,7 +33,7 @@
                     <i data-feather="home"></i>
                   </a>
                 </li>
-                <li class="breadcrumb-item active">Add Product</li>
+                <li class="breadcrumb-item active">Edit product</li>
               </ol>
             </div>
           </div>
@@ -49,7 +49,7 @@
               <form
                 class="needs-validation add-product-form"
                 novalidate=""
-                action="/admin/addProduct"
+                action="/admin/editProduct/<%= product._id %> "
                 method="post"
                 enctype="multipart/form-data"
               >
@@ -61,7 +61,7 @@
                           <div class="col-xl-9 xl-50 col-sm-6 col-9">
                             <img
                               id="imgView"
-                              src="/assets/images/pro3/1.jpg"
+                              src="/images/<%= product.productImg[0] %>"
                               alt=""
                               class="img-fluid image_zoom_1 blur-up lazyloaded"
                             />
@@ -94,6 +94,7 @@
                           >
                           <div class="col-xl-8 col-sm-7">
                             <input
+                              value="<%= product.productName %> "
                               class="form-control"
                               name="productName"
                               id="validationCustom01"
@@ -111,6 +112,7 @@
                           <div class="col-xl-8 col-sm-7">
                             <input
                               class="form-control"
+                              value="<%= product.productPrice %> "
                               name="productPrice"
                               id="validationCustom02"
                               type="text"
@@ -127,6 +129,7 @@
                           <div class="col-xl-8 col-sm-7">
                             <input
                               class="form-control"
+                              value="<%= product.oldPrice %> "
                               name="oldPrice"
                               id="validationCustom02"
                               type="text"
@@ -143,6 +146,7 @@
                           <div class="col-xl-8 col-sm-7">
                             <input
                               class="form-control"
+                              value="<%= product.productBrand %> "
                               name="productBrand"
                               id="validationCustom02"
                               type="text"
@@ -159,6 +163,7 @@
                           <div class="col-xl-8 col-sm-7">
                             <input
                               class="form-control"
+                              value="<%= product.productColor %> "
                               name="productColor"
                               id="validationCustom02"
                               type="text"
@@ -175,6 +180,7 @@
                           <div class="col-xl-8 col-sm-7">
                             <input
                               class="form-control"
+                              value="<%= product.productDiscount %> "
                               name="productDiscount"
                               id="validationCustom02"
                               type="text"
@@ -193,9 +199,9 @@
                               class="form-control digits"
                               id="exampleFormControlSelect1"
                             >
-                              <% categories.forEach(obj => { %>
-                              <option><%= obj.category %></option>
-                              <% }) %>
+                            <% categories.forEach(element => { %>
+                              <option><%= element.category %> </option>
+                            <% }) %>
                             </select>
                           </div>
                         </div>
@@ -210,6 +216,7 @@
                           <div class="col-xl-8 col-sm-7">
                             <input
                               name="productSize"
+                              value="<%= product.productSize %> "
                               class="form-control"
                               id="validationCustomUsername"
                               type="text"
@@ -227,7 +234,7 @@
                                 name="productStock"
                                 class="touchspin"
                                 type="text"
-                                value="1"
+                                value="<%= product.productStock %> "
                               />
                             </div>
                           </fieldset>
@@ -240,6 +247,7 @@
                             <textarea
                               id="editor1"
                               name="productDescription"
+                              placeholder="<%= product.productDescription %> "
                               cols="10"
                               rows="4"
                             ></textarea>

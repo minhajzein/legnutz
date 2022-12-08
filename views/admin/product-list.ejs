@@ -1,360 +1,97 @@
 <div class="page-wrapper">
+  <!-- Page Header Start-->
+  <%- include ('../partials/admin-header') %>
+  <!-- Page Header Ends -->
 
-    <!-- Page Header Start-->
-   <%- include ('../partials/admin-header') %> 
-    <!-- Page Header Ends -->
+  <!-- Page Body Start-->
+  <div class="page-body-wrapper">
+    <!-- Page Sidebar Start-->
+    <%- include ('../partials/admin-leftside') %>
+    <!-- Page Sidebar Ends-->
 
-    <!-- Page Body Start-->
-    <div class="page-body-wrapper">
-
-        <!-- Page Sidebar Start-->
-        <%- include ('../partials/admin-leftside') %> 
-        <!-- Page Sidebar Ends-->
-
-        <!-- Right sidebar Start-->
-        <%- include ('../partials/admin-right-sidebar') %> 
-        <!-- Right sidebar Ends-->
-        <div class="page-body">
-            <!-- Container-fluid starts-->
-            <div class="container-fluid">
-                <div class="page-header">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="page-header-left">
-                                <h3>Product List
-                                    <small>Multikart Admin panel</small>
-                                </h3>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <ol class="breadcrumb pull-right">
-                                <li class="breadcrumb-item">
-                                    <a href="index.html">
-                                        <i data-feather="home"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">Physical</li>
-                                <li class="breadcrumb-item active">Product List</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
+    <!-- Right sidebar Start-->
+    <%- include ('../partials/admin-right-sidebar') %>
+    <!-- Right sidebar Ends-->
+    <div class="page-body">
+      <!-- Container-fluid starts-->
+      <div class="container-fluid">
+        <div class="page-header">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="page-header-left">
+                <h3>
+                  Product List
+                  <small>Legnutz Admin panel</small>
+                </h3>
+              </div>
             </div>
-            <!-- Container-fluid Ends-->
-
-            <!-- Container-fluid starts-->
-            <div class="container-fluid">
-                <div class="row products-admin ratio_asos">
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img src="/assets/images/pro3/34.jpg"
-                                                class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$600.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img
-                                                src="/assets/images/electronics/product/1.jpg"
-                                                class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$600.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="lable-block"><span class="lable3">new</span> <span class="lable4">on
-                                            sale</span></div>
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img
-                                                src="/assets/images/furniture/product/1.jpg"
-                                                class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$800.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img src="/assets/images/fashion/product/17.jpg"
-                                                class="img-fluid bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$650.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img
-                                                src="/assets/images/furniture/product/2.jpg" class="img-fluid bg-img"
-                                                alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$650.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img src="/assets/images/fashion/pro/1.jpg"
-                                                class="img-fluid bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$650.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img
-                                                src="/assets/images/furniture/product/3.jpg"
-                                                class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$600.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-sm-6">
-                        <div class="card">
-                            <div class="card-body product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                        <a href="javascript:void(0)"><img src="/assets/images/goggles/product/4.jpg"
-                                                class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                        <div class="product-hover">
-                                            <ul>
-                                                <li>
-                                                    <button class="btn" type="button" data-original-title=""
-                                                        title=""><i class="ti-pencil-alt"></i></button>
-                                                </li>
-                                                <li>
-                                                    <button class="btn"><i class="ti-trash"></i></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                            class="fa fa-star"></i></div>
-                                    <a href="javascript:void(0)">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00 <del>$600.00</del></h4>
-                                    <ul class="color-variant">
-                                        <li class="bg-light0"></li>
-                                        <li class="bg-light1"></li>
-                                        <li class="bg-light2"></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-6">
+              <ol class="breadcrumb pull-right">
+                <li class="breadcrumb-item">
+                  <a href="/admin/home">
+                    <i data-feather="home"></i>
+                  </a>
+                </li>
+                <li class="breadcrumb-item active">Product List</li>
+              </ol>
             </div>
-            <!-- Container-fluid Ends-->
+          </div>
         </div>
-        
+      </div>
+      <!-- Container-fluid Ends-->
 
-        <!-- footer start-->
-        <%- include ('../partials/admin-footer') %> 
-        <!-- footer end-->
+      <!-- Container-fluid starts-->
+      <div class="container-fluid">
+        <div class="row products-admin ratio_asos">
+          <% products.forEach(obj => { %>
+          <div class="col-xl-3 col-sm-6">
+            <div class="card">
+              <div class="card-body product-box">
+                <div class="img-wrapper">
+                  <div class="front">
+                    <a href="javascript:void(0)"
+                      ><img
+                        src="/images/<%= obj.productImg[0] %> "
+                        class="img-fluid blur-up lazyload bg-img"
+                        alt=""
+                    /></a>
+                    <div class="product-hover">
+                      <ul>
+                        <li>
+                          <a href="/admin/editProduct?id=<%= obj._id %> " class="btn"><i class="ti-pencil-alt"></i></a>
+                        </li>
+                        <li>
+                          <a href="/admin/deleteProduct" class="btn"><i class="ti-trash"></i></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="product-detail">
+                  <div class="rating">
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <a href="javascript:void(0)">
+                    <h6><%= obj.productName %></h6>
+                  </a>
+                  <h4>
+                    $<%= obj.productPrice %> <del>$<%= obj.oldPrice %> </del>
+                  </h4>
+                  <h5>Color : <%= obj.productColor %></h5>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <!-- Container-fluid Ends-->
     </div>
+
+    <!-- footer start-->
+    <%- include ('../partials/admin-footer') %>
+    <!-- footer end-->
+  </div>
 </div>

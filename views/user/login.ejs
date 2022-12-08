@@ -1,5 +1,5 @@
 <div class="color-theme-1">
-    <%- include('../partials/user-header') %>
+  <%- include ('../partials/user-header') %>
   <section class="login-page section-b-space">
     <div class="container">
       <div class="row">
@@ -7,7 +7,9 @@
           <h3>Login</h3>
           <div class="theme-card">
             <form class="theme-form" action="/login" method="post">
-                
+              <% if (err_msg) { %>
+              <label for=""><%= err_msg %> </label>
+              <% } %>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input

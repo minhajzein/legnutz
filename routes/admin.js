@@ -27,6 +27,13 @@ router.route('/addProduct')
 
 router.get('/productList',productControl.getProductList)
 
+router.route('/editProduct')
+    .get(productControl.editPage)
+    .post(productControl.editProduct)
+router.get('/category-page',control.categoryPage)
+
+router.post('/add-category',control.addCategory)
+
 router.get('/logout',control.logout)
 
 router.get('/not-available',control.errPage)

@@ -12,7 +12,7 @@ router.get('/go-to-shop',(req,res)=>{
 })
 
 router.route('/login')
-    .get(controller.login)
+    .get(controller.loginPage)
     .post(controller.postLogin)
 
 router.route('/register')
