@@ -4,29 +4,26 @@ const User = require('../models/userSchema')
 module.exports = {
     sessionUser : async (req,res,next) => {
         try{
-            const session = req.session.loggedIn
-            if(session){
-                userDetails = req.session.userDetails
+            if(req.session.loggedIn){
+                const user = req.session.userDetails
                 next()
             }else{
                 res.redirect('/login')
             }
-        }catch (err){
+        }catch (err) {
             res.redirect('/not-found')
         }
         
     },
     sessionAdmin : async (req,res,next) => {
         
-        try{
-            const session = req.session.adminLoggedIn
-            if(session){
-                adminData = req.session.adminData
+        try{ 
+            if(req.session.adminLoggedIn){
                 next()
             }else{
                 res.redirect('/admin/login')
             }
-        }catch{
+        }catch (err) {
             res.redirect('/admin/not-available')
         }
     }

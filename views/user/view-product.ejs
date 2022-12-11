@@ -1,6 +1,6 @@
 <body class="theme-color-1">
     <!-- header start -->
-    <%- include ('../partials/user-hedear') %> 
+    <%- include ('../partials/user-header') %> 
     <!-- header end -->
     <!-- breadcrumb start -->
     <div class="breadcrumb-section">
@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">product</li>
                         </ol>
                     </nav>
@@ -32,26 +32,20 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="product-slick">
-                            <div><img src="/images/<%= product.productImg[0] %> " alt=""
-                                    class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                            <div><img src="/images/<%= product.productImg[1] %>" alt=""
-                                    class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
-                            <div><img src="/images/fashion/pro/003.jpg" alt=""
-                                    class="img-fluid blur-up lazyload image_zoom_cls-2"></div>
-                            <div><img src="/images/fashion/pro/004.jpg" alt=""
-                                    class="img-fluid blur-up lazyload image_zoom_cls-3"></div>
+                            <% for( let i = 0; i < product.productImg.length; i++ ) { %>
+                                <div>
+                                    <img src="/images/<%= product.productImg[i] %> " alt="product image"
+                                    class="img-fluid blur-up lazyload image_zoom_cls-0">
+                                </div>
+                            <% } %>
                         </div>
                         <div class="row">
                             <div class="col-12 p-0">
                                 <div class="slider-nav">
-                                    <div><img src="/images/fashion/pro/001.jpg" alt=""
+                                    <% for( let i = 0; i < product.productImg.length; i++ ) { %>
+                                        <div><img src="/images/<%= product.productImg[i] %> " alt=""
                                             class="img-fluid blur-up lazyload"></div>
-                                    <div><img src="/images/fashion/pro/002.jpg" alt=""
-                                            class="img-fluid blur-up lazyload"></div>
-                                    <div><img src="/images/fashion/pro/003.jpg" alt=""
-                                            class="img-fluid blur-up lazyload"></div>
-                                    <div><img src="/images/fashion/pro/004.jpg" alt=""
-                                            class="img-fluid blur-up lazyload"></div>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +66,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <h2>Women Pink Shirt</h2>
+                            <h2><%= product.productName %> </h2>
                             <div class="rating-section">
                                 <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                         class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
@@ -81,16 +75,16 @@
                             </div>
                             <div class="label-section">
                                 <span class="badge badge-grey-color">#1 Best seller</span>
-                                <span class="label-text">in fashion</span>
+                                <span class="label-text">in <%= product.productCategory %> </span>
                             </div>
-                            <h3 class="price-detail">$32.96 <del>$459.00</del><span>55% off</span></h3>
+                            <h3 class="price-detail">$<%= product.productPrice %>  <del>$<%= product.oldPrice %> </del><span>$<%= product.productDiscount %>  off</span></h3>
                             <ul class="image-swatch">
-                                <li class="active"><a href="#"><img src="/images/fashion/pro/m-001.jpg" alt=""
-                                            class="img-fluid blur-up lazyload"></a></li>
-                                <li><a href="#"><img src="/images/fashion/pro/m-002.jpg" alt=""
-                                            class="img-fluid blur-up lazyload"></a></li>
-                                <li><a href="#"><img src="/images/fashion/pro/m-003.jpg" alt=""
-                                            class="img-fluid blur-up lazyload"></a></li>
+                                <% for( let i = 0; i < product.productImg.length; i++ ) { %>
+                                    <li class="active">
+                                        <a href="#"><img src="/images/<%= product.productImg[i] %> " alt=""
+                                        class="img-fluid blur-up lazyload"></a>
+                                    </li>
+                                <% } %>
                             </ul>
                             <div id="selectSize" class="addeffect-section product-description border-product">
                                 <h6 class="product-title size-text">select size <span><a href="" data-bs-toggle="modal"
@@ -113,12 +107,7 @@
                                 </div>
                                 <h6 class="error-message">please select size</h6>
                                 <div class="size-box">
-                                    <ul>
-                                        <li><a href="javascript:void(0)">s</a></li>
-                                        <li><a href="javascript:void(0)">m</a></li>
-                                        <li><a href="javascript:void(0)">l</a></li>
-                                        <li><a href="javascript:void(0)">xl</a></li>
-                                    </ul>
+                                    <h4><%= product.productSize %> </h4>
                                 </div>
                                 <h6 class="product-title">quantity</h6>
                                 <div class="qty-box">
@@ -144,12 +133,12 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="border-product">
+                            <!-- <div class="border-product">
                                 <h6 class="product-title">Sales Ends In</h6>
                                 <div class="timer">
                                     <p id="demo"></p>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="border-product">
                                 <h6 class="product-title">shipping info</h6>
                                 <ul class="shipping-info">
@@ -234,11 +223,6 @@
                                     class="icofont icofont-man-in-glasses"></i>Specification</a>
                             <div class="material-border"></div>
                         </li>
-                        <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-bs-toggle="tab"
-                                href="#top-contact" role="tab" aria-selected="false"><i
-                                    class="icofont icofont-contacts"></i>Video</a>
-                            <div class="material-border"></div>
-                        </li>
                         <li class="nav-item"><a class="nav-link" id="review-top-tab" data-bs-toggle="tab"
                                 href="#top-review" role="tab" aria-selected="false"><i
                                     class="icofont icofont-contacts"></i>Write Review</a>
@@ -308,12 +292,6 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
-                            <div class="">
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8"
-                                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                            </div>
-                        </div>
                         <div class="tab-pane fade" id="top-review" role="tabpanel" aria-labelledby="review-top-tab">
                             <form class="theme-form">
                                 <div class="form-row row">
@@ -379,7 +357,7 @@
                                             class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                 </div>
                                 <div class="back">
-                                    <a href="#"><img src="/images/<%= obj.productImg %> "
+                                    <a href="#"><img src="/images/<%= obj.productImg[1] %> "
                                             class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                 </div>
                                 <div class="cart-info cart-wrap">
@@ -394,7 +372,7 @@
                                 <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                         class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                 </div>
-                                <a href="product-page(no-sidebar).html">
+                                <a href="/productDetails?id=<%= obj._id %> ">
                                     <h6><%= obj.productName %> </h6>
                                 </a>
                                 <h4>$<%= obj.productPrice %> </h4>
@@ -678,29 +656,18 @@
         <div class="container">
             <div class="cart-content">
                 <div class="product-image">
-                    <img src="/images/pro3/1.jpg" class="img-fluid" alt="">
+                    <img src="/images/<%= product.productImg[0] %> " class="img-fluid" alt="">
                     <div class="content d-lg-block d-none">
-                        <h5>WOMEN PINK SHIRT</h5>
-                        <h6>$32.96<del>$459.00</del><span>55% off</span></h6>
+                        <h5><%= product.productName %> </h5>
+                        <h6>$<%= product.productPrice %> <del>$<%= product.oldPrice %> </del><span><%= product.productDiscount %>  off</span></h6>
                     </div>
                 </div>
                 <div class="selection-section">
                     <div class="form-group mb-0">
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose color...</option>
-                            <option>pink</option>
-                            <option>blue</option>
-                            <option>grey</option>
-                        </select>
+                        <h4><%= product.productColor %></h4> 
                     </div>
                     <div class="form-group mb-0">
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose size...</option>
-                            <option>small</option>
-                            <option>medium</option>
-                            <option>large</option>
-                            <option>extra large</option>
-                        </select>
+                        <h4><%= product.productSize %></h4>
                     </div>
                 </div>
                 <div class="add-btn">

@@ -2,6 +2,7 @@ const { render } = require("ejs");
 const { default: mongoose } = require("mongoose");
 const User = require("../models/userSchema");
 const Product = require('../models/productSchema')
+const Cart = require('../models/cartSchema')
 const bcrypt = require("bcrypt");
 const checkOtp = require("../utils/otp-auth");
 let userSignup;
@@ -14,22 +15,37 @@ module.exports = {
     try {
       if(req.session.loggedIn){
         const products = await Product.find()
-        res.render("user/home", { userDetails: req.session.userDetails,products });
+        const user = req.session.userDetails
+        res.render("user/home", { user,products });
       }else{
-        res.render('user/home',{userDetails:false})
+        const products = await Product.find()
+        res.render('user/home',{user:false,products})
       }
     } catch (err) {
+      console.log(err);
       res.redirect("/not-found");
     }
   },
   goToShop : async (req,res) => {
     try{
       const products = await Product.find()
-      if(products){
-        res.render('user/shop',{products})
+      if(req.session.loggedIn){
+        const user = req.session.userDetails
+        res.render('user/shop',{products,user})
+      }else{
+        const products = await Product.find()
+        res.render('user/shop',{user:false,products})
       }
     }catch (err){
       console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  goToCart  : async (req,res) => {
+    try{
+      const user = req.session.userDetails
+      res.render('user/cart',{user})
+    }catch{
       res.redirect('/not-found')
     }
   },
@@ -38,10 +54,25 @@ module.exports = {
       if(req.session.loggedIn){
         res.redirect('/')
       }else{
-        res.render("user/login", { err_msg: false, userDetails: false });
+        res.render("user/login", { err_msg: false, user: false });
       }
     } catch {
       res.redirect("/not-found");
+    }
+  },
+  productDetails : async (req,res) => {
+    try{
+      const id = req.query.id
+      const product = await Product.findById({_id:id})
+      if(product){
+        const user = req.session.userDetails
+        const products = await Product.find()
+        res.render('user/view-product',{product,user,products})
+      }else{
+        res.redirect('/')
+      }
+    }catch{
+      res.redirect('/not-found')
     }
   },
   postLogin: async (req, res) => {
@@ -79,7 +110,7 @@ module.exports = {
   },
   signup: (req, res) => {
     try {
-      res.render("user/register", { err_msg: false, userDetails: false });
+      res.render("user/register", { err_msg: false, user: false });
     } catch (err) {
       res.redirect("/not-found");
     }
