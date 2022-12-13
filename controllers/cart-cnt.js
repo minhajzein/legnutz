@@ -1,36 +1,48 @@
-const Cart = require('../models/cartSchema')
-const Product = require('../models/productSchema')
-const User = require('../models/userSchema')
+const Cart = require("../models/cartSchema")
+const Product = require("../models/productSchema")
+const User = require("../models/userSchema")
 
 module.exports = {
-    addToCart : async (req,res) => {
-        try{
-            const id = req.query.id
-            const userId = req.query.userId
-            const user = await User.findOne({_id:userId})
-            const product = await Product.findById({_id:id})
-            const cart = await Cart.findOne({user:user.username})
-            if(cart){
-                await Cart.updateOne(
-                    {user:user.userName},
-                    {
-                        $push:{
-                            products:product
-                        }
-                    }
-                )
-                res.redirect('/')
-                console.log("added to cart");
-            }else{
-                await Cart.create({
-                    user:user.username,
-                    products:product
-                })
-                res.redirect('/')
-                console.log("cart created");
-            }
-        }catch{
-            res.redirect('/not-found')
-        }
+  goToCart: async (req, res) => {
+    let cartCount;
+    try {
+      const user = req.session.user
+      const cart = await Cart.findOne({ user: user.Email })
+      if (cart == null) {
+        cartCount = 0
+      }else{
+        cartCount = cart.products.length
+      }
+      res.render("user/cart", { user, cartCount, cart })
+    } catch {
+      res.redirect("/not-found")
     }
+  },
+  addToCart: async (req, res) => {
+    try {
+      const id = req.query.id
+      const user = req.session.user
+      const product = await Product.findById({ _id: id })
+      const cart = await Cart.findOne({ user: user.Email })
+      if (cart!=null) {
+        await Cart.updateOne(
+          { user: user.Email },
+          {
+            $push: {
+              products: product,
+            },
+          }
+        )
+        res.json({ status: true })
+      } else {
+        await Cart.create({
+          user: user.Email,
+          products: product,
+        })
+        res.json({ status: true })
+      }
+    } catch {
+      res.redirect("/not-found")
+    }
+  },
 }

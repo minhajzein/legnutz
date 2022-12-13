@@ -12,8 +12,8 @@ router.get('/go-to-shop',controller.goToShop)
 
 router.get('/productDetails',controller.productDetails)
 
-router.get('/cartPage',controller.goToCart)
-router.get('/addToCart',userCheck.sessionUser,cart.addToCart)
+router.get('/cartPage',userCheck.sessionUser,cart.goToCart)
+router.get('/addToCart',cart.addToCart)
 
 router.route('/login')
     .get(controller.loginPage)

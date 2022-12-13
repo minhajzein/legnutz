@@ -150,15 +150,14 @@
                   /></a>
                 </div>
                 <div class="cart-info cart-wrap">
-                  <a href="/addToCart?id=<%= obj._id %>&&userId=<%= user._id %>">
-                    <button
+                  <button
+                    onclick="addToCart('<%= obj._id %>','<%= user._id %>')"
                     data-bs-toggle="modal"
                     data-bs-target="#addtocart"
                     title="Add to cart"
                   >
                     <i class="ti-shopping-cart"></i>
                   </button>
-                  </a>
                   <a href="javascript:void(0)" title="Add to Wishlist"
                     ><i class="ti-heart" aria-hidden="false"></i
                   ></a>
@@ -2080,7 +2079,7 @@
   <!-- cookie bar end -->
 
   <!--modal popup start-->
-  <div
+  <!-- <div
     class="modal fade bd-example-modal-lg theme-modal"
     id="exampleModal"
     tabindex="-1"
@@ -2143,7 +2142,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!--modal popup end-->
 
   <!-- Quick-view modal popup start-->
@@ -2262,7 +2261,7 @@
   </div>
 
   <!-- exit modal popup start-->
-  <div
+  <!-- <div
     class="modal fade bd-example-modal-lg theme-modal exit-modal"
     id="exit_popup"
     tabindex="-1"
@@ -2309,7 +2308,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- Add to cart modal popup end-->
 
   <!-- facebook chat section start -->
