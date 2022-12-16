@@ -1,15 +1,19 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const cartSchema = new Schema ({
-    user:{
-        type: String,
-        required: true
-    },
-    products : {
-        type: Array,
-        required : true
-    }
-},{timestamps:true}) 
+ObjectId = Schema.ObjectId
 
-module.exports = mongoose.model('Cart',cartSchema)
+const cartSchema = new Schema({
+  user: {
+    type: ObjectId,
+    required: true,
+  },
+  products: {
+    type: Array,
+  },
+  totalPrice: {
+    type: Number,
+  },
+})
+
+module.exports = mongoose.model("Cart", cartSchema)

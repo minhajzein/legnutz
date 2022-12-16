@@ -1,19 +1,19 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('../controllers/user-cnt')
-const userCheck = require('../middlewares/session')
+const userCheck = require('../middleware/session')
 const cart = require('../controllers/cart-cnt')
 
 //=======================================================================================================
 
-router.get('/',controller.home)
+router.get('/',userCheck.sessionUser,controller.home)
 
 router.get('/go-to-shop',controller.goToShop)
 
 router.get('/productDetails',controller.productDetails)
 
-router.get('/cartPage',userCheck.sessionUser,cart.goToCart)
-router.get('/addToCart',cart.addToCart)
+router.get('/cartPage',cart.goToCart)
+router.get('/addToCart',userCheck.sessionUser,cart.addToCart)
 
 router.route('/login')
     .get(controller.loginPage)

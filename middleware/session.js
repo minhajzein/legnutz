@@ -5,7 +5,6 @@ module.exports = {
     sessionUser : async (req,res,next) => {
         try{
             if(req.session.loggedIn){
-                const user = req.session.userDetails
                 next()
             }else{
                 res.redirect('/login')
@@ -26,5 +25,6 @@ module.exports = {
         }catch (err) {
             res.redirect('/admin/not-available')
         }
-    }
+    },
+    
 }

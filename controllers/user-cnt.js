@@ -16,12 +16,13 @@ module.exports = {
       const products = await Product.find()
       if (req.session.loggedIn) {
         const user = req.session.user
-        const cart = await Cart.findOne({ user: user.Email })
+        const cart = await Cart.findOne({ user: req.session.user._id })
         let cartCount
-        if (cart == null) {
-          cartCount = 0
-        }else{
+        if (cart) {
+          
           cartCount = cart.products.length
+        }else{
+          cartCount = 0
         }
         req.session.cartCount = cartCount
         res.render("user/home", {user,products,cartCount})
@@ -37,16 +38,19 @@ module.exports = {
     try {
       const products = await Product.find()
       if (req.session.loggedIn) {
-        const user = req.session.userDetails
-        const cart = Cart.findOne({ user: user.Email })
-        const cartCount = req.session.cartCount
+        const user = await User.findById(req.session.user._id)
+        const cart = Cart.findOne({ user: user._id })
+        let cartCount;
+        if(cart){
+          cartCount = cart.products.length
+        }else{
+          cartCount = 0
+        }
         res.render("user/shop", { products, user, cartCount, cart })
       } else {
-        const products = await Product.find()
         res.render("user/shop", { user: false, products })
       }
     } catch (err) {
-      console.log(err)
       res.redirect("/not-found")
     }
   },

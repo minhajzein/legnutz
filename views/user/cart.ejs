@@ -44,13 +44,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% if (cart!=null) { %>
-                                <% cart.products.forEach(item => { %>
+                            <% if (cartItems!=null) { %>
+                                <% cartItems.forEach(el => { %>
                                     <tr>
                                         <td>
-                                            <a href="#"><img src="/images/<%= item.productImg[0] %> " alt=""></a>
+                                            <a href="#"><img src="/images/<%= el.item.productImg[0] %> " alt=""></a>
                                         </td>
-                                        <td><a href="#"><%= item.productName %> </a>
+                                        <td><a href="#"><%= el.item.productName %> </a>
                                             <div class="mobile-cart-content row">
                                                 <div class="col">
                                                     <div class="qty-box">
@@ -61,7 +61,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col">
-                                                    <h2 class="td-color">$<%= item.productPrice %> </h2>
+                                                    <h2 class="td-color">$<%= el.item.productPrice %> </h2>
                                                 </div>
                                                 <div class="col">
                                                     <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
@@ -70,7 +70,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <h2>$<%= item.productPrice %> </h2>
+                                            <h2>$<%= el.item.productPrice %> </h2>
                                         </td>
                                         <td>
                                             <div class="qty-box">
@@ -91,18 +91,20 @@
                             <% } %> 
                         </tbody>
                     </table>
-                    <div class="table-responsive-md">
-                        <table class="table cart-table ">
-                            <tfoot>
-                                <tr>
-                                    <td>total price :</td>
-                                    <td>
-                                        <h2>$6935.00</h2>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
+                    <% if (cartItems) { %>
+                        <div class="table-responsive-md">
+                            <table class="table cart-table ">
+                                <tfoot>
+                                    <tr>
+                                        <td>total price :</td>
+                                        <td>
+                                            <h2>$6935.00</h2>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    <% } %>
                 </div>
             </div>
             <div class="row cart-buttons">

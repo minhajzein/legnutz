@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const userControl = require('../controllers/user-cnt')
 const control = require('../controllers/admin-cnt')
-const checkSession = require ('../middlewares/session') 
+const checkSession = require ('../middleware/session') 
 const productControl = require('../controllers/product-cnt')
-const fileupload = require('../middlewares/multer')
+const fileupload = require('../middleware/multer')
 
 //==========================================================================================
 
