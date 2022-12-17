@@ -28,70 +28,50 @@
 
 
     <!--section start-->
-    <section class="cart-section section-b-space pt-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 table-responsive-xs">
-                    <table class="table cart-table">
-                        <thead>
-                            <tr class="table-head">
-                                <th scope="col">image</th>
-                                <th scope="col">product name</th>
-                                <th scope="col">price</th>
-                                <th scope="col">quantity</th>
-                                <th scope="col">action</th>
-                                <th scope="col">total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if (cartItems!=null) { %>
-                                <% cartItems.forEach(el => { %>
+    <% if (cartItems) { %>
+        <section class="cart-section section-b-space">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 table-responsive-xs">
+                        <table class="table cart-table">
+                            <thead>
+                                <tr class="table-head">
+                                    <th scope="col">image</th>
+                                    <th scope="col">product name</th>
+                                    <th scope="col">price</th>
+                                    <th scope="col">quantity</th>
+                                    <th scope="col">action</th>
+                                    <th scope="col">total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% cartItems.forEach(obj => { %>
                                     <tr>
                                         <td>
-                                            <a href="#"><img src="/images/<%= el.item.productImg[0] %> " alt=""></a>
-                                        </td>
-                                        <td><a href="#"><%= el.item.productName %> </a>
-                                            <div class="mobile-cart-content row">
-                                                <div class="col">
-                                                    <div class="qty-box">
-                                                        <div class="input-group">
-                                                            <input type="text" name="quantity" class="form-control input-number"
-                                                                value="1">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <h2 class="td-color">$<%= el.item.productPrice %> </h2>
-                                                </div>
-                                                <div class="col">
-                                                    <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
-                                                    </h2>
-                                                </div>
-                                            </div>
+                                            <a href="#"><img src="/images/" alt=""></a>
                                         </td>
                                         <td>
-                                            <h2>$<%= el.item.productPrice %> </h2>
+                                            <a href="#"><%= obj.product.productName %></a>
+                                        </td>
+                                        <td>
+                                            <h2>$<%= obj.product.productPrice %></h2>
                                         </td>
                                         <td>
                                             <div class="qty-box">
                                                 <div class="input-group">
                                                     <input type="number" name="quantity" class="form-control input-number"
-                                                        value="1">
+                                                        value="<%= obj.quantity %>">
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                                        <td><a href="/removeItem" class="icon"><i class="btn fa fa-trash"  title="Delete"></i></a></td>
                                         <td>
-                                            <h2 class="td-color">$4539.00</h2>
+                                            <h2 class="td-color">$<%= obj.quantity*obj.product.productPrice %></h2>
                                         </td>
                                     </tr>
                                 <% }) %>
-                            <% } else {%>
-                                <label for="" class="text-danger"> your cart is empty</label>
-                            <% } %> 
-                        </tbody>
-                    </table>
-                    <% if (cartItems) { %>
+                            </tbody>
+                        </table>
                         <div class="table-responsive-md">
                             <table class="table cart-table ">
                                 <tfoot>
@@ -104,15 +84,77 @@
                                 </tfoot>
                             </table>
                         </div>
-                    <% } %>
+                    </div>
+                </div>
+                <div class="row cart-buttons">
+                    <div class="col-6"><a href="/" class="btn btn-solid">continue shopping</a></div>
+                    <div class="col-6"><a href="/checkOut" class="btn btn-solid">check out</a></div>
                 </div>
             </div>
-            <div class="row cart-buttons">
-                <div class="col-6"><a href="/" class="btn btn-solid">continue shopping</a></div>
-                <div class="col-6"><a href="/checkOut" class="btn btn-solid">check out</a></div>
+        </section>
+    <% } else { %>
+        <label class="text-danger">There is no any items in your cart</label>
+        <section class="cart-section section-b-space">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 table-responsive-xs">
+                        <table class="table cart-table">
+                            <thead>
+                                <tr class="table-head">
+                                    <th scope="col">image</th>
+                                    <th scope="col">product name</th>
+                                    <th scope="col">price</th>
+                                    <th scope="col">quantity</th>
+                                    <th scope="col">action</th>
+                                    <th scope="col">total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="#"><img src="" alt=""></a>
+                                    </td>
+                                    <td>
+                                        <a href="#"></a>
+                                    </td>
+                                    <td>
+                                        <h2>$</h2>
+                                    </td>
+                                    <td>
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <input type="number" name="quantity" class="form-control input-number"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                                    <td>
+                                        <h2 class="td-color">$</h2>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="table-responsive-md">
+                            <table class="table cart-table ">
+                                <tfoot>
+                                    <tr>
+                                        <td>total price :</td>
+                                        <td>
+                                            <h2>$0000.00</h2>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cart-buttons">
+                    <div class="col-6"><a href="/" class="btn btn-solid">continue shopping</a></div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <% } %>
     <!--section end-->
 
 

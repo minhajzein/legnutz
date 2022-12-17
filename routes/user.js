@@ -6,14 +6,14 @@ const cart = require('../controllers/cart-cnt')
 
 //=======================================================================================================
 
-router.get('/',userCheck.sessionUser,controller.home)
+router.get('/', controller.home)
 
-router.get('/go-to-shop',controller.goToShop)
+router.get('/go-to-shop', controller.goToShop)
 
-router.get('/productDetails',controller.productDetails)
+router.get('/productDetails', controller.productDetails)
 
-router.get('/cartPage',cart.goToCart)
-router.get('/addToCart',userCheck.sessionUser,cart.addToCart)
+router.get('/cartPage', userCheck.sessionUser, cart.goToCart)
+router.get('/addToCart', userCheck.sessionUser, cart.addToCart)
 
 router.route('/login')
     .get(controller.loginPage)
@@ -23,15 +23,15 @@ router.route('/register')
     .get(controller.signup)
     .post(controller.doSignup)
 
-router.get('/get-otp',controller.otpPage)
-    
-router.post('/verify-otp',controller.otpVerification)
+router.get('/get-otp', controller.otpPage)
 
-router.get('/logout',controller.logout)
+router.post('/verify-otp', controller.otpVerification)
 
-router.get('/not-found',controller.errorPage)
+router.get('/logout', controller.logout)
+
+router.get('/not-found', controller.errorPage)
 
 
 //====================================================================================================================
 
-module.exports = router ;
+module.exports = router;

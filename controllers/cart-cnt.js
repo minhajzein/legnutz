@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose")
+const { default: mongoose, mongo } = require("mongoose")
 const Cart = require("../models/cartSchema")
 const Product = require("../models/productSchema")
 const User = require("../models/userSchema")
@@ -9,20 +9,36 @@ module.exports = {
     try {
       const user = await User.findById(req.session.user._id)
       const cart = await Cart.findOne({ user: req.session.user._id })
+      let cartItems;
       if (cart) {
         cartCount = cart.products.length
-        let cartItems = await Cart.aggregate([
+        cartItems = await Cart.aggregate([
           {
-            $match: { user: req.session.user._id },
+            $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
           },
           {
-            $project: {},
+            $unwind: '$products',
           },
+          {
+            $project: {
+              item: '$products.item',
+              quantity: '$products.quantity'
+            }
+          },
+          {
+            $lookup: {
+              from: 'products',
+              localField: 'item',
+              foreignField: '_id',
+              as: 'product'
+            }
+          }
         ])
       } else {
         cartCount = 0
       }
-      res.render("user/cart", { user, cartCount, cart })
+      console.log(cartItems[0].product);
+      res.render("user/cart", { user, cartCount, cart, cartItems })
     } catch {
       res.redirect("/not-found")
     }
@@ -50,9 +66,6 @@ module.exports = {
                   "products.$.quantity": 1,
                 },
               }
-            )
-            console.log(
-              "======================================================="
             )
             req.json({ status: false })
           } else {
