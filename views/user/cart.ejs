@@ -29,7 +29,7 @@
 
     <!--section start-->
     <% if (cartItems) { %>
-        <section class="cart-section section-b-space">
+        <section class="pt-0 cart-section section-b-space">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 table-responsive-xs">
@@ -48,7 +48,7 @@
                                 <% cartItems.forEach(obj => { %>
                                     <tr>
                                         <td>
-                                            <a href="#"><img src="/images/" alt=""></a>
+                                            <a href="#"><img src="/images/<%= obj.product.productImg[0] %>" alt=""></a>
                                         </td>
                                         <td>
                                             <a href="#"><%= obj.product.productName %></a>
@@ -59,14 +59,16 @@
                                         <td>
                                             <div class="qty-box">
                                                 <div class="input-group">
-                                                    <input type="number" name="quantity" class="form-control input-number"
+                                                    <button class="text-danger fs-3" onclick="">-</button>
+                                                    <input  name="quantity" class="form-control"
                                                         value="<%= obj.quantity %>">
+                                                        <button class="text-success fs-4" onclick="">+</button>
                                                 </div>
                                             </div>
                                         </td>
                                         <td><a href="/removeItem" class="icon"><i class="btn fa fa-trash"  title="Delete"></i></a></td>
                                         <td>
-                                            <h2 class="td-color">$<%= obj.quantity*obj.product.productPrice %></h2>
+                                            <h2 class="text-primary">$<%= obj.quantity*obj.product.productPrice %></h2>
                                         </td>
                                     </tr>
                                 <% }) %>

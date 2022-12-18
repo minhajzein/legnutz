@@ -32,12 +32,18 @@ module.exports = {
               foreignField: '_id',
               as: 'product'
             }
+          },
+          {
+            $project: {
+              item: 1,
+              quantity: 1,
+              product: { $arrayElemAt: ["$product", 0] }
+            }
           }
         ])
       } else {
         cartCount = 0
       }
-      console.log(cartItems[0].product);
       res.render("user/cart", { user, cartCount, cart, cartItems })
     } catch {
       res.redirect("/not-found")
