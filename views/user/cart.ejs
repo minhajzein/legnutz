@@ -59,16 +59,17 @@
                                         <td>
                                             <div class="qty-box">
                                                 <div class="input-group">
-                                                    <button class="text-danger fs-3" onclick="">-</button>
-                                                    <input  name="quantity" class="form-control"
-                                                        value="<%= obj.quantity %>">
-                                                        <button class="text-success fs-4" onclick="">+</button>
+                                                    <button class="text-danger fs-3 text-center" id="#qtyminus" onclick="IncDecQuant('<%= obj._id %>','<%= obj.product._id %>',-1,'<%= obj.product.productPrice %>')">-</button>
+                                                    <div class="d-flex justify-content-center align-items-center ms-3">
+                                                        <span class="mt-2" id="<%= obj.product._id %>"><%= obj.quantity %></span>
+                                                    </div>
+                                                    <button class="text-success fs-4 text-center ms-3" id="#qtyplus" onclick="IncDecQuant('<%= obj._id %>','<%= obj.product._id %>',1,'<%= obj.product.productPrice %>')">+</button>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><a href="/removeItem" class="icon"><i class="btn fa fa-trash"  title="Delete"></i></a></td>
+                                        <td><a onclick="removeItem('<%= obj._id %>','<%= obj.product._id %>')" class="icon"><i class="btn fa fa-trash"  title="Delete"></i></a></td>
                                         <td>
-                                            <h2 class="text-primary">$<%= obj.quantity*obj.product.productPrice %></h2>
+                                            <h2 id="total<%= obj.product._id %>" class="text-primary">$<%= obj.quantity*obj.product.productPrice %></h2>
                                         </td>
                                     </tr>
                                 <% }) %>
@@ -80,7 +81,7 @@
                                     <tr>
                                         <td>total price :</td>
                                         <td>
-                                            <h2>$6935.00</h2>
+                                            <h2>$</h2>
                                         </td>
                                     </tr>
                                 </tfoot>

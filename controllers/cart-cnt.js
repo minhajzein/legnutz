@@ -97,4 +97,47 @@ module.exports = {
       res.redirect("/not-found")
     }
   },
+  quantityScale: async (req, res) => {
+    try {
+      console.log(req.body);
+      if (req.body.quantity == 1 && req.body.count == 1 || req.body.quantity != 1) {
+        await Cart.updateOne(
+          {
+            _id: mongoose.Types.ObjectId(req.body.cart),
+            'products.item': mongoose.Types.ObjectId(req.body.prodId)
+          },
+          {
+            $inc: {
+              'products.$.quantity': parseInt(req.body.count)
+            }
+          }
+        )
+        res.json({ status: true })
+      } else {
+        res.json({ status: false })
+      }
+
+    } catch {
+      res.redirect('/not-found')
+    }
+  },
+  removeItem: async (req, res) => {
+    try {
+      await Cart.updateOne(
+        {
+          _id: mongoose.Types.ObjectId(req.body.cartId)
+        },
+        {
+          $pull: {
+            products: {
+              item: mongoose.Types.ObjectId(req.body.prodId)
+            }
+          }
+        }
+      )
+      res.json({ removeItem: true })
+    } catch {
+      res.redirect('/not-found')
+    }
+  }
 }

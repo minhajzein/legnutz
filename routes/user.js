@@ -14,6 +14,9 @@ router.get('/productDetails', controller.productDetails)
 
 router.get('/cartPage', userCheck.sessionUser, cart.goToCart)
 router.get('/addToCart', userCheck.sessionUser, cart.addToCart)
+router.post('/changeQuantity', cart.quantityScale)
+router.post('/removeItem', cart.removeItem)
+router.get('/checkOut')
 
 router.route('/login')
     .get(controller.loginPage)
