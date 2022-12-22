@@ -33,6 +33,7 @@ function IncDecQuant(cartId, prodId, count, price) {
                 if (quantity == 1 && count == 1 || quantity != 1) {
                     document.getElementById(prodId).innerHTML = quantity + count
                     document.getElementById(`total${prodId}`).innerHTML = "$" + (quantity + count) * price
+                    document.getElementById('totalAmount').innerHTML = "$" + response.totalAmount
                 }
 
             }
