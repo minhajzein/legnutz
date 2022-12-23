@@ -16,6 +16,8 @@ router.get('/cartPage', userCheck.sessionUser, cart.goToCart)
 router.get('/addToCart', userCheck.sessionUser, cart.addToCart)
 router.post('/changeQuantity', userCheck.sessionUser, cart.quantityScale)
 router.post('/removeItem', userCheck.sessionUser, cart.removeItem)
+
+
 router.get('/checkOut', userCheck.sessionUser, cart.checkOut)
 router.post('/placeOrder', userCheck.sessionUser, cart.placeOrder)
 
@@ -26,6 +28,8 @@ router.route('/login')
 router.route('/register')
     .get(controller.signup)
     .post(controller.doSignup)
+
+router.get('/profile', userCheck.sessionUser, controller.profile)
 
 router.get('/get-otp', controller.otpPage)
 

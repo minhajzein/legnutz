@@ -59,4 +59,3 @@ function removeItem(cartId, prodId) {
 
 
 
-

@@ -5,6 +5,7 @@ const Product = require("../models/productSchema")
 const Cart = require("../models/cartSchema")
 const bcrypt = require("bcrypt")
 const checkOtp = require("../utils/otp-auth")
+const Address = require('../models/addressSchema')
 let userSignup
 
 module.exports = {
@@ -19,13 +20,13 @@ module.exports = {
         const cart = await Cart.findOne({ user: req.session.user._id })
         let cartCount
         if (cart) {
-          
+
           cartCount = cart.products.length
-        }else{
+        } else {
           cartCount = 0
         }
         req.session.cartCount = cartCount
-        res.render("user/home", {user,products,cartCount})
+        res.render("user/home", { user, products, cartCount })
       } else {
         res.render("user/home", { user: false, products })
       }
@@ -41,9 +42,9 @@ module.exports = {
         const user = await User.findById(req.session.user._id)
         const cart = Cart.findOne({ user: user._id })
         let cartCount;
-        if(cart){
+        if (cart) {
           cartCount = cart.products.length
-        }else{
+        } else {
           cartCount = 0
         }
         res.render("user/shop", { products, user, cartCount, cart })
@@ -51,6 +52,7 @@ module.exports = {
         res.render("user/shop", { user: false, products })
       }
     } catch (err) {
+      console.log(err);
       res.redirect("/not-found")
     }
   },
@@ -73,8 +75,8 @@ module.exports = {
         const user = req.session.user
         const products = await Product.find()
         const cartCount = req.session.cartCount
-        const cart = Cart.findOne({user:user.Email})
-        res.render("user/view-product", { product, user, products, cartCount,cart })
+        const cart = Cart.findOne({ user: mongoose.Types.ObjectId(user._id) })
+        res.render("user/view-product", { product, user, products, cartCount, cart })
       } else {
         res.redirect("/")
       }
@@ -164,6 +166,24 @@ module.exports = {
       res.redirect("/")
     } else {
       res.render("user/otp-page", { errorMsg: "Entered OTP is incorrect" })
+    }
+  },
+  profile: async (req, res) => {
+    try {
+      const user = await User.findById(req.session.user._id)
+      const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      let cartCount;
+      if (cart) {
+        cartCount = cart.products.length
+      } else {
+        cartCount = 0
+      }
+      const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      console.log(typeof (addresses));
+      res.render('user/profile', { user, cartCount, cart, addresses })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
     }
   },
   logout: (req, res) => {

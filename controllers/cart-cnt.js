@@ -313,7 +313,6 @@ module.exports = {
       } else {
         totalAmount = 0
       }
-      console.log(totalAmount);
       res.render('user/checkout', { user, cartCount, cart, totalAmount, cartItems })
     } catch (err) {
       console.log(err);
@@ -323,8 +322,106 @@ module.exports = {
   placeOrder: async (req, res) => {
     try {
       console.log(req.body);
-      if (addressExist) { }
-      res.render('user/orderSuccess')
+      const user = User.findById(req.session.user._id)
+      let orderedItems = await Cart.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item',
+            quantity: '$products.quantity'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            item: 1,
+            quantity: 1,
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        }
+      ])
+
+      let totalAmount = await Cart.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item',
+            quantity: '$products.quantity'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            item: 1,
+            quantity: 1,
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: {
+                $multiply: ['$quantity', '$product.productPrice']
+              }
+            }
+          }
+        }
+      ])
+      if (totalAmount[0]) {
+        totalAmount = totalAmount[0].total;
+      } else {
+        totalAmount = 0
+      }
+      let orderStatus = req.body.paymentMethod === 'COD' ? 'placed' : 'pending'
+      // await Address.create({
+      //   user: mongoose.Types.ObjectId(req.session.user._id),
+      //   firstName: req.body.firstName,
+      //   lastName: req.body.lastName,
+      //   mobileNumber: req.body.mobileNumber,
+      //   Email: req.body.Email,
+      //   country: req.body.country,
+      //   address: req.body.address,
+      //   townOrCity: req.body.townOrCity,
+      //   stateOrDistrict: req.body.stateOrDistrict,
+      //   postalCode: req.body.postalCode
+      // })
+      // orderedItems.forEach(async (obj) => {
+      //   await Order.create({
+      //     user: mongoose.Types.ObjectId(req.session.user._id),
+      //     productDetails: obj.product,
+      //     shippingAddress: iuiui,
+      //     orderStatus: orderStatus,
+      //     paymentMethod: req.body.paymentMethod,
+      //     shippingMode: req.body.shippingMode,
+      //     totalAmount:obj.quantity*obj.product.productPrice
+      //   })
+      // })
+      // res.render('user/orderSuccess', { user, cartCount: 0, orderedItems, totalAmount })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

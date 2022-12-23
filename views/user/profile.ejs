@@ -1,0 +1,187 @@
+<div class="color-theme-1">
+	<!-- header start -->
+	<%- include ('../partials/user-header') %>
+	<!-- header end -->
+
+	<!-- breadcrumb start -->
+	<div class="breadcrumb-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="page-title">
+						<h2>profile</h2>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<nav aria-label="breadcrumb" class="theme-breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">profile</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb End -->
+
+	<!-- personal deatail section start -->
+	<section class="contact-page register-page">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h3>PERSONAL DETAIL</h3>
+					<form class="theme-form">
+						<div class="form-row row">
+							<div class="col-md-6">
+								<label for="name">First Name</label>
+								<input
+									type="text"
+									class="form-control"
+									id="name"
+									value="<%= user.username %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="review">Phone number</label>
+								<input
+									type="text"
+									class="form-control"
+									id="review"
+									value="<%= user.phone %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="email">Email</label>
+								<input
+									type="text"
+									class="form-control"
+									id="email"
+									value="<%= user.Email %>"
+								/>
+							</div>
+							<div class="col-md-12">
+								<button class="btn btn-sm btn-solid" type="submit">Save details</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Section ends -->
+
+	<!-- address section start -->
+	<section class="contact-page register-page section-b-space">
+		<div class="container">
+			<div class="row">
+				<h3>SHIPPING ADDRESSES</h3>
+				<% addresses.forEach(obj => { %>
+				<div class="col-sm-12">
+					<form class="theme-form">
+						<div class="form-row row">
+							<div class="col-md-6">
+								<label for="name">First Name</label>
+								<input
+									type="text"
+									class="form-control"
+									id="home-ploat"
+									value="<%= obj.firstName %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="name">Last Name</label>
+								<input
+									type="text"
+									class="form-control"
+									id="address-two"
+									value="<%= obj.lastName %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="email">Mobile Number</label>
+								<input
+									type="text"
+									class="form-control"
+									id="zip-code"
+									value="<%= obj.mobileNumber %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="review">Email</label>
+								<input
+									type="text"
+									class="form-control"
+									id="city"
+									value="<%= obj.Email %>"
+								/>
+							</div>
+							<div class="col-md-6 select_input">
+								<label for="review">Country *</label>
+								<select class="form-control" size="1">
+									<option>India</option>
+									<option>South Africa</option>
+									<option>United State</option>
+									<option>Australia</option>
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label for="review">Address</label>
+								<input
+									type="text"
+									class="form-control"
+									id="region-state"
+									value="<%= obj.address %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="review">Town/City</label>
+								<input
+									type="text"
+									class="form-control"
+									id="region-state"
+									value="<%= obj.townOrCity %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="review">State/District</label>
+								<input
+									type="text"
+									class="form-control"
+									id="region-state"
+									value="<%= obj.stateOrDistrict %>"
+								/>
+							</div>
+							<div class="col-md-6">
+								<label for="review">Postal Code</label>
+								<input
+									type="text"
+									class="form-control"
+									id="region-state"
+									value="<%= obj.postalCode %>"
+								/>
+							</div>
+							<div class="col-md-12">
+								<button class="btn btn-sm btn-solid" type="submit">Save address</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<% }) %>
+			</div>
+		</div>
+	</section>
+	<!-- Section ends -->
+
+	<!-- footer start -->
+	<%- include ('../partials/user-footer') %>
+	<!-- footer end -->
+
+	<!-- tap to top -->
+	<div class="tap-top">
+		<div>
+			<i class="fa fa-angle-double-up"></i>
+		</div>
+	</div>
+	<!-- tap to top End -->
+</div>

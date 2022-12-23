@@ -6,16 +6,28 @@ const orderSchema = new mongoose.Schema({
                 type: ObjectId,
                 require: true
         },
-        orderName: {
-                type: String,
+        productDetails: {
+                type: Object,
                 require: true
         },
         shippingAddress: {
-                type: Array,
+                type: String,
                 require: true
         },
         orderStatus: {
+                type: String,
+                require: true
+        },
+        paymentMethod: {
+                type: String,
+                require: true
+        },
+        shippingMode: {
                 type: String
+        },
+        totalAmount: {
+                type: Number,
+                require: true
         }
 }, { timestamps: true })
 

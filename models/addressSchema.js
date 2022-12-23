@@ -40,12 +40,6 @@ const addressSchema = new mongoose.Schema({
         postalCode: {
                 type: Number,
                 require: true
-        },
-        freeShipping: {
-                type: Boolean
-        },
-        localPickup: {
-                type: Boolean
         }
 }, { timestamps: true })
 

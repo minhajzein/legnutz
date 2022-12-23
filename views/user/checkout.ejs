@@ -1,176 +1,282 @@
 <div class="color-theme-1">
-    <!-- header start -->
-    <%- include ('../partials/user-header') %>
-    <!-- header end -->
+	<!-- header start -->
+	<%- include ('../partials/user-header') %>
+	<!-- header end -->
 
-    <!-- breadcrumb start -->
-    <div class="breadcrumb-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="page-title">
-                        <h2>Check-out</h2>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Check-out</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- breadcrumb End -->
+	<!-- breadcrumb start -->
+	<div class="breadcrumb-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="page-title">
+						<h2>Check-out</h2>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<nav aria-label="breadcrumb" class="theme-breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Check-out</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumb End -->
 
+	<!-- section start -->
+	<section class="section-b-space">
+		<div class="container">
+			<div class="checkout-page">
+				<div class="checkout-form">
+					<form id="checkout-form">
+						<div class="row">
+							<div class="col-lg-6 col-sm-12 col-xs-12">
+								<div class="checkout-title">
+									<h3>Billing Details</h3>
+								</div>
+								<div class="row check-out">
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">First Name</div>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Last Name</div>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Phone</div>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Email Address</div>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Country</div>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Address</div>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Town/City</div>
+									</div>
+									<div class="form-group col-md-12 col-sm-6 col-xs-12">
+										<div class="field-label">State / District</div>
+									</div>
+									<div class="form-group col-md-12 col-sm-6 col-xs-12">
+										<div class="field-label">Postal Code</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-sm-12 col-xs-12">
+								<div class="checkout-title">
+									<h3>Billing Details</h3>
+								</div>
+								<div class="row check-out">
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">First Name</div>
+										<input
+											type="text"
+											name="firstName"
+											value=""
+											placeholder="Enter first name"
+										/>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Last Name</div>
+										<input
+											type="text"
+											name="lastName"
+											value=""
+											placeholder="Enter last name"
+										/>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Phone</div>
+										<input
+											type="text"
+											name="mobileNumber"
+											value=""
+											placeholder="Enter your mobile number"
+										/>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Email Address</div>
+										<input
+											type="text"
+											name="Email"
+											value=""
+											placeholder="Enter Email address"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Country</div>
+										<select name="country">
+											<option>India</option>
+											<option>South Africa</option>
+											<option>United State</option>
+											<option>Australia</option>
+										</select>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Address</div>
+										<input
+											type="text"
+											name="address"
+											value=""
+											placeholder="Street address"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Town/City</div>
+										<input
+											type="text"
+											name="townOrCity"
+											value=""
+											placeholder="Enter your Twon or City name"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-6 col-xs-12">
+										<div class="field-label">State / District</div>
+										<input
+											type="text"
+											name="stateOrDistrict"
+											value=""
+											placeholder="Enter State or District name"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-6 col-xs-12">
+										<div class="field-label">Postal Code</div>
+										<input
+											type="text"
+											name="postalCode"
+											value=""
+											placeholder="Enter a valid pin"
+										/>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-sm-12 col-xs-12">
+								<div class="checkout-details">
+									<div class="order-box">
+										<div class="title-box">
+											<div>Product <span>Total</span></div>
+										</div>
+										<ul class="qty">
+											<% cartItems.forEach(obj => { %>
+											<li>
+												<%= obj.product.productName %> × <%= obj.quantity %>
+												<span>$<%= obj.product.productPrice*obj.quantity %></span>
+											</li>
+											<% }) %>
+										</ul>
+										<ul class="sub-total">
+											<li>Subtotal <span class="count">$<%= totalAmount %></span></li>
+											<li>
+												Shipping
+												<div class="shipping">
+													<div class="shopping-option">
+														<input
+															type="radio"
+															name="shippingMode"
+															id="free-shipping"
+															value="FREE"
+															checked
+															style="cursor: pointer"
+														/>
+														<label for="free-shipping">Free Shipping</label>
+													</div>
+													<div class="shopping-option">
+														<input
+															type="radio"
+															name="shippingMode"
+															id="local-pickup"
+															value="Local pickup"
+															style="cursor: pointer"
+														/>
+														<label for="local-pickup">Local Pickup</label>
+													</div>
+												</div>
+											</li>
+										</ul>
+										<ul class="total">
+											<li>Total <span class="count">$<%= totalAmount %></span></li>
+										</ul>
+									</div>
+									<div class="payment-box">
+										<div class="upper-box">
+											<div class="payment-options">
+												<ul>
+													<li>
+														<div class="radio-option">
+															<input
+																type="radio"
+																name="paymentMethod"
+																id="payment-1"
+																value="UPI-BANK"
+															/>
+															<label for="payment-1"
+																>UPI or online payment<span class="small-text"
+																	>Please send a check to Store Name, Store Street, Store Town,
+																	Store State / County, Store Postcode.</span
+																></label
+															>
+														</div>
+													</li>
+													<li>
+														<div class="radio-option">
+															<input
+																type="radio"
+																name="paymentMethod"
+																id="payment-2"
+																checked="checked"
+																value="COD"
+															/>
+															<label for="payment-2"
+																>Cash On Delivery<span class="small-text"
+																	>Please send a check to Store Name, Store Street, Store Town,
+																	Store State / County, Store Postcode.</span
+																></label
+															>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="text-end">
+											<button type="submit" class="btn-solid btn">Place Order</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- section end -->
 
-    <!-- section start -->
-    <section class="section-b-space">
-        <div class="container">
-            <div class="checkout-page">
-                <div class="checkout-form">
-                    <form action="/placeOrder" method="post">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-12 col-xs-12">
-                                <div class="checkout-title">
-                                    <h3>Billing Details</h3>
-                                </div>
-                                <div class="row check-out">
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">First Name</div>
-                                        <input type="text" name="firstName" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Last Name</div>
-                                        <input type="text" name="lastName" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Phone</div>
-                                        <input type="text" name="mobileNumber" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        <div class="field-label">Email Address</div>
-                                        <input type="text" name="Email" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Country</div>
-                                        <select name="country">
-                                            <option>India</option>
-                                            <option>South Africa</option>
-                                            <option>United State</option>
-                                            <option>Australia</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Address</div>
-                                        <input type="text" name="address" value="" placeholder="Street address">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                        <div class="field-label">Town/City</div>
-                                        <input type="text" name="townOrCity" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">State / District</div>
-                                        <input type="text" name="stateOrDistrict" value="" placeholder="">
-                                    </div>
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <div class="field-label">Postal Code</div>
-                                        <input type="text" name="postalCode" value="" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-12 col-xs-12">
-                                <div class="checkout-details">
-                                    <div class="order-box">
-                                        <div class="title-box">
-                                            <div>Product <span>Total</span></div>
-                                        </div>
-                                        <ul class="qty">
-                                            <% cartItems.forEach(obj => { %>
-                                                <li><%= obj.product.productName %> × <%= obj.quantity %> <span>$<%= obj.product.productPrice*obj.quantity %></span></li>
-                                            <% }) %>
-                                        </ul>
-                                        <ul class="sub-total">
-                                            <li>Subtotal <span class="count">$<%= totalAmount %></span></li>
-                                            <li>Shipping
-                                                <div class="shipping">
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="freeShipping" id="free-shipping">
-                                                        <label for="free-shipping">Free Shipping</label>
-                                                    </div>
-                                                    <div class="shopping-option">
-                                                        <input type="checkbox" name="localPickup" id="local-pickup">
-                                                        <label for="local-pickup">Local Pickup</label>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <ul class="total">
-                                            <li>Total <span class="count">$<%= totalAmount %></span></li>
-                                        </ul>
-                                    </div>
-                                    <div class="payment-box">
-                                        <div class="upper-box">
-                                            <div class="payment-options">
-                                                <ul>
-                                                    <li>
-                                                        <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-1" checked="checked">
-                                                            <label for="payment-1">UPI or online payment<span
-                                                                    class="small-text">Please send a check to Store
-                                                                    Name, Store Street, Store Town, Store State /
-                                                                    County, Store Postcode.</span></label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option">
-                                                            <input type="radio" name="payment-group" id="payment-2">
-                                                            <label for="payment-2">Cash On Delivery<span
-                                                                    class="small-text">Please send a check to Store
-                                                                    Name, Store Street, Store Town, Store State /
-                                                                    County, Store Postcode.</span></label>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="radio-option paypal">
-                                                            <input type="radio" name="payment-group" id="payment-3">
-                                                            <label for="payment-3">PayPal<span class="image"><img
-                                                                        src="/images/paypal.png"
-                                                                        alt=""></span></label>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="text-end"><button type="submit" class="btn-solid btn">Place Order</button></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- section end -->
+	<!-- footer start -->
+	<%- include ('../partials/user-footer') %>
+	<!-- footer end -->
 
-
-    <!-- footer start -->
-    <%- include ('../partials/user-footer') %> 
-    <!-- footer end -->
-
-
-   
-
-
-    <!-- tap to top start -->
-    <div class="tap-top">
-        <div><i class="fa fa-angle-double-up"></i></div>
-    </div>
-    <!-- tap to top end -->
-
-
-   
+	<!-- tap to top start -->
+	<div class="tap-top">
+		<div><i class="fa fa-angle-double-up"></i></div>
+	</div>
+	<!-- tap to top end -->
 </div>
+<script>
+	$("#checkout-form").submit(e => {
+		e.preventDefault();
+		$.ajax({
+			url: "/placeOrder",
+			method: "post",
+			data: $("#checkout-form").serialize(),
+			success: response => {
+				if (response) {
+					alert(response);
+				}
+			},
+		});
+	});
+</script>
