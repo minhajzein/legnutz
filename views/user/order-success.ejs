@@ -114,7 +114,7 @@
 		<div class="container">
 			<div class="row">
 				<% orders.forEach(obj => { %>
-				<div class="mt-3 col-lg-6">
+				<div class="mt-5 col-lg-6">
 					<div class="product-order">
 						<div class="row product-order-detail">
 							<div class="col-3">
@@ -152,6 +152,7 @@
 						<div class="final-total">
 							<h3>total <span class="text-success">$<%= obj.totalAmount %></span></h3>
 						</div>
+						<hr />
 					</div>
 				</div>
 				<% }) %>
@@ -161,17 +162,14 @@
 							<div class="col-sm-6">
 								<h2>summery</h2>
 								<ul class="order-detail">
-									<li>
-										<h3>order IDs:</h3>
-										<ul>
-											<% orders.forEach(obj => { %>
-											<li><%= obj._id %></li>
-											<% }) %>
-										</ul>
-									</li>
+									<% orders.forEach(obj => { %>
+									<li>order ID: <%= obj._id %></li>
+									<% }) %>
 									<li>Order Date: <%= date %></li>
-									<li><h3 class="text-success">Order Total: $<%= total %></h3></li>
 								</ul>
+								<hr />
+								<h3 class="text-success">Order Total: $<%= total %></h3>
+								<hr />
 							</div>
 							<div class="col-sm-6">
 								<h3>shipping address</h3>
@@ -183,14 +181,18 @@
 									<li>Contact No.<%= address.mobileNumber %></li>
 									<li>Email:<%= address.Email %></li>
 								</ul>
+								<hr />
+								<a href="/"><h4>Continue Shopping</h4></a>
 							</div>
 							<div class="col-sm-12 payment-mode">
 								<h3>payment method</h3>
 								<p><%= paymentMethod %></p>
+								<hr />
 							</div>
 							<div class="col-md-12">
 								<div class="delivery-sec">
 									<h3>expected date of delivery: <span><%= expectedDate %> </span></h3>
+									<hr />
 									<a href="/orderList">track order</a>
 								</div>
 							</div>

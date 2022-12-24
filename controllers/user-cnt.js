@@ -40,7 +40,7 @@ module.exports = {
       const products = await Product.find()
       if (req.session.loggedIn) {
         const user = await User.findById(req.session.user._id)
-        const cart = Cart.findOne({ user: user._id })
+        const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
         let cartCount;
         if (cart) {
           cartCount = cart.products.length
