@@ -10,8 +10,12 @@ const orderSchema = new mongoose.Schema({
                 type: Object,
                 require: true
         },
+        quantity: {
+                type: Number,
+                require: true
+        },
         shippingAddress: {
-                type: String,
+                type: Object,
                 require: true
         },
         orderStatus: {
@@ -28,8 +32,12 @@ const orderSchema = new mongoose.Schema({
         totalAmount: {
                 type: Number,
                 require: true
+        },
+        orderedDate: {
+                type: String,
+                require: true
         }
-}, { timestamps: true })
+})
 
 const Order = mongoose.model('Order', orderSchema)
 module.exports = Order

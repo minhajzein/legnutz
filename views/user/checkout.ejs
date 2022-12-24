@@ -32,43 +32,43 @@
 				<div class="checkout-form">
 					<form id="checkout-form">
 						<div class="row">
+							<% if (addresses) { %> <% var x = 1 %> <% addresses.forEach(obj => { %>
 							<div class="col-lg-6 col-sm-12 col-xs-12">
 								<div class="checkout-title">
-									<h3>Billing Details</h3>
+									<input
+										type="radio"
+										id="<%= obj._id %>"
+										name="ORIGIN"
+										value="<%= obj._id %>"
+										style="cursor: pointer"
+										checked
+									/>
+									<label for="<%= obj._id %>"><h3>Address- <%= x %></h3></label>
 								</div>
 								<div class="row check-out">
 									<div class="form-group col-md-6 col-sm-6 col-xs-12">
-										<div class="field-label">First Name</div>
-									</div>
-									<div class="form-group col-md-6 col-sm-6 col-xs-12">
-										<div class="field-label">Last Name</div>
-									</div>
-									<div class="form-group col-md-6 col-sm-6 col-xs-12">
-										<div class="field-label">Phone</div>
-									</div>
-									<div class="form-group col-md-6 col-sm-6 col-xs-12">
-										<div class="field-label">Email Address</div>
-									</div>
-									<div class="form-group col-md-12 col-sm-12 col-xs-12">
-										<div class="field-label">Country</div>
-									</div>
-									<div class="form-group col-md-12 col-sm-12 col-xs-12">
-										<div class="field-label">Address</div>
-									</div>
-									<div class="form-group col-md-12 col-sm-12 col-xs-12">
-										<div class="field-label">Town/City</div>
-									</div>
-									<div class="form-group col-md-12 col-sm-6 col-xs-12">
-										<div class="field-label">State / District</div>
-									</div>
-									<div class="form-group col-md-12 col-sm-6 col-xs-12">
-										<div class="field-label">Postal Code</div>
+										<p><%= obj.firstName %> <%= obj.lastName %></p>
+										<p><%= obj.address %></p>
+										<p><%= obj.townOrCity %></p>
+										<p><%= obj.stateOrDistrict %></p>
+										<p><%= obj.country %></p>
+										<p><%= obj.postalCode %></p>
+										<p><%= obj.mobileNumber %></p>
+										<p><%= obj.Email %></p>
 									</div>
 								</div>
 							</div>
+							<% x++; }) %>
 							<div class="col-lg-6 col-sm-12 col-xs-12">
 								<div class="checkout-title">
-									<h3>Billing Details</h3>
+									<input
+										type="radio"
+										id="new-create"
+										style="cursor: pointer"
+										name="ORIGIN"
+										value="createOne"
+									/>
+									<label for="new-create"><h3>Create One</h3></label>
 								</div>
 								<div class="row check-out">
 									<div class="form-group col-md-6 col-sm-6 col-xs-12">
@@ -154,6 +154,107 @@
 									</div>
 								</div>
 							</div>
+							<% } else { %>
+							<div class="col-lg-6 col-sm-12 col-xs-12">
+								<div class="checkout-title">
+									<input
+										type="radio"
+										id="new-create"
+										style="cursor: pointer"
+										name="ORIGIN"
+										value="createOne"
+										checked
+									/>
+									<label for="new-create"
+										><h4>You don't have address, Create One</h4></label
+									>
+								</div>
+								<div class="row check-out">
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">First Name</div>
+										<input
+											type="text"
+											name="firstName"
+											value=""
+											placeholder="Enter first name"
+										/>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Last Name</div>
+										<input
+											type="text"
+											name="lastName"
+											value=""
+											placeholder="Enter last name"
+										/>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Phone</div>
+										<input
+											type="text"
+											name="mobileNumber"
+											value=""
+											placeholder="Enter your mobile number"
+										/>
+									</div>
+									<div class="form-group col-md-6 col-sm-6 col-xs-12">
+										<div class="field-label">Email Address</div>
+										<input
+											type="text"
+											name="Email"
+											value=""
+											placeholder="Enter Email address"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Country</div>
+										<select name="country">
+											<option>India</option>
+											<option>South Africa</option>
+											<option>United State</option>
+											<option>Australia</option>
+										</select>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Address</div>
+										<input
+											type="text"
+											name="address"
+											value=""
+											placeholder="Street address"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-12 col-xs-12">
+										<div class="field-label">Town/City</div>
+										<input
+											type="text"
+											name="townOrCity"
+											value=""
+											placeholder="Enter your Twon or City name"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-6 col-xs-12">
+										<div class="field-label">State / District</div>
+										<input
+											type="text"
+											name="stateOrDistrict"
+											value=""
+											placeholder="Enter State or District name"
+										/>
+									</div>
+									<div class="form-group col-md-12 col-sm-6 col-xs-12">
+										<div class="field-label">Postal Code</div>
+										<input
+											type="text"
+											name="postalCode"
+											value=""
+											placeholder="Enter a valid pin"
+										/>
+									</div>
+								</div>
+							</div>
+							<% }%>
+
 							<div class="col-lg-6 col-sm-12 col-xs-12">
 								<div class="checkout-details">
 									<div class="order-box">
@@ -273,8 +374,10 @@
 			method: "post",
 			data: $("#checkout-form").serialize(),
 			success: response => {
-				if (response) {
-					alert(response);
+				if (response.status) {
+					location.href = "/successPage";
+				} else {
+					location.href = "/paymentPage";
 				}
 			},
 		});

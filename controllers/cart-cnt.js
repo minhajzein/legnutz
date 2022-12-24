@@ -4,6 +4,9 @@ const Product = require("../models/productSchema")
 const User = require("../models/userSchema")
 const Address = require('../models/addressSchema')
 const Order = require('../models/orderSchema')
+const address = require("../models/addressSchema")
+
+let lastAdded = 0
 
 module.exports = {
   goToCart: async (req, res) => {
@@ -313,7 +316,8 @@ module.exports = {
       } else {
         totalAmount = 0
       }
-      res.render('user/checkout', { user, cartCount, cart, totalAmount, cartItems })
+      const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      res.render('user/checkout', { user, cartCount, cart, totalAmount, cartItems, addresses })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
@@ -321,9 +325,8 @@ module.exports = {
   },
   placeOrder: async (req, res) => {
     try {
-      console.log(req.body);
       const user = User.findById(req.session.user._id)
-      let orderedItems = await Cart.aggregate([
+      let cartItems = await Cart.aggregate([
         {
           $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
         },
@@ -352,7 +355,6 @@ module.exports = {
           }
         }
       ])
-
       let totalAmount = await Cart.aggregate([
         {
           $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
@@ -397,31 +399,70 @@ module.exports = {
       } else {
         totalAmount = 0
       }
-      let orderStatus = req.body.paymentMethod === 'COD' ? 'placed' : 'pending'
-      // await Address.create({
-      //   user: mongoose.Types.ObjectId(req.session.user._id),
-      //   firstName: req.body.firstName,
-      //   lastName: req.body.lastName,
-      //   mobileNumber: req.body.mobileNumber,
-      //   Email: req.body.Email,
-      //   country: req.body.country,
-      //   address: req.body.address,
-      //   townOrCity: req.body.townOrCity,
-      //   stateOrDistrict: req.body.stateOrDistrict,
-      //   postalCode: req.body.postalCode
-      // })
-      // orderedItems.forEach(async (obj) => {
-      //   await Order.create({
-      //     user: mongoose.Types.ObjectId(req.session.user._id),
-      //     productDetails: obj.product,
-      //     shippingAddress: iuiui,
-      //     orderStatus: orderStatus,
-      //     paymentMethod: req.body.paymentMethod,
-      //     shippingMode: req.body.shippingMode,
-      //     totalAmount:obj.quantity*obj.product.productPrice
-      //   })
-      // })
-      // res.render('user/orderSuccess', { user, cartCount: 0, orderedItems, totalAmount })
+      lastAdded = cartItems.length
+      let address;
+      if (req.body.ORIGIN == 'createOne') {
+        address = {
+          user: mongoose.Types.ObjectId(req.session.user._id),
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          mobileNumber: req.body.mobileNumber,
+          Email: req.body.Email,
+          country: req.body.country,
+          address: req.body.address,
+          townOrCity: req.body.townOrCity,
+          stateOrDistrict: req.body.stateOrDistrict,
+          postalCode: req.body.postalCode
+        }
+        await Address.create(address)
+      } else {
+        address = await Address.findById(req.body.ORIGIN)
+      }
+      let orderStatus = req.body.paymentMethod === 'COD' ? 'placed' : 'payment pending'
+      if (req.body.paymentMethod == 'COD') {
+        cartItems.forEach(async (obj) => {
+          await Order.create({
+            user: mongoose.Types.ObjectId(req.session.user._id),
+            productDetails: obj.product,
+            quantity: obj.quantity,
+            shippingAddress: address,
+            orderStatus: orderStatus,
+            paymentMethod: req.body.paymentMethod,
+            shippingMode: req.body.shippingMode,
+            totalAmount: obj.quantity * obj.product.productPrice,
+            orderedDate: new Date()
+          })
+        })
+        await Cart.deleteOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+        res.json({ status: true })
+      } else {
+
+      }
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  successPage: async (req, res) => {
+    try {
+      const user = await User.findById(req.session.user._id)
+      const orders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
+      let sum = 0;
+      let total = orders.map((obj) => {
+        sum = sum + obj.totalAmount
+        return sum
+      })
+      total = total[total.length - 1]
+      const address = orders[0].shippingAddress
+      let paymentMethod;
+      if (orders[0].paymentMethod == 'COD') {
+        paymentMethod = 'Cash on delivery'
+      } else {
+        paymentMethod = 'Prepaid'
+      }
+      const date = new Date()
+      let expectedDate = date.setDate(date.getDate() + 10)
+      res.render('user/order-success', { user, cartCount: 0, orders, date, total, address, paymentMethod, expectedDate })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
