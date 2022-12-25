@@ -9,7 +9,8 @@
 						<ul>
 							<li>Welcome to Our Automotive</li>
 							<li>
-								<i class="fa fa-phone" aria-hidden="true"></i>Call Us: +91 7356 986777
+								<i class="fa fa-phone" aria-hidden="true"></i>Call Us:
+								+91 7356 986777
 							</li>
 						</ul>
 					</div>
@@ -17,27 +18,29 @@
 				<div class="col-lg-6 text-end">
 					<ul class="header-dropdown">
 						<% if (user) { %>
-						<li class="mobile-wishlist">
-							<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
-						</li>
-						<li class="onhover-dropdown mobile-account">
-							<i class="fa fa-user" aria-hidden="true"></i>
-							<%= user.username %>
-							<ul class="onhover-show-div">
-								<li><a href="/profile">Profile</a></li>
-								<li><a href="/logout">Logout</a></li>
-							</ul>
-						</li>
-						<% } else { %>
-						<li class="onhover-dropdown mobile-account">
-							<i class="fa fa-user" aria-hidden="true"></i>
-							My Account
-							<ul class="onhover-show-div">
-								<li><a href="/login">Login</a></li>
-								<li><a href="/register">register</a></li>
-							</ul>
-						</li>
-						<% } %>
+							<li class="mobile-wishlist">
+								<a href="#"><i class="fa fa-heart"
+										aria-hidden="true"></i></a>
+							</li>
+							<li class="onhover-dropdown mobile-account">
+								<i class="fa fa-user" aria-hidden="true"></i>
+								<%= user.username %>
+									<ul class="onhover-show-div">
+										<li><a href="/profile">Profile</a></li>
+										<li><a href="/logout">Logout</a></li>
+									</ul>
+							</li>
+							<% } else { %>
+								<li class="onhover-dropdown mobile-account">
+									<i class="fa fa-user" aria-hidden="true"></i>
+									My Account
+									<ul class="onhover-show-div">
+										<li><a href="/login">Login</a></li>
+										<li><a href="/register">register</a>
+										</li>
+									</ul>
+								</li>
+								<% } %>
 					</ul>
 				</div>
 			</div>
@@ -51,23 +54,23 @@
 						<div class="navbar">
 							<a href="javascript:void(0)" onclick="openNav()">
 								<div class="bar-style">
-									<i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
+									<i class="fa fa-bars sidebar-bar"
+										aria-hidden="true"></i>
 								</div>
 							</a>
 							<div id="mySidenav" class="sidenav">
-								<a
-									href="javascript:void(0)"
-									class="sidebar-overlay"
-									onclick="closeNav()"
-								></a>
+								<a href="javascript:void(0)" class="sidebar-overlay"
+									onclick="closeNav()"></a>
 								<nav>
 									<div onclick="closeNav()">
 										<div class="sidebar-back text-start">
-											<i class="fa fa-angle-left pe-2" aria-hidden="true"></i>
+											<i class="fa fa-angle-left pe-2"
+												aria-hidden="true"></i>
 											Back
 										</div>
 									</div>
-									<ul id="sub-menu" class="sm pixelstrap sm-vertical">
+									<ul id="sub-menu"
+										class="sm pixelstrap sm-vertical">
 										<li>
 											<a href="#">clothing</a>
 										</li>
@@ -83,7 +86,8 @@
 										</li>
 										<li><a href="#">house of design</a></li>
 										<li>
-											<a href="#">beauty & personal care</a>
+											<a href="#">beauty & personal
+												care</a>
 										</li>
 										<li><a href="#">home & decor</a></li>
 										<li><a href="#">kitchen</a></li>
@@ -92,9 +96,8 @@
 							</div>
 						</div>
 						<div class="brand-logo">
-							<a href="/"
-								><img src="/images/icon/logo.png" class="img-fluid lazyload" alt=""
-							/></a>
+							<a href="/"><img src="/images/icon/logo.png"
+									class="img-fluid lazyload" alt="" /></a>
 						</div>
 					</div>
 					<div class="menu-right pull-right">
@@ -106,7 +109,8 @@
 								<ul id="main-menu" class="sm pixelstrap sm-horizontal">
 									<li>
 										<div class="mobile-back text-end">
-											Back<i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+											Back<i class="fa fa-angle-right ps-2"
+												aria-hidden="true"></i>
 										</div>
 									</li>
 									<li><a href="/">Home</a></li>
@@ -121,34 +125,39 @@
 								<ul>
 									<li class="onhover-div mobile-search">
 										<div>
-											<img
-												src="/images/icon/search.png"
+											<img src="/images/icon/search.png"
 												onclick="openSearch()"
 												class="img-fluid lazyload"
-												alt=""
-											/>
-											<i class="ti-search" onclick="openSearch()"></i>
+												alt="" />
+											<i class="ti-search"
+												onclick="openSearch()"></i>
 										</div>
-										<div id="search-overlay" class="search-overlay">
+										<div id="search-overlay"
+											class="search-overlay">
 											<div>
-												<span class="closebtn" onclick="closeSearch()" title="Close Overlay"
-													>×</span
-												>
-												<div class="overlay-content">
-													<div class="container">
-														<div class="row">
-															<div class="col-xl-12">
+												<span class="closebtn"
+													onclick="closeSearch()"
+													title="Close Overlay">×</span>
+												<div
+													class="overlay-content">
+													<div
+														class="container">
+														<div
+															class="row">
+															<div
+																class="col-xl-12">
 																<form>
-																	<div class="form-group">
-																		<input
-																			type="text"
+																	<div
+																		class="form-group">
+																		<input type="text"
 																			class="form-control"
 																			id="exampleInputPassword1"
-																			placeholder="Search a Product"
-																		/>
+																			placeholder="Search a Product" />
 																	</div>
-																	<button type="submit" class="btn btn-primary">
-																		<i class="fa fa-search"></i>
+																	<button type="submit"
+																		class="btn btn-primary">
+																		<i
+																			class="fa fa-search"></i>
 																	</button>
 																</form>
 															</div>
@@ -160,35 +169,39 @@
 									</li>
 									<li class="onhover-div mobile-setting">
 										<div>
-											<img
-												src="/images/icon/setting.png"
+											<img src="/images/icon/setting.png"
 												class="img-fluid lazyload"
-												alt=""
-											/>
+												alt="" />
 											<i class="ti-settings"></i>
 										</div>
 										<div class="show-div setting">
 											<ul>
-												<li><a href="/profile">Edit profile</a></li>
-												<li><a href="/profile">Edit address </a></li>
+												<li><a href="/profile">Edit
+														profile</a>
+												</li>
+												<li><a href="/profile">Edit
+														address
+													</a></li>
 											</ul>
 										</div>
 									</li>
 									<% if (user) { %>
-									<li class="mobile-cart">
-										<a href="/cartPage">
-											<div>
-												<img
-													src="/images/icon/cart.png"
-													class="img-fluid lazyload"
-													alt=""
-												/>
-												<i class="ti-shopping-cart"></i>
-											</div>
-											<span class="cart_qty_cls" id="cartCount"><%= cartCount %> </span>
-										</a>
-									</li>
-									<% } %>
+										<li class="mobile-cart">
+											<a href="/cartPage">
+												<div>
+													<img src="/images/icon/cart.png"
+														class="img-fluid lazyload"
+														alt="" />
+													<i
+														class="ti-shopping-cart"></i>
+												</div>
+												<span class="cart_qty_cls"
+													id="cartCount">
+													<%= cartCount %>
+												</span>
+											</a>
+										</li>
+										<% } %>
 								</ul>
 							</div>
 						</div>

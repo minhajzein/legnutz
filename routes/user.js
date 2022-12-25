@@ -20,6 +20,7 @@ router.post('/removeItem', userCheck.sessionUser, cart.removeItem)
 
 router.get('/checkOut', userCheck.sessionUser, cart.checkOut)
 router.post('/placeOrder', userCheck.sessionUser, cart.placeOrder)
+router.post('/verifyPayment', userCheck.sessionUser, cart.verifyPayment)
 router.get('/successPage', userCheck.sessionUser, cart.successPage)
 
 router.route('/login')

@@ -4,7 +4,12 @@ const Product = require("../models/productSchema")
 const User = require("../models/userSchema")
 const Address = require('../models/addressSchema')
 const Order = require('../models/orderSchema')
-const address = require("../models/addressSchema")
+const Razorpay = require('razorpay')
+
+const instance = new Razorpay({
+  key_id: 'rzp_test_jk6BVykF0sfMd7',
+  key_secret: 'No8F91siQUTe3v8aIuB6MLc8'
+})
 
 let lastAdded = 0
 
@@ -325,7 +330,7 @@ module.exports = {
   },
   placeOrder: async (req, res) => {
     try {
-      const user = User.findById(req.session.user._id)
+      const user = await User.findById(req.session.user._id)
       let cartItems = await Cart.aggregate([
         {
           $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
@@ -434,13 +439,63 @@ module.exports = {
           })
         })
         await Cart.deleteOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
-        res.json({ status: true })
+        res.json({ codsuccess: true })
       } else {
-
+        cartItems.forEach(async (obj) => {
+          await Order.create({
+            user: mongoose.Types.ObjectId(req.session.user._id),
+            productDetails: obj.product,
+            quantity: obj.quantity,
+            shippingAddress: address,
+            orderStatus: orderStatus,
+            paymentMethod: req.body.paymentMethod,
+            shippingMode: req.body.shippingMode,
+            totalAmount: obj.quantity * obj.product.productPrice,
+            orderedDate: new Date()
+          })
+        })
+        await Cart.deleteOne({ user: req.session.user._id })
+        const justOrders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
+        const orderId = justOrders[0]._id
+        const options = {
+          amount: totalAmount * 100,
+          currency: 'INR',
+          receipt: '' + orderId,
+        }
+        await instance.orders.create(options, (err, order) => {
+          if (err) {
+            console.log(err);
+          } else {
+            res.json({ order: order })
+          }
+        })
       }
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
+    }
+  },
+  verifyPayment: async (req, res) => {
+    try {
+      console.log(req.body);
+      const crypto = require('crypto')
+      let hmac = crypto.createHmac('sha256', 'No8F91siQUTe3v8aIuB6MLc8')
+      hmac.update(req.body.payment.razorpay_order_id + '|' + req.body.payment.razorpay_payment_id)
+      hmac = hmac.digest('hex')
+      if (hmac == req.body.payment.razorpay_signature) {
+        const orders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
+        orders.forEach(async (obj) => {
+          await Order.updateOne({ _id: mongoose.Types.ObjectId(obj._id) },
+            {
+              $set: {
+                orderStatus: 'placed'
+              }
+            })
+        })
+        res.json({ status: true })
+      }
+    } catch (err) {
+      console.log(err);
     }
   },
   successPage: async (req, res) => {
