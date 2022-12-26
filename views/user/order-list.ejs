@@ -1,172 +1,197 @@
 <div class="color-theme-1">
 	<!-- header start -->
 	<%- include ('../partials/user-header') %>
-	<!-- header end -->
+		<!-- header end -->
 
-	<!-- breadcrumb start -->
-	<div class="breadcrumb-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="page-title">
-						<h2>orders</h2>
+		<!-- breadcrumb start -->
+		<div class="breadcrumb-section">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="page-title">
+							<h2>orders</h2>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-6">
-					<nav aria-label="breadcrumb" class="theme-breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="/">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">orders</li>
-						</ol>
-					</nav>
+					<div class="col-sm-6">
+						<nav aria-label="breadcrumb" class="theme-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">orders</li>
+							</ol>
+						</nav>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- breadcrumb End -->
+		<!-- breadcrumb End -->
 
-	<!-- tracking page start -->
-	<section class="tracking-page section-b-space">
-		<div class="container">
-			<div class="row">
-				<% orders.forEach(obj => { %>
-				<div class="col-sm-12">
-					<h3>status for order no: 54151548</h3>
-					<div class="row border-part">
-						<div class="col-xl-2 col-md-3 col-sm-4">
-							<div class="product-detail">
-								<img
-									src="/images/fashion/pro/1.jpg"
-									class="img-fluid blur-up lazyload"
-									alt=""
-								/>
+		<!-- tracking page start -->
+		<section class="tracking-page section-b-space">
+			<div class="container">
+				<div class="row">
+					<% orders.forEach(obj=> { %>
+						<div class="col-sm-12 mt-5">
+							<h3 class="text-success">status for order no: <%= obj._id %>
+							</h3>
+							<div class="row border-part">
+								<div class="col-xl-2 col-md-3 col-sm-4">
+									<div class="product-detail">
+										<img src="/images/<%= obj.productDetails.productImg[0] %>"
+											class="img-fluid blur-up lazyload" alt="" />
+									</div>
+								</div>
+								<div class="col-xl-4 col-lg-5 col-sm-8">
+									<div class="tracking-detail">
+										<ul>
+											<li>
+												<div class="left">
+													<span>Order name</span>
+												</div>
+												<div class="right">
+													<span>
+														<%= obj.productDetails.productName %>
+													</span>
+												</div>
+											</li>
+											<li>
+												<div class="left">
+													<span>quantity</span>
+												</div>
+												<div class="right">
+													<span>
+														<%= obj.quantity %>
+													</span>
+												</div>
+											</li>
+											<li>
+												<div class="left">
+													<span>order date</span>
+												</div>
+												<div class="right">
+													<span>
+														<%= obj.orderedDate %>
+													</span>
+												</div>
+											</li>
+											<li>
+												<div class="left">
+													<span>order status</span>
+												</div>
+												<div class="right">
+													<span>
+														<%= obj.orderStatus %>
+													</span>
+												</div>
+											</li>
+											<li>
+												<div class="left">
+													<span>shipping address</span>
+												</div>
+												<div class="right">
+													<span>
+														<%= obj.shippingAddress.firstName %>
+															<%= obj.shippingAddress.lastName %> <br />
+																<%= obj.shippingAddress.address %> <br />
+																	<%=obj.shippingAddress.townOrCity %>,
+																		<%= obj.shippingAddress.stateOrDistrict %>,
+																			<%= obj.shippingAddress.postalCode %>
+													</span>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-6 col-sm-12">
+									<div class="order-table table-responsive-sm">
+										<table class="table mb-0 table-striped table-borderless">
+											<thead class="">
+												<tr>
+													<th scope="col">Date</th>
+													<th scope="col">Time</th>
+													<th scope="col">Description</th>
+													<th scope="col">Location</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>20 Nov 2020</td>
+													<td>12.00 AM</td>
+													<td>shipped</td>
+													<td>california</td>
+												</tr>
+												<tr>
+													<td>20 Nov 2020</td>
+													<td>12.00 AM</td>
+													<td>shipping info received</td>
+													<td>california</td>
+												</tr>
+												<tr>
+													<td>20 Nov 2020</td>
+													<td>12.00 AM</td>
+													<td>origin scan</td>
+													<td>california</td>
+												</tr>
+												<tr>
+													<td>20 Nov 2020</td>
+													<td>12.00 AM</td>
+													<td>shipping info received</td>
+													<td>california</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="wrapper">
+								<% if ( obj.orderStatus=='payment pending' ) { %>
+									<div class="arrow-steps clearfix">
+										<div class="step current"><span>payment pending</span></div>
+										<div class="step"><span> order not placed</span></div>
+										<div class="step"><span>preparing to ship</span></div>
+										<div class="step"><span> shipped</span></div>
+										<div class="step"><span>delivered</span></div>
+									</div>
+									<% } else if (obj.orderStatus=='placed' ) { %>
+										<div class="arrow-steps clearfix">
+											<div class="step done"><span> order placed</span></div>
+											<div class="step current"><span>preparing to ship</span></div>
+											<div class="step"><span> shipped</span></div>
+											<div class="step"><span>delivered</span></div>
+										</div>
+										<% } else if (obj.orderStatus=='shipped' ) { %>
+											<div class="arrow-steps clearfix">
+												<div class="step done"><span> order placed</span></div>
+												<div class="step done"><span>preparing to ship</span></div>
+												<div class="step done"><span> shipped</span></div>
+												<div class="step current"><span>near your place</span></div>
+												<div class="step"><span>delivered</span></div>
+											</div>
+											<% } else if (obj.orderStatus=='delivered' ) { %>
+												<div class="arrow-steps clearfix">
+													<div class="step done"><span> order placed</span></div>
+													<div class="step done"><span>preparing to ship</span></div>
+													<div class="step done"><span> shipped</span></div>
+													<div class="step done"><span>delivered</span></div>
+												</div>
+												<% } %>
+
 							</div>
 						</div>
-						<div class="col-xl-4 col-lg-5 col-sm-8">
-							<div class="tracking-detail">
-								<ul>
-									<li>
-										<div class="left">
-											<span>Order name</span>
-										</div>
-										<div class="right">
-											<span>Slim Fit Dress</span>
-										</div>
-									</li>
-									<li>
-										<div class="left">
-											<span>customer number</span>
-										</div>
-										<div class="right">
-											<span>54151548</span>
-										</div>
-									</li>
-									<li>
-										<div class="left">
-											<span>order date</span>
-										</div>
-										<div class="right">
-											<span>20 Nov 2020</span>
-										</div>
-									</li>
-									<li>
-										<div class="left">
-											<span>Ship Date</span>
-										</div>
-										<div class="right">
-											<span>20 Nov 2020</span>
-										</div>
-									</li>
-									<li>
-										<div class="left">
-											<span>shipping address</span>
-										</div>
-										<div class="right">
-											<span>2253 Short Street <br />Austin, TX<br />Texas, 78701</span>
-										</div>
-									</li>
-									<li>
-										<div class="left">
-											<span>carrier</span>
-										</div>
-										<div class="right">
-											<span>FedEx</span>
-										</div>
-									</li>
-									<li>
-										<div class="left">
-											<span>carrier tracking number</span>
-										</div>
-										<div class="right">
-											<span>656974541515484</span>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="wrapper">
-						<div class="arrow-steps clearfix">
-							<div class="step done"><span> order placed</span></div>
-							<div class="step current"><span>preparing to ship</span></div>
-							<div class="step"><span> shipped</span></div>
-							<div class="step"><span>delivered</span></div>
-						</div>
-					</div>
-					<div class="order-table table-responsive-sm">
-						<table class="table mb-0 table-striped table-borderless">
-							<thead class="">
-								<tr>
-									<th scope="col">Date</th>
-									<th scope="col">Time</th>
-									<th scope="col">Description</th>
-									<th scope="col">Location</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>20 Nov 2020</td>
-									<td>12.00 AM</td>
-									<td>shipped</td>
-									<td>california</td>
-								</tr>
-								<tr>
-									<td>20 Nov 2020</td>
-									<td>12.00 AM</td>
-									<td>shipping info received</td>
-									<td>california</td>
-								</tr>
-								<tr>
-									<td>20 Nov 2020</td>
-									<td>12.00 AM</td>
-									<td>origin scan</td>
-									<td>california</td>
-								</tr>
-								<tr>
-									<td>20 Nov 2020</td>
-									<td>12.00 AM</td>
-									<td>shipping info received</td>
-									<td>california</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+						<% }) %>
 				</div>
-				<% }) %>
 			</div>
-		</div>
-	</section>
-	<!-- tracking page end -->
+		</section>
+		<!-- tracking page end -->
 
-	<!-- footer start -->
-	<%- include ('../partials/user-footer') %>
-	<!-- footer end -->
+		<!-- footer start -->
+		<%- include ('../partials/user-footer') %>
+			<!-- footer end -->
 
-	<!-- tap to top -->
-	<div class="tap-top">
-		<div>
-			<i class="fa fa-angle-double-up"></i>
-		</div>
-	</div>
-	<!-- tap to top End -->
+			<!-- tap to top -->
+			<div class="tap-top">
+				<div>
+					<i class="fa fa-angle-double-up"></i>
+				</div>
+			</div>
+			<!-- tap to top End -->
 </div>

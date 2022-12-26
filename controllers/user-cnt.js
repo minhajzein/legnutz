@@ -6,6 +6,7 @@ const Cart = require("../models/cartSchema")
 const bcrypt = require("bcrypt")
 const checkOtp = require("../utils/otp-auth")
 const Address = require('../models/addressSchema')
+const Order = require("../models/orderSchema")
 let userSignup
 
 module.exports = {
@@ -25,8 +26,52 @@ module.exports = {
         } else {
           cartCount = 0
         }
-        req.session.cartCount = cartCount
-        res.render("user/home", { user, products, cartCount })
+        let totalAmount = await Cart.aggregate([
+          {
+            $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+          },
+          {
+            $unwind: '$products',
+          },
+          {
+            $project: {
+              item: '$products.item',
+              quantity: '$products.quantity'
+            }
+          },
+          {
+            $lookup: {
+              from: 'products',
+              localField: 'item',
+              foreignField: '_id',
+              as: 'product'
+            }
+          },
+          {
+            $project: {
+              item: 1,
+              quantity: 1,
+              product: { $arrayElemAt: ["$product", 0] }
+            }
+          },
+          {
+            $group: {
+              _id: null,
+              total: {
+                $sum: {
+                  $multiply: ['$quantity', '$product.productPrice']
+                }
+              }
+            }
+          }
+        ])
+        if (totalAmount[0]) {
+          totalAmount = totalAmount[0].total;
+        } else {
+          totalAmount = 0
+        }
+        const orders = await Order.find()
+        res.render("user/home", { user, products, cartCount, totalAmount, orders })
       } else {
         res.render("user/home", { user: false, products })
       }
@@ -39,7 +84,7 @@ module.exports = {
     try {
       const products = await Product.find()
       if (req.session.loggedIn) {
-        const user = await User.findById(req.session.user._id)
+        const user = req.session.user
         const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
         let cartCount;
         if (cart) {
@@ -47,13 +92,119 @@ module.exports = {
         } else {
           cartCount = 0
         }
-        res.render("user/shop", { products, user, cartCount, cart })
+        let totalAmount = await Cart.aggregate([
+          {
+            $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+          },
+          {
+            $unwind: '$products',
+          },
+          {
+            $project: {
+              item: '$products.item',
+              quantity: '$products.quantity'
+            }
+          },
+          {
+            $lookup: {
+              from: 'products',
+              localField: 'item',
+              foreignField: '_id',
+              as: 'product'
+            }
+          },
+          {
+            $project: {
+              item: 1,
+              quantity: 1,
+              product: { $arrayElemAt: ["$product", 0] }
+            }
+          },
+          {
+            $group: {
+              _id: null,
+              total: {
+                $sum: {
+                  $multiply: ['$quantity', '$product.productPrice']
+                }
+              }
+            }
+          }
+        ])
+        if (totalAmount[0]) {
+          totalAmount = totalAmount[0].total;
+        } else {
+          totalAmount = 0
+        }
+        const orders = await Order.find()
+        res.render("user/shop", { products, user, cartCount, cart, totalAmount, orders })
       } else {
         res.render("user/shop", { user: false, products })
       }
     } catch (err) {
       console.log(err);
       res.redirect("/not-found")
+    }
+  },
+  orderList: async (req, res) => {
+    try {
+      const user = User.findById(req.session.user._id)
+      const orders = await Order.find()
+      const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      let cartCount;
+      if (cart) {
+        cartCount = cart.products.length
+      } else {
+        cartCount = 0
+      }
+      let totalAmount = await Cart.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item',
+            quantity: '$products.quantity'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            item: 1,
+            quantity: 1,
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: {
+                $multiply: ['$quantity', '$product.productPrice']
+              }
+            }
+          }
+        }
+      ])
+      if (totalAmount[0]) {
+        totalAmount = totalAmount[0].total;
+      } else {
+        totalAmount = 0
+      }
+      res.render('user/order-list', { user, totalAmount, orders, cartCount })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
     }
   },
   loginPage: (req, res) => {
@@ -69,14 +220,64 @@ module.exports = {
   },
   productDetails: async (req, res) => {
     try {
+      const orders = await Order.find()
       const id = req.query.id
       const product = await Product.findById({ _id: id })
       if (product) {
         const user = req.session.user
         const products = await Product.find()
-        const cartCount = req.session.cartCount
-        const cart = Cart.findOne({ user: mongoose.Types.ObjectId(user._id) })
-        res.render("user/view-product", { product, user, products, cartCount, cart })
+        const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+        let cartCount;
+        if (cart) {
+          cartCount = cart.products.length
+        } else {
+          cartCount = 0
+        }
+        let totalAmount = await Cart.aggregate([
+          {
+            $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+          },
+          {
+            $unwind: '$products',
+          },
+          {
+            $project: {
+              item: '$products.item',
+              quantity: '$products.quantity'
+            }
+          },
+          {
+            $lookup: {
+              from: 'products',
+              localField: 'item',
+              foreignField: '_id',
+              as: 'product'
+            }
+          },
+          {
+            $project: {
+              item: 1,
+              quantity: 1,
+              product: { $arrayElemAt: ["$product", 0] }
+            }
+          },
+          {
+            $group: {
+              _id: null,
+              total: {
+                $sum: {
+                  $multiply: ['$quantity', '$product.productPrice']
+                }
+              }
+            }
+          }
+        ])
+        if (totalAmount[0]) {
+          totalAmount = totalAmount[0].total;
+        } else {
+          totalAmount = 0
+        }
+        res.render("user/view-product", { product, user, products, cartCount, cart, orders, totalAmount })
       } else {
         res.redirect("/")
       }
@@ -178,9 +379,53 @@ module.exports = {
       } else {
         cartCount = 0
       }
+      let totalAmount = await Cart.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item',
+            quantity: '$products.quantity'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            item: 1,
+            quantity: 1,
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: {
+                $multiply: ['$quantity', '$product.productPrice']
+              }
+            }
+          }
+        }
+      ])
+      if (totalAmount[0]) {
+        totalAmount = totalAmount[0].total;
+      } else {
+        totalAmount = 0
+      }
       const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       console.log(typeof (addresses));
-      res.render('user/profile', { user, cartCount, cart, addresses })
+      res.render('user/profile', { user, cartCount, cart, addresses, totalAmount })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

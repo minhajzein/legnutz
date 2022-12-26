@@ -19,15 +19,17 @@
 					<ul class="header-dropdown">
 						<% if (user) { %>
 							<li class="mobile-wishlist">
-								<a href="#"><i class="fa fa-heart"
-										aria-hidden="true"></i></a>
+								<a href="#"><i class="fa fa-heart" aria-hidden="true"></i></a>
 							</li>
 							<li class="onhover-dropdown mobile-account">
 								<i class="fa fa-user" aria-hidden="true"></i>
 								<%= user.username %>
 									<ul class="onhover-show-div">
 										<li><a href="/profile">Profile</a></li>
-										<li><a href="/logout">Logout</a></li>
+										<% if (orders) { %>
+											<li><a href="/orderList">orders</a></li>
+											<% } %>
+												<li><a href="/logout">Logout</a></li>
 									</ul>
 							</li>
 							<% } else { %>
@@ -54,23 +56,19 @@
 						<div class="navbar">
 							<a href="javascript:void(0)" onclick="openNav()">
 								<div class="bar-style">
-									<i class="fa fa-bars sidebar-bar"
-										aria-hidden="true"></i>
+									<i class="fa fa-bars sidebar-bar" aria-hidden="true"></i>
 								</div>
 							</a>
 							<div id="mySidenav" class="sidenav">
-								<a href="javascript:void(0)" class="sidebar-overlay"
-									onclick="closeNav()"></a>
+								<a href="javascript:void(0)" class="sidebar-overlay" onclick="closeNav()"></a>
 								<nav>
 									<div onclick="closeNav()">
 										<div class="sidebar-back text-start">
-											<i class="fa fa-angle-left pe-2"
-												aria-hidden="true"></i>
+											<i class="fa fa-angle-left pe-2" aria-hidden="true"></i>
 											Back
 										</div>
 									</div>
-									<ul id="sub-menu"
-										class="sm pixelstrap sm-vertical">
+									<ul id="sub-menu" class="sm pixelstrap sm-vertical">
 										<li>
 											<a href="#">clothing</a>
 										</li>
@@ -96,8 +94,7 @@
 							</div>
 						</div>
 						<div class="brand-logo">
-							<a href="/"><img src="/images/icon/logo.png"
-									class="img-fluid lazyload" alt="" /></a>
+							<a href="/"><img src="/images/icon/logo.png" class="img-fluid lazyload" alt="" /></a>
 						</div>
 					</div>
 					<div class="menu-right pull-right">
@@ -109,8 +106,7 @@
 								<ul id="main-menu" class="sm pixelstrap sm-horizontal">
 									<li>
 										<div class="mobile-back text-end">
-											Back<i class="fa fa-angle-right ps-2"
-												aria-hidden="true"></i>
+											Back<i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
 										</div>
 									</li>
 									<li><a href="/">Home</a></li>
@@ -125,39 +121,26 @@
 								<ul>
 									<li class="onhover-div mobile-search">
 										<div>
-											<img src="/images/icon/search.png"
-												onclick="openSearch()"
-												class="img-fluid lazyload"
-												alt="" />
-											<i class="ti-search"
-												onclick="openSearch()"></i>
+											<img src="/images/icon/search.png" onclick="openSearch()"
+												class="img-fluid lazyload" alt="" />
+											<i class="ti-search" onclick="openSearch()"></i>
 										</div>
-										<div id="search-overlay"
-											class="search-overlay">
+										<div id="search-overlay" class="search-overlay">
 											<div>
-												<span class="closebtn"
-													onclick="closeSearch()"
+												<span class="closebtn" onclick="closeSearch()"
 													title="Close Overlay">×</span>
-												<div
-													class="overlay-content">
-													<div
-														class="container">
-														<div
-															class="row">
-															<div
-																class="col-xl-12">
+												<div class="overlay-content">
+													<div class="container">
+														<div class="row">
+															<div class="col-xl-12">
 																<form>
-																	<div
-																		class="form-group">
-																		<input type="text"
-																			class="form-control"
+																	<div class="form-group">
+																		<input type="text" class="form-control"
 																			id="exampleInputPassword1"
 																			placeholder="Search a Product" />
 																	</div>
-																	<button type="submit"
-																		class="btn btn-primary">
-																		<i
-																			class="fa fa-search"></i>
+																	<button type="submit" class="btn btn-primary">
+																		<i class="fa fa-search"></i>
 																	</button>
 																</form>
 															</div>
@@ -169,9 +152,7 @@
 									</li>
 									<li class="onhover-div mobile-setting">
 										<div>
-											<img src="/images/icon/setting.png"
-												class="img-fluid lazyload"
-												alt="" />
+											<img src="/images/icon/setting.png" class="img-fluid lazyload" alt="" />
 											<i class="ti-settings"></i>
 										</div>
 										<div class="show-div setting">
@@ -186,20 +167,72 @@
 										</div>
 									</li>
 									<% if (user) { %>
-										<li class="mobile-cart">
-											<a href="/cartPage">
-												<div>
-													<img src="/images/icon/cart.png"
-														class="img-fluid lazyload"
-														alt="" />
-													<i
-														class="ti-shopping-cart"></i>
-												</div>
-												<span class="cart_qty_cls"
-													id="cartCount">
-													<%= cartCount %>
-												</span>
-											</a>
+										<li class="onhover-div mobile-cart">
+											<div><img src="/images/icon/cart.png" class="img-fluid blur-up lazyload"
+													alt=""> <i class="ti-shopping-cart"></i>
+											</div>
+											<span id="cartCount" class="cart_qty_cls">
+												<%= cartCount %>
+											</span>
+											<ul class="show-div shopping-cart">
+												<!-- <li>
+													<div class="media">
+														<a href="#"><img class="me-3"
+																src="/images/fashion/product/1.jpg"
+																alt="Generic placeholder image"></a>
+														<div class="media-body">
+															<a href="#">
+																<h4>item name</h4>
+															</a>
+															<h4><span>1 x $
+																	299.00</span>
+															</h4>
+														</div>
+													</div>
+													<div class="close-circle">
+														<a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+													</div>
+												</li>
+												<li>
+													<div class="media">
+														<a href="#"><img class="me-3"
+																src="/images/fashion/product/2.jpg"
+																alt="Generic placeholder image"></a>
+														<div class="media-body">
+															<a href="#">
+																<h4>item name
+																</h4>
+															</a>
+															<h4><span>1 x $
+																	299.00</span>
+															</h4>
+														</div>
+													</div>
+													<div class="close-circle">
+														<a href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
+													</div>
+												</li> -->
+												<li>
+													<div class="total">
+														<h5>subtotal
+															:
+															<span>$<span id="totalAmount">
+																	<%= totalAmount %>
+																</span></span>
+
+														</h5>
+													</div>
+												</li>
+												<li>
+													<div class="buttons">
+														<a href="/cartPage" class="view-cart">view
+															cart</a>
+														<% if (cartCount!=0) { %>
+															<a href="/checkOut" class="checkout">checkout</a>
+															<% } %>
+													</div>
+												</li>
+											</ul>
 										</li>
 										<% } %>
 								</ul>

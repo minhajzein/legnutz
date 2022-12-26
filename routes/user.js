@@ -10,6 +10,8 @@ router.get('/', controller.home)
 
 router.get('/go-to-shop', controller.goToShop)
 
+router.get('/orderList', userCheck.sessionUser, controller.orderList)
+
 router.get('/productDetails', controller.productDetails)
 
 router.get('/cartPage', userCheck.sessionUser, cart.goToCart)

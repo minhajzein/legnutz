@@ -19,6 +19,7 @@ module.exports = {
     try {
       const user = await User.findById(req.session.user._id)
       const cart = await Cart.findOne({ user: req.session.user._id })
+      const orders = await Order.find()
       let cartItems;
       if (cart) {
         cartCount = cart.products.length
@@ -98,7 +99,7 @@ module.exports = {
       } else {
         totalAmount = 0
       }
-      res.render("user/cart", { user, cartCount, cart, cartItems, totalAmount })
+      res.render("user/cart", { user, cartCount, cart, cartItems, totalAmount, orders })
     } catch {
       res.redirect("/not-found")
     }
@@ -241,6 +242,7 @@ module.exports = {
     try {
       const user = await User.findById(req.session.user._id)
       const cart = await Cart.findOne({ user: req.session.user._id })
+      const orders = await Order.find()
       let cartCount;
       let cartItems;
       if (cart) {
@@ -322,7 +324,7 @@ module.exports = {
         totalAmount = 0
       }
       const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
-      res.render('user/checkout', { user, cartCount, cart, totalAmount, cartItems, addresses })
+      res.render('user/checkout', { user, cartCount, cart, totalAmount, cartItems, addresses, orders })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
@@ -501,23 +503,24 @@ module.exports = {
   successPage: async (req, res) => {
     try {
       const user = await User.findById(req.session.user._id)
-      const orders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
+      const orders = await Order.find()
+      const currentOrders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
       let sum = 0;
-      let total = orders.map((obj) => {
+      let total = currentOrders.map((obj) => {
         sum = sum + obj.totalAmount
         return sum
       })
       total = total[total.length - 1]
-      const address = orders[0].shippingAddress
+      const address = currentOrders[0].shippingAddress
       let paymentMethod;
-      if (orders[0].paymentMethod == 'COD') {
+      if (currentOrders[0].paymentMethod == 'COD') {
         paymentMethod = 'Cash on delivery'
       } else {
         paymentMethod = 'Prepaid'
       }
       const date = new Date()
       let expectedDate = date.setDate(date.getDate() + 10)
-      res.render('user/order-success', { user, cartCount: 0, orders, date, total, address, paymentMethod, expectedDate })
+      res.render('user/order-success', { user, cartCount: 0, currentOrders, orders, date, total, address, paymentMethod, expectedDate, totalAmount: 0 })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
