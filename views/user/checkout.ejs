@@ -36,139 +36,94 @@
 								<% if (addresses) { %>
 									<% var x=1 %>
 										<% addresses.forEach(obj=> { %>
-											<div
-												class="col-lg-6 col-sm-12 col-xs-12">
-												<div
-													class="checkout-title">
-													<input type="radio"
-														id="<%= obj._id %>"
-														name="ORIGIN"
-														value="<%= obj._id %>"
-														style="cursor: pointer"
-														checked />
-													<label
-														for="<%= obj._id %>">
+											<div class="col-lg-6 col-sm-12 col-xs-12 mt-5">
+												<div class="checkout-title">
+													<input type="radio" id="<%= obj._id %>" name="ORIGIN"
+														value="<%= obj._id %>" style="cursor: pointer" checked />
+													<label for="<%= obj._id %>">
 														<h3>Address-
-															<%= x
-																%>
+															<%= x %>
 														</h3>
 													</label>
 												</div>
-												<div
-													class="row check-out">
-													<div
-														class="form-group col-md-6 col-sm-6 col-xs-12">
+												<div class="row check-out">
+													<div class="form-group col-md-6 col-sm-6 col-xs-12">
 														<p>
-															<%= obj.firstName
-																%>
-																<%= obj.lastName
-																	%>
+															<%= obj.firstName %>
+																<%= obj.lastName %>
 														</p>
 														<p>
-															<%= obj.address
-																%>
+															<%= obj.address %>
 														</p>
 														<p>
-															<%= obj.townOrCity
-																%>
+															<%= obj.townOrCity %>
 														</p>
 														<p>
-															<%= obj.stateOrDistrict
-																%>
+															<%= obj.stateOrDistrict %>
 														</p>
 														<p>
-															<%= obj.country
-																%>
+															<%= obj.country %>
 														</p>
 														<p>
-															<%= obj.postalCode
-																%>
+															<%= obj.postalCode %>
 														</p>
 														<p>
-															<%= obj.mobileNumber
-																%>
+															<%= obj.mobileNumber %>
 														</p>
 														<p>
-															<%= obj.Email
-																%>
+															<%= obj.Email %>
 														</p>
 													</div>
 												</div>
 											</div>
 											<% x++; }) %>
-												<div
-													class="col-lg-6 col-sm-12 col-xs-12">
-													<div
-														class="checkout-title">
-														<input type="radio"
-															id="new-create"
-															style="cursor: pointer"
-															name="ORIGIN"
-															value="createOne" />
-														<label
-															for="new-create">
+												<div class="col-lg-6 col-sm-12 col-xs-12 mt-5">
+													<div class="checkout-title">
+														<input type="radio" id="new-create" style="cursor: pointer"
+															name="ORIGIN" value="createOne" />
+														<label for="new-create">
 															<h3>Create
 																One
 															</h3>
 														</label>
 													</div>
-													<div
-														class="row check-out">
-														<div
-															class="form-group col-md-6 col-sm-6 col-xs-12">
-															<div
-																class="field-label">
+													<div class="row check-out">
+														<div class="form-group col-md-6 col-sm-6 col-xs-12">
+															<div class="field-label">
 																First
 																Name
 															</div>
-															<input type="text"
-																name="firstName"
-																value=""
+															<input type="text" name="firstName" value=""
 																placeholder="Enter first name" />
 														</div>
-														<div
-															class="form-group col-md-6 col-sm-6 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-6 col-sm-6 col-xs-12">
+															<div class="field-label">
 																Last
 																Name
 															</div>
-															<input type="text"
-																name="lastName"
-																value=""
+															<input type="text" name="lastName" value=""
 																placeholder="Enter last name" />
 														</div>
-														<div
-															class="form-group col-md-6 col-sm-6 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-6 col-sm-6 col-xs-12">
+															<div class="field-label">
 																Phone
 															</div>
-															<input type="text"
-																name="mobileNumber"
-																value=""
+															<input type="text" name="mobileNumber" value=""
 																placeholder="Enter your mobile number" />
 														</div>
-														<div
-															class="form-group col-md-6 col-sm-6 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-6 col-sm-6 col-xs-12">
+															<div class="field-label">
 																Email
 																Address
 															</div>
-															<input type="text"
-																name="Email"
-																value=""
+															<input type="text" name="Email" value=""
 																placeholder="Enter Email address" />
 														</div>
-														<div
-															class="form-group col-md-12 col-sm-12 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-12 col-sm-12 col-xs-12">
+															<div class="field-label">
 																Country
 															</div>
-															<select
-																name="country">
+															<select name="country">
 																<option>India
 																</option>
 																<option>South
@@ -181,68 +136,45 @@
 																</option>
 															</select>
 														</div>
-														<div
-															class="form-group col-md-12 col-sm-12 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-12 col-sm-12 col-xs-12">
+															<div class="field-label">
 																Address
 															</div>
-															<input type="text"
-																name="address"
-																value=""
+															<input type="text" name="address" value=""
 																placeholder="Street address" />
 														</div>
-														<div
-															class="form-group col-md-12 col-sm-12 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-12 col-sm-12 col-xs-12">
+															<div class="field-label">
 																Town/City
 															</div>
-															<input type="text"
-																name="townOrCity"
-																value=""
+															<input type="text" name="townOrCity" value=""
 																placeholder="Enter your Twon or City name" />
 														</div>
-														<div
-															class="form-group col-md-12 col-sm-6 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-12 col-sm-6 col-xs-12">
+															<div class="field-label">
 																State
 																/
 																District
 															</div>
-															<input type="text"
-																name="stateOrDistrict"
-																value=""
+															<input type="text" name="stateOrDistrict" value=""
 																placeholder="Enter State or District name" />
 														</div>
-														<div
-															class="form-group col-md-12 col-sm-6 col-xs-12">
-															<div
-																class="field-label">
+														<div class="form-group col-md-12 col-sm-6 col-xs-12 ">
+															<div class="field-label">
 																Postal
 																Code
 															</div>
-															<input type="text"
-																name="postalCode"
-																value=""
+															<input type="text" name="postalCode" value=""
 																placeholder="Enter a valid pin" />
 														</div>
 													</div>
 												</div>
 												<% } else { %>
-													<div
-														class="col-lg-6 col-sm-12 col-xs-12">
-														<div
-															class="checkout-title">
-															<input type="radio"
-																id="new-create"
-																style="cursor: pointer"
-																name="ORIGIN"
-																value="createOne"
-																checked />
-															<label
-																for="new-create">
+													<div class="col-lg-6 col-sm-12 col-xs-12 mt-5">
+														<div class="checkout-title">
+															<input type="radio" id="new-create" style="cursor: pointer"
+																name="ORIGIN" value="createOne" checked />
+															<label for="new-create">
 																<h4>You don't
 																	have
 																	address,
@@ -251,63 +183,43 @@
 																</h4>
 															</label>
 														</div>
-														<div
-															class="row check-out">
-															<div
-																class="form-group col-md-6 col-sm-6 col-xs-12">
-																<div
-																	class="field-label">
+														<div class="row check-out">
+															<div class="form-group col-md-6 col-sm-6 col-xs-12">
+																<div class="field-label">
 																	First
 																	Name
 																</div>
-																<input type="text"
-																	name="firstName"
-																	value=""
+																<input type="text" name="firstName" value=""
 																	placeholder="Enter first name" />
 															</div>
-															<div
-																class="form-group col-md-6 col-sm-6 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-6 col-sm-6 col-xs-12">
+																<div class="field-label">
 																	Last
 																	Name
 																</div>
-																<input type="text"
-																	name="lastName"
-																	value=""
+																<input type="text" name="lastName" value=""
 																	placeholder="Enter last name" />
 															</div>
-															<div
-																class="form-group col-md-6 col-sm-6 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-6 col-sm-6 col-xs-12">
+																<div class="field-label">
 																	Phone
 																</div>
-																<input type="text"
-																	name="mobileNumber"
-																	value=""
+																<input type="text" name="mobileNumber" value=""
 																	placeholder="Enter your mobile number" />
 															</div>
-															<div
-																class="form-group col-md-6 col-sm-6 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-6 col-sm-6 col-xs-12">
+																<div class="field-label">
 																	Email
 																	Address
 																</div>
-																<input type="text"
-																	name="Email"
-																	value=""
+																<input type="text" name="Email" value=""
 																	placeholder="Enter Email address" />
 															</div>
-															<div
-																class="form-group col-md-12 col-sm-12 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-12 col-sm-12 col-xs-12">
+																<div class="field-label">
 																	Country
 																</div>
-																<select
-																	name="country">
+																<select name="country">
 																	<option>India
 																	</option>
 																	<option>South
@@ -320,154 +232,113 @@
 																	</option>
 																</select>
 															</div>
-															<div
-																class="form-group col-md-12 col-sm-12 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-12 col-sm-12 col-xs-12">
+																<div class="field-label">
 																	Address
 																</div>
-																<input type="text"
-																	name="address"
-																	value=""
+																<input type="text" name="address" value=""
 																	placeholder="Street address" />
 															</div>
-															<div
-																class="form-group col-md-12 col-sm-12 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-12 col-sm-12 col-xs-12">
+																<div class="field-label">
 																	Town/City
 																</div>
-																<input type="text"
-																	name="townOrCity"
-																	value=""
+																<input type="text" name="townOrCity" value=""
 																	placeholder="Enter your Twon or City name" />
 															</div>
-															<div
-																class="form-group col-md-12 col-sm-6 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-12 col-sm-6 col-xs-12">
+																<div class="field-label">
 																	State
 																	/
 																	District
 																</div>
-																<input type="text"
-																	name="stateOrDistrict"
-																	value=""
+																<input type="text" name="stateOrDistrict" value=""
 																	placeholder="Enter State or District name" />
 															</div>
-															<div
-																class="form-group col-md-12 col-sm-6 col-xs-12">
-																<div
-																	class="field-label">
+															<div class="form-group col-md-12 col-sm-6 col-xs-12">
+																<div class="field-label">
 																	Postal
 																	Code
 																</div>
-																<input type="text"
-																	name="postalCode"
-																	value=""
+																<input type="text" name="postalCode" value=""
 																	placeholder="Enter a valid pin" />
 															</div>
 														</div>
 													</div>
 													<% }%>
 
-														<div
-															class="col-lg-6 col-sm-12 col-xs-12">
-															<div
-																class="checkout-details">
-																<div
-																	class="order-box">
-																	<div
-																		class="title-box">
+														<div class="col-lg-6 col-sm-12 col-xs-12 mt-5">
+															<div class="checkout-details">
+																<div class="order-box">
+																	<div class="title-box">
 																		<div>Product
 																			<span>Total</span>
 																		</div>
 																	</div>
-																	<ul
-																		class="qty">
-																		<%
-																			cartItems.forEach(obj=>
+																	<ul class="qty">
+																		<% cartItems.forEach(obj=>
 																			{
 																			%>
 																			<li>
-																				<%= obj.product.productName
-																					%>
+																				<%= obj.product.productName %>
 																					×
-																					<%= obj.quantity
-																						%>
-																						<span>$<%= obj.product.productPrice*obj.quantity
+																					<%= obj.quantity %>
+																						<span>$<%=
+																								obj.product.productPrice*obj.quantity
 																								%>
 																						</span>
 																			</li>
-																			<% })
-																				%>
+																			<% }) %>
 																	</ul>
-																	<ul
-																		class="sub-total">
+																	<ul class="sub-total">
 																		<li>Subtotal
-																			<span
-																				class="count">$
-																				<%= totalAmount
-																					%>
+																			<span class="count">$
+																				<%= totalAmount %>
 																			</span>
 																		</li>
 																		<li>
 																			Shipping
-																			<div
-																				class="shipping">
-																				<div
-																					class="shopping-option">
+																			<div class="shipping">
+																				<div class="shopping-option">
 																					<input type="radio"
 																						name="shippingMode"
-																						id="free-shipping"
-																						value="FREE"
+																						id="free-shipping" value="FREE"
 																						checked
 																						style="cursor: pointer" />
-																					<label
-																						for="free-shipping">Free
+																					<label for="free-shipping">Free
 																						Shipping</label>
 																				</div>
-																				<div
-																					class="shopping-option">
+																				<div class="shopping-option">
 																					<input type="radio"
 																						name="shippingMode"
 																						id="local-pickup"
 																						value="Local pickup"
 																						style="cursor: pointer" />
-																					<label
-																						for="local-pickup">Local
+																					<label for="local-pickup">Local
 																						Pickup</label>
 																				</div>
 																			</div>
 																		</li>
 																	</ul>
-																	<ul
-																		class="total">
+																	<ul class="total">
 																		<li>Total
-																			<span
-																				class="count">$
-																				<%= totalAmount
-																					%>
+																			<span class="count">$
+																				<%= totalAmount %>
 																			</span>
 																		</li>
 																	</ul>
 																</div>
-																<div
-																	class="payment-box">
-																	<div
-																		class="upper-box">
-																		<div
-																			class="payment-options">
+																<div class="payment-box">
+																	<div class="upper-box">
+																		<div class="payment-options">
 																			<ul>
 																				<li>
-																					<div
-																						class="radio-option">
+																					<div class="radio-option">
 																						<input type="radio"
 																							name="paymentMethod"
 																							id="payment-1"
 																							value="UPI-BANK" />
-																						<label
-																							for="payment-1">UPI
+																						<label for="payment-1">UPI
 																							or
 																							online
 																							payment<span
@@ -491,15 +362,13 @@
 																					</div>
 																				</li>
 																				<li>
-																					<div
-																						class="radio-option">
+																					<div class="radio-option">
 																						<input type="radio"
 																							name="paymentMethod"
 																							id="payment-2"
 																							checked="checked"
 																							value="COD" />
-																						<label
-																							for="payment-2">Cash
+																						<label for="payment-2">Cash
 																							On
 																							Delivery<span
 																								class="small-text">Please
@@ -524,8 +393,7 @@
 																			</ul>
 																		</div>
 																	</div>
-																	<div
-																		class="text-end">
+																	<div class="text-end">
 																		<button type="submit"
 																			class="btn-solid btn">Place
 																			Order</button>

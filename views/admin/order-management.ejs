@@ -2,18 +2,18 @@
 <div class="page-wrapper">
 
     <!-- Page Header Start-->
-    <% include ('../partials/admin-header') %>
+    <%- include ('../partials/admin-header') %>
         <!-- Page Header Ends -->
 
         <!-- Page Body Start-->
         <div class="page-body-wrapper">
 
             <!-- Page Sidebar Start-->
-            <% include ('../partials/admin-leftside') %>
+            <%- include ('../partials/admin-leftside') %>
                 <!-- Page Sidebar Ends-->
 
                 <!-- Right sidebar Start-->
-                <% include ('../partials/admin-right-sidebar') %>
+                <%- include ('../partials/admin-right-sidebar') %>
                     <!-- Right sidebar Ends-->
 
                     <div class="page-body">
@@ -65,42 +65,42 @@
                                                             <th>Order Image</th>
                                                             <th>Order Code</th>
                                                             <th>Date</th>
-                                                            <th>Payment Method</th>
+                                                            <th>Quantity</th>
                                                             <th>Delivery Status</th>
                                                             <th>Amount</th>
-                                                            <th>Option</th>
                                                         </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <img src="/assets/images/dashboard/product/1.jpg"
-                                                                    alt="users">
-                                                            </td>
+                                                        <% orders.forEach(obj=> { %>
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="/images/<%= obj.productDetails.productImg[0] %> "
+                                                                        alt="users">
+                                                                </td>
 
-                                                            <td data-field="number">+ 406-4883635</td>
+                                                                <td data-field="number">
+                                                                    <%= obj._id %>
+                                                                </td>
 
-                                                            <td data-field="date">Jul 20, 2021</td>
+                                                                <td data-field="date">
+                                                                    <%= obj.orderedDate %>
+                                                                </td>
 
-                                                            <td data-field="text">Paypal</td>
+                                                                <td data-field="text">
+                                                                    <%= obj.quantity %>
+                                                                </td>
 
-                                                            <td class="order-success">
-                                                                <span>Approved</span>
-                                                            </td>
+                                                                <td class="order-success">
+                                                                    <span>
+                                                                        <%= obj.orderStatus %>
+                                                                    </span>
+                                                                </td>
 
-                                                            <td data-field="number">$15</td>
-
-                                                            <td>
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="fa fa-edit" title="Edit"></i>
-                                                                </a>
-
-                                                                <a href="javascript:void(0)">
-                                                                    <i class="fa fa-trash" title="Delete"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                                <td data-field="number">$<%= obj.totalAmount %>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
                                                     </tbody>
                                                 </table>
                                             </div>

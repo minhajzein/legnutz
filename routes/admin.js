@@ -10,7 +10,7 @@ const fileupload = require('../middleware/multer')
 
 router.get('/', control.home)
 
-router.get('orderManage', control.orderManage)
+router.get('/orderManage', control.orderManage)
 
 router.route('/login')
     .get(control.login)

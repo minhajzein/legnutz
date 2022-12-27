@@ -97,9 +97,12 @@ module.exports = {
     },
     orderManage: async (req, res) => {
         try {
+            const adminData = req.session.adminData
             const orders = await Order.find()
-        } catch {
-
+            res.render('admin/order-management', { orders, adminData })
+        } catch (err) {
+            console.log(err);
+            res.redirect('/admin/not-available')
         }
     }
 }
