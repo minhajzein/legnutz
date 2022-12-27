@@ -3,6 +3,7 @@
 	<%- include ('../partials/user-header') %>
 		<!-- header end -->
 
+
 		<!-- breadcrumb start -->
 		<div class="breadcrumb-section">
 			<div class="container">
@@ -24,6 +25,7 @@
 			</div>
 		</div>
 		<!-- breadcrumb End -->
+
 
 		<!--section start-->
 		<% if (cartItems) { %>
@@ -47,7 +49,7 @@
 										<tr>
 											<td>
 												<a href="#"><img src="/images/<%= obj.product.productImg[0] %>"
-														alt="" /></a>
+														alt=""></a>
 											</td>
 											<td>
 												<a href="#">
@@ -61,30 +63,24 @@
 											<td>
 												<div class="qty-box">
 													<div class="input-group">
-														<button class="text-danger fs-3 text-center" id="#qtyminus"
-															onclick="IncDecQuant('<%= obj._id %>','<%= obj.product._id %>',-1,'<%= obj.product.productPrice %>')">
-															-
-														</button>
+														<button class="text-center ms-3"
+															onclick="IncDecQuant('<%= obj._id %>','<%= obj.product._id %>',-1,'<%= obj.product.productPrice %>')">-</button>
 														<div
 															class="d-flex justify-content-center align-items-center ms-3">
-															<span class="mt-2" id="<%= obj.product._id %>">
+															<span id="<%= obj.product._id %>">
 																<%= obj.quantity %>
 															</span>
 														</div>
-														<button class="text-success fs-4 text-center ms-3" id="#qtyplus"
-															onclick="IncDecQuant('<%= obj._id %>','<%= obj.product._id %>',1,'<%= obj.product.productPrice %>')">
-															+
-														</button>
+														<button class=" text-center ms-3"
+															onclick="IncDecQuant('<%= obj._id %>','<%= obj.product._id %>',1,'<%= obj.product.productPrice %>')">+</button>
 													</div>
 												</div>
 											</td>
+											<td><a onclick="removeItem('<%= obj._id %>','<%= obj.product._id %>')"
+													class="icon"><i class="btn fa fa-trash" title="Delete"></i></a></td>
 											<td>
-												<a onclick="removeItem('<%= obj._id %>','<%= obj.product._id %>')"><i
-														class="btn fa fa-trash" title="Delete"></i></a>
-											</td>
-											<td>
-												<h2 id="total<%= obj.product._id %>" class="text-primary">
-													$<%= obj.quantity*obj.product.productPrice %>
+												<h2 id="total<%= obj.product._id %>" class="text-primary">$<%=
+														obj.quantity*obj.product.productPrice %>
 												</h2>
 											</td>
 										</tr>
@@ -92,7 +88,7 @@
 								</tbody>
 							</table>
 							<div class="table-responsive-md">
-								<table class="table cart-table">
+								<table class="table cart-table ">
 									<tfoot>
 										<tr>
 											<td>total price :</td>
@@ -107,12 +103,8 @@
 						</div>
 					</div>
 					<div class="row cart-buttons">
-						<div class="col-6">
-							<a href="/" class="btn btn-solid">continue shopping</a>
-						</div>
-						<div class="col-6">
-							<a href="/checkOut" class="btn btn-solid">check out</a>
-						</div>
+						<div class="col-6"><a href="/" class="btn btn-solid">continue shopping</a></div>
+						<div class="col-6"><a href="/checkOut" class="btn btn-solid">check out</a></div>
 					</div>
 				</div>
 			</section>
@@ -136,7 +128,7 @@
 									<tbody>
 										<tr>
 											<td>
-												<a href="#"><img src="" alt="" /></a>
+												<a href="#"><img src="" alt=""></a>
 											</td>
 											<td>
 												<a href="#"></a>
@@ -148,13 +140,11 @@
 												<div class="qty-box">
 													<div class="input-group">
 														<input type="number" name="quantity"
-															class="form-control input-number" value="0" />
+															class="form-control input-number" value="0">
 													</div>
 												</div>
 											</td>
-											<td>
-												<a href="#" class="icon"><i class="ti-close"></i></a>
-											</td>
+											<td><a href="#" class="icon"><i class="ti-close"></i></a></td>
 											<td>
 												<h2 class="td-color">$</h2>
 											</td>
@@ -162,7 +152,7 @@
 									</tbody>
 								</table>
 								<div class="table-responsive-md">
-									<table class="table cart-table">
+									<table class="table cart-table ">
 										<tfoot>
 											<tr>
 												<td>total price :</td>
@@ -176,14 +166,13 @@
 							</div>
 						</div>
 						<div class="row cart-buttons">
-							<div class="col-6">
-								<a href="/" class="btn btn-solid">continue shopping</a>
-							</div>
+							<div class="col-6"><a href="/" class="btn btn-solid">continue shopping</a></div>
 						</div>
 					</div>
 				</section>
 				<% } %>
 					<!--section end-->
+
 
 					<!-- footer start -->
 					<%- include ('../partials/user-footer') %>
@@ -191,6 +180,8 @@
 </div>
 <div class="tap-top">
 	<div>
-		<i class="fa fa-angle-double-up"> </i>
+		<i class="fa fa-angle-double-up">
+
+		</i>
 	</div>
 </div>
