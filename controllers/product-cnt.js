@@ -36,7 +36,8 @@ module.exports = {
       };
       await Product.create(productDetails);
       res.redirect("/admin/productList");
-    } catch {
+    } catch (err) {
+      console.log(err);
       res.redirect("/admin/not-available");
     }
   },
@@ -55,7 +56,7 @@ module.exports = {
       const id = req.query.id;
       const product = await Product.findById({ _id: id });
       if (req.body.images == "") {
-        if(req.body.productDescription==""){
+        if (req.body.productDescription == "") {
           await Product.updateOne(
             { _id: id },
             {
@@ -72,7 +73,7 @@ module.exports = {
               },
             }
           );
-        }else{
+        } else {
           await Product.updateOne(
             { _id: id },
             {
@@ -86,7 +87,7 @@ module.exports = {
                 productDiscount: req.body.productDiscount,
                 productSize: req.body.productSize,
                 productColor: req.body.productColor,
-                productDescription:req.body.productDescription
+                productDescription: req.body.productDescription
               },
             }
           );

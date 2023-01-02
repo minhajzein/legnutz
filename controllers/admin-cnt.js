@@ -98,8 +98,67 @@ module.exports = {
     orderManage: async (req, res) => {
         try {
             const adminData = req.session.adminData
-            const orders = await Order.find()
+            const orders = await Order.find().sort({ createdAt: -1 })
             res.render('admin/order-management', { orders, adminData })
+        } catch (err) {
+            console.log(err);
+            res.redirect('/admin/not-available')
+        }
+    },
+    statusToShipped: async (req, res) => {
+        try {
+            const date = new Date()
+            const statusObj = {
+                date: date.toLocaleDateString(),
+                time: date.toLocaleTimeString(),
+                status: 'shipped'
+            }
+            const order = await Order.findById(req.body.orderId)
+            if (order.orderStatus == 'placed') {
+                await Order.updateOne({ _id: mongoose.Types.ObjectId(req.body.orderId) }, {
+                    $set: {
+                        orderStatus: 'shipped'
+                    }
+                })
+                await Order.updateOne({ _id: mongoose.Types.ObjectId(req.body.orderId) }, {
+                    $push: {
+                        trackOrder: statusObj
+                    }
+                })
+                res.json({ status: true })
+            } else {
+                res.json({ status: false })
+            }
+        } catch (err) {
+            console.log(err);
+            res.redirect('/admin/not-available')
+        }
+    },
+    statusToDelivered: async (req, res) => {
+        try {
+            const date = new Date()
+            const statusObj = {
+                date: date.toLocaleDateString(),
+                time: date.toLocaleTimeString(),
+                status: 'Delivered'
+            }
+            const order = await Order.findById(req.body.orderId)
+            console.log(order.orderStatus);
+            if (order.orderStatus == 'shipped') {
+                await Order.updateOne({ _id: mongoose.Types.ObjectId(req.body.orderId) }, {
+                    $set: {
+                        orderStatus: 'delivered'
+                    }
+                })
+                await Order.updateOne({ _id: mongoose.Types.ObjectId(req.body.orderId) }, {
+                    $push: {
+                        trackOrder: statusObj
+                    }
+                })
+                res.json({ status: true })
+            } else {
+                res.json({ status: false })
+            }
         } catch (err) {
             console.log(err);
             res.redirect('/admin/not-available')

@@ -2,133 +2,115 @@
 <div class="page-wrapper">
   <!-- Page Header Start-->
   <%- include ('../partials/admin-header') %>
-  <!-- Page Header Ends -->
+    <!-- Page Header Ends -->
 
-  <!-- Page Body Start-->
-  <div class="page-body-wrapper">
-    <!-- Page Sidebar Start-->
-    <%- include ('../partials/admin-leftside') %>
-    <!-- Page Sidebar Ends-->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+      <!-- Page Sidebar Start-->
+      <%- include ('../partials/admin-leftside') %>
+        <!-- Page Sidebar Ends-->
 
-    <!-- Right sidebar Start-->
-    <%- include ('../partials/admin-right-sidebar') %>
-    <!-- Right sidebar Ends-->
-
-    <div class="page-body">
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="page-header">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="page-header-left">
-                <h3>
-                  Category
-                  <small>Legnutz Admin panel</small>
-                </h3>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ol class="breadcrumb pull-right">
-                <li class="breadcrumb-item">
-                  <a href="index.html">
-                    <i data-feather="home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item active">Category</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Container-fluid Ends-->
-
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-header">
-                <form class="form-inline search-form search-box">
-                  <div class="form-group">
-                    <input
-                      class="form-control-plaintext"
-                      type="search"
-                      placeholder="Search.."
-                    />
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="page-header">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="page-header-left">
+                    <h3>
+                      Category
+                      <small>Legnutz Admin panel</small>
+                    </h3>
                   </div>
-                </form>
-
-                <button
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                  class="btn btn-primary mt-md-0 mt-2"
-                >
-                  Add Category
-                </button>
-              </div>
-              <% if (err_msg) { %>
-               <label class="ms-3 text-danger" for=""><%= err_msg %> </label>
-              <% } %>
-              <div class="card-body">
-                <div class="table-responsive table-desi">
-                  <table
-                    class="table all-package table-category"
-                    id="editableTable"
-                  >
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th>Option</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <% var x = 1 %> <% categories.forEach(function(obj) { %>
-                      <tr>
-                        <th class="text-center" scope="row"><%= x %></th>
-                        <td><%= obj.category %></td>
-                        <td><a href="/admin/deleteCategory?id=<%= obj._id %> "><i class="btn fa fa-trash"  title="Delete"></i></a></td>
-                        <% x++;}); %>
-                      </tr>
-                    </tbody>
-                  </table>
+                </div>
+                <div class="col-lg-6">
+                  <ol class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                      <a href="index.html">
+                        <i data-feather="home"></i>
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item active">Category</li>
+                  </ol>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- Container-fluid Ends-->
-    </div>
+          <!-- Container-fluid Ends-->
 
-    <!-- footer start-->
-    <%- include ('../partials/admin-footer') %>
-    <!-- footer end-->
-  </div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <form class="form-inline search-form search-box">
+                      <div class="form-group">
+                        <input class="form-control-plaintext" type="search" placeholder="Search.." />
+                      </div>
+                    </form>
+
+                    <button type="button" data-toggle="modal" data-target="#exampleModal"
+                      class="btn btn-primary mt-md-0 mt-2">
+                      Add Category
+                    </button>
+                  </div>
+                  <% if (err_msg) { %>
+                    <label class="ms-3 text-danger" for="">
+                      <%= err_msg %>
+                    </label>
+                    <% } %>
+                      <div class="card-body">
+                        <div class="table-responsive table-desi">
+                          <table class="table all-package table-category" id="editableTable">
+                            <thead>
+                              <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Option</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              <% var x=1 %>
+                                <% categories.forEach(function(obj) { %>
+                                  <tr>
+                                    <th class="text-center" scope="row">
+                                      <%= x %>
+                                    </th>
+                                    <td>
+                                      <%= obj.category %>
+                                    </td>
+                                    <td><a href="/admin/deleteCategory?id=<%= obj._id %> "><i class="btn fa fa-trash"
+                                          title="Delete"></i></a></td>
+                                    <% x++;}); %>
+                                  </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+
+        <!-- footer start-->
+        <%- include ('../partials/admin-footer') %>
+          <!-- footer end-->
+    </div>
 </div>
 
 <!-- Modal -->
-<div
-  class="modal fade"
-  id="exampleModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form action="/admin/add-category" method="post">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Category Name</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>

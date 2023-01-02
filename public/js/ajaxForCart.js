@@ -4,10 +4,8 @@ const { post } = require("../../routes/user");
 
 function addToCart(id, userId) {
     let total = parseInt(document.getElementById('totalAmount').innerHTML)
-    console.log(total);
     let price = parseInt(document.getElementById(`price${id}`).innerHTML)
-    total = total + price
-    document.getElementById('totalAmount').innerHTML = total
+    document.getElementById('totalAmount').innerHTML = total + price
     $.ajax({
         url: `/addToCart?id=${id}&&userId=${userId}`,
         method: 'get',
@@ -16,6 +14,21 @@ function addToCart(id, userId) {
                 let cartCount = $('#cartCount').html()
                 cartCount = parseInt(cartCount) + 1
                 $('#cartCount').html(cartCount)
+            }
+        }
+    })
+}
+
+function addToWishlist(prodId) {
+    $.ajax({
+        url: '/addToWishlist',
+        method: 'post',
+        data: {
+            prodId
+        },
+        success: (response) => {
+            if (response.status) {
+
             }
         }
     })
@@ -49,7 +62,7 @@ function IncDecQuant(cartId, prodId, count, price) {
 
 function removeItem(cartId, prodId) {
     $.ajax({
-        url: `removeItem`,
+        url: `/removeItem`,
         data: {
             cartId: cartId,
             prodId: prodId
@@ -57,11 +70,107 @@ function removeItem(cartId, prodId) {
         method: 'post',
         success: (response) => {
             if (response.removeItem) {
-                location.reload()
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                        Swal.fire(
+                            'Deleted!',
+                            `Order's status has been changed.`,
+                            'success'
+                        )
+                    }
+                })
             }
         }
     })
 }
 
 
-
+function shipped(orderId) {
+    $.ajax({
+        url: '/admin/shipped',
+        method: 'post',
+        data: {
+            orderId
+        },
+        success: (response) => {
+            if (response.status) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(`#status${orderId}`).removeClass("order-success")
+                        $(`#status${orderId}`).addClass("order-warning")
+                        let aaa = `<span>shipped</span>`
+                        $(`#status${orderId}`).html(aaa)
+                        Swal.fire(
+                            'Changed!',
+                            `Order's status has been changed.`,
+                            'success'
+                        )
+                    }
+                })
+            } else {
+                Swal.fire(
+                    'The status?',
+                    'Do you have checked the status?',
+                    'question'
+                )
+            }
+        }
+    })
+}
+function delivered(orderId) {
+    $.ajax({
+        url: '/admin/delivered',
+        method: 'post',
+        data: {
+            orderId
+        },
+        success: (response) => {
+            if (response.status) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, change it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(`#status${orderId}`).removeClass("order-warning")
+                        $(`#status${orderId}`).addClass("order-success")
+                        let bbb = `<span>delivered</span>`
+                        $(`#status${orderId}`).html(bbb)
+                        Swal.fire(
+                            'changed!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            } else {
+                Swal.fire(
+                    'The status?',
+                    'Do you have checked the status?',
+                    'question'
+                )
+            }
+        }
+    })
+}

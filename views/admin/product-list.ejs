@@ -1,97 +1,116 @@
 <div class="page-wrapper">
   <!-- Page Header Start-->
   <%- include ('../partials/admin-header') %>
-  <!-- Page Header Ends -->
+    <!-- Page Header Ends -->
 
-  <!-- Page Body Start-->
-  <div class="page-body-wrapper">
-    <!-- Page Sidebar Start-->
-    <%- include ('../partials/admin-leftside') %>
-    <!-- Page Sidebar Ends-->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+      <!-- Page Sidebar Start-->
+      <%- include ('../partials/admin-leftside') %>
+        <!-- Page Sidebar Ends-->
 
-    <!-- Right sidebar Start-->
-    <%- include ('../partials/admin-right-sidebar') %>
-    <!-- Right sidebar Ends-->
-    <div class="page-body">
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="page-header">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="page-header-left">
-                <h3>
-                  Product List
-                  <small>Legnutz Admin panel</small>
-                </h3>
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="page-header">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="page-header-left">
+                    <h3>
+                      Product List
+                      <small>Legnutz Admin panel</small>
+                    </h3>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <ol class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                      <a href="/admin/home">
+                        <i data-feather="home"></i>
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item active">Product List</li>
+                  </ol>
+                </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <ol class="breadcrumb pull-right">
-                <li class="breadcrumb-item">
-                  <a href="/admin/home">
-                    <i data-feather="home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item active">Product List</li>
-              </ol>
-            </div>
           </div>
-        </div>
-      </div>
-      <!-- Container-fluid Ends-->
+          <!-- Container-fluid Ends-->
 
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="row products-admin ratio_asos">
-          <% products.forEach(obj => { %>
-          <div class="col-xl-3 col-sm-6">
-            <div class="card">
-              <div class="card-body product-box">
-                <div class="img-wrapper">
-                  <div class="front">
-                    <a href="javascript:void(0)"
-                      ><img
-                        src="/images/<%= obj.productImg[0] %> "
-                        class="img-fluid blur-up lazyload bg-img"
-                        alt=""
-                    /></a>
-                    <div class="product-hover">
-                      <ul>
-                        <li>
-                          <a href="/admin/editProduct?id=<%= obj._id %> " class="btn"><i class="ti-pencil-alt"></i></a>
-                        </li>
-                        <li>
-                          <a href="/admin/deleteProduct?id=<%= obj._id %> " class="btn"><i class="ti-trash"></i></a>
-                        </li>
-                      </ul>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row products-admin ratio_asos">
+              <% products.forEach(obj=> { %>
+                <div class="col-xl-3 col-sm-6">
+                  <div class="card">
+                    <div class="card-body product-box">
+                      <div class="img-wrapper">
+                        <div class="front">
+                          <a href="javascript:void(0)"><img src="/images/<%= obj.productImg[0] %>"
+                              class="img-fluid blur-up lazyload bg-img" alt="" /></a>
+                          <div class="product-hover">
+                            <ul>
+                              <li>
+                                <a href="/admin/editProduct?id=<%= obj._id %> " class="btn"><i
+                                    class="ti-pencil-alt"></i></a>
+                              </li>
+                              <li>
+                                <a onclick="deleteproduct('obj._id')" class="btn"><i class="ti-trash"></i></a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="product-detail">
+                        <div class="rating">
+                          <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <a href="javascript:void(0)">
+                          <h6>
+                            <%= obj.productName %>
+                          </h6>
+                        </a>
+                        <h4>
+                          $<%= obj.productPrice %> <del>$<%= obj.oldPrice %> </del>
+                        </h4>
+                        <h5>Color : <%= obj.productColor %>
+                        </h5>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="product-detail">
-                  <div class="rating">
-                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                  </div>
-                  <a href="javascript:void(0)">
-                    <h6><%= obj.productName %></h6>
-                  </a>
-                  <h4>
-                    $<%= obj.productPrice %> <del>$<%= obj.oldPrice %> </del>
-                  </h4>
-                  <h5>Color : <%= obj.productColor %></h5>
-                </div>
-              </div>
+                <% }) %>
             </div>
           </div>
-          <% }) %>
+          <!-- Container-fluid Ends-->
         </div>
-      </div>
-      <!-- Container-fluid Ends-->
-    </div>
 
-    <!-- footer start-->
-    <%- include ('../partials/admin-footer') %>
-    <!-- footer end-->
-  </div>
+        <!-- footer start-->
+        <%- include ('../partials/admin-footer') %>
+          <!-- footer end-->
+    </div>
 </div>
+<script>
+  function deleteproduct(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        location.href = `/admin/deleteProduct?id=${id}`
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+</script>

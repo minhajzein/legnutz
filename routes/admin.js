@@ -10,13 +10,16 @@ const fileupload = require('../middleware/multer')
 
 router.get('/', control.home)
 
-router.get('/orderManage', control.orderManage)
+router.get('/orderManage', checkSession.sessionAdmin, control.orderManage)
 
 router.route('/login')
     .get(control.login)
     .post(control.postLogin)
 
-router.get('/users-list', userControl.usersList)
+router.get('/users-list', checkSession.sessionAdmin, userControl.usersList)
+
+router.post('/shipped', control.statusToShipped)
+router.post('/delivered', control.statusToDelivered)
 
 router.get('/block-user', userControl.blockUser)
 
@@ -26,7 +29,7 @@ router.route('/addProduct')
     .get(productControl.addProduct)
     .post(fileupload.uploadImages, fileupload.resizeImages, productControl.postAddproduct)
 
-router.get('/productList', productControl.getProductList)
+router.get('/productList', checkSession.sessionAdmin, productControl.getProductList)
 
 router.route('/editProduct')
     .get(productControl.editPage)

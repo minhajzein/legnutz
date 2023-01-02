@@ -2,113 +2,104 @@
 <div class="page-wrapper">
   <!-- Page Header Start-->
   <%- include ('../partials/admin-header') %>
-  <!-- Page Header Ends -->
+    <!-- Page Header Ends -->
 
-  <!-- Page Body Start-->
-  <div class="page-body-wrapper">
-    <!-- Page Sidebar Start-->
-    <%- include ('../partials/admin-leftside') %>
-    <!-- Page Sidebar Ends-->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+      <!-- Page Sidebar Start-->
+      <%- include ('../partials/admin-leftside') %>
+        <!-- Page Sidebar Ends-->
 
-    <!-- Right sidebar Start-->
-    <%- include ('../partials/admin-right-sidebar') %>
-    <!-- Right sidebar Ends-->
 
-    <div class="page-body">
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="page-header">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="page-header-left">
-                <h3>
-                  User List
-                  <small>Multikart Admin panel</small>
-                </h3>
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="page-header">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="page-header-left">
+                    <h3>
+                      User List
+                      <small>Multikart Admin panel</small>
+                    </h3>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <ol class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                      <a href="index.html">
+                        <i data-feather="home"></i>
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item active">User List</li>
+                  </ol>
+                </div>
               </div>
             </div>
-            <div class="col-lg-6">
-              <ol class="breadcrumb pull-right">
-                <li class="breadcrumb-item">
-                  <a href="index.html">
-                    <i data-feather="home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item">Users</li>
-                <li class="breadcrumb-item active">User List</li>
-              </ol>
+          </div>
+          <!-- Container-fluid Ends-->
+
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-header">
+                <input type="search" id="form1" class="form-control" name="search" style="width: 20rem"
+                  placeholder="search here ..." />
+              </div>
+
+              <div class="card-body">
+                <div class="table-responsive table-desi">
+                  <table class="all-package coupon-table table table-striped" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Options</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <% var x=1 %>
+                        <% users.forEach(function(obj) { %>
+                          <tr>
+                            <th class="text-center" scope="row">
+                              <%= x %>
+                            </th>
+                            <td>
+                              <%= obj.username %>
+                            </td>
+                            <td>
+                              <%= obj.Email %>
+                            </td>
+                            <td>
+                              <% if (obj.isBlock) { %>
+                                <span class="text-danger">Blocked</span>
+                                <% }else{ %>
+                                  <span class="text-success">Active</span>
+                                  <% } %>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                              <a class="btn btn-primary" onclick="sweet('<%= obj._id %>')">Block</a>
+                              <a class="ms-2 btn btn-success" href="/admin/unBlock-user?id=<%= obj._id %> ">Unblock</a>
+                            </td>
+                            <% x++;}); %>
+                          </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
+          <!-- Container-fluid Ends-->
         </div>
-      </div>
-      <!-- Container-fluid Ends-->
 
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="card">
-          <div class="card-header">
-            <input
-              type="search"
-              id="form1"
-              class="form-control"
-              name="search"
-              style="width: 20rem"
-              placeholder="search here ..."
-            />
-          </div>
-
-          <div class="card-body">
-            <div class="table-responsive table-desi">
-              <table
-                class="all-package coupon-table table table-striped"
-                id="myTable"
-              >
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Options</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <% var x = 1 %> <% users.forEach(function(obj) { %>
-                  <tr>
-                    <th class="text-center" scope="row"><%= x %></th>
-                    <td><%= obj.username %></td>
-                    <td><%= obj.Email %></td>
-                    <td>
-                      <% if (obj.isBlock) { %>
-                      <span class="text-danger">Blocked</span>
-                      <% }else{ %>
-                      <span class="text-success">Active</span>
-                      <% } %>
-                    </td>
-                    <td class="d-flex justify-content-center">
-                      <a
-                        class="btn btn-primary"
-                        onclick="sweet('<%= obj._id %>')"
-                        >Block</a
-                      >
-                      <a class="ms-2 btn btn-success" href="/admin/unBlock-user?id=<%= obj._id %> ">Unblock</a>
-                    </td>
-                    <% x++;}); %>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Container-fluid Ends-->
+        <!-- footer start-->
+        <%- include ('../partials/admin-footer') %>
+          <!-- footer end-->
     </div>
-
-    <!-- footer start-->
-    <%- include ('../partials/admin-footer') %>
-    <!-- footer end-->
-  </div>
 </div>
 
 <script>
@@ -131,14 +122,12 @@
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, block!",
-    }).then((result)=>{
-        if (result.isConfirmed) {
-            Swal.fire("Blocked!", "This user has been blocked", "success").then((result)=>{
-            location.href = `/admin/block-user?id=${id}`;
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Blocked!", "This user has been blocked", "success").then((result) => {
+          location.href = `/admin/block-user?id=${id}`;
         });
       }
     })
   }
 </script>
-
-

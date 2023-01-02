@@ -1,7 +1,6 @@
 const { default: mongoose, mongo } = require("mongoose")
 const Cart = require("../models/cartSchema")
 const Product = require("../models/productSchema")
-const User = require("../models/userSchema")
 const Address = require('../models/addressSchema')
 const Order = require('../models/orderSchema')
 const Razorpay = require('razorpay')
@@ -17,7 +16,6 @@ module.exports = {
   goToCart: async (req, res) => {
     let cartCount
     try {
-      const user = await User.findById(req.session.user._id)
       const cart = await Cart.findOne({ user: req.session.user._id })
       const orders = await Order.find()
       let cartItems;
@@ -99,7 +97,7 @@ module.exports = {
       } else {
         totalAmount = 0
       }
-      res.render("user/cart", { user, cartCount, cart, cartItems, totalAmount, orders })
+      res.render("user/cart", { user: req.session.user, cartCount, cart, cartItems, totalAmount, orders })
     } catch {
       res.redirect("/not-found")
     }
@@ -131,7 +129,7 @@ module.exports = {
             req.json({ status: false })
           } else {
             await Cart.updateOne(
-              { user: req.session.user._id },
+              { user: mongoose.Types.ObjectId(req.session.user._id) },
               {
                 $push: {
                   products: proObj,
@@ -240,7 +238,6 @@ module.exports = {
   },
   checkOut: async (req, res) => {
     try {
-      const user = await User.findById(req.session.user._id)
       const cart = await Cart.findOne({ user: req.session.user._id })
       const orders = await Order.find()
       let cartCount;
@@ -324,7 +321,7 @@ module.exports = {
         totalAmount = 0
       }
       const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
-      res.render('user/checkout', { user, cartCount, cart, totalAmount, cartItems, addresses, orders })
+      res.render('user/checkout', { user: req.session.user, cartCount, cart, totalAmount, cartItems, addresses, orders })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
@@ -332,7 +329,6 @@ module.exports = {
   },
   placeOrder: async (req, res) => {
     try {
-      const user = await User.findById(req.session.user._id)
       let cartItems = await Cart.aggregate([
         {
           $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
@@ -425,6 +421,7 @@ module.exports = {
       } else {
         address = await Address.findById(req.body.ORIGIN)
       }
+      const date = new Date()
       let orderStatus = req.body.paymentMethod === 'COD' ? 'placed' : 'payment pending'
       if (req.body.paymentMethod == 'COD') {
         cartItems.forEach(async (obj) => {
@@ -437,7 +434,12 @@ module.exports = {
             paymentMethod: req.body.paymentMethod,
             shippingMode: req.body.shippingMode,
             totalAmount: obj.quantity * obj.product.productPrice,
-            orderedDate: new Date()
+            orderedDate: date.toLocaleDateString(),
+            trackOrder: {
+              date: date.toLocaleDateString(),
+              time: date.toLocaleTimeString(),
+              status: orderStatus
+            }
           })
         })
         await Cart.deleteOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
@@ -453,7 +455,12 @@ module.exports = {
             paymentMethod: req.body.paymentMethod,
             shippingMode: req.body.shippingMode,
             totalAmount: obj.quantity * obj.product.productPrice,
-            orderedDate: new Date()
+            orderedDate: date.toLocaleDateString(),
+            trackOrder: {
+              date: date.toLocaleDateString(),
+              time: date.toLocaleTimeString(),
+              status: orderStatus
+            }
           })
         })
         await Cart.deleteOne({ user: req.session.user._id })
@@ -479,18 +486,29 @@ module.exports = {
   },
   verifyPayment: async (req, res) => {
     try {
-      console.log(req.body);
+      const date = new Date()
+      const trackObj = {
+        date: date.toLocaleDateString(),
+        time: date.toLocaleTimeString(),
+        status: 'placed'
+      }
       const crypto = require('crypto')
       let hmac = crypto.createHmac('sha256', 'No8F91siQUTe3v8aIuB6MLc8')
       hmac.update(req.body.payment.razorpay_order_id + '|' + req.body.payment.razorpay_payment_id)
       hmac = hmac.digest('hex')
       if (hmac == req.body.payment.razorpay_signature) {
-        const orders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
-        orders.forEach(async (obj) => {
+        const justOrders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
+        justOrders.forEach(async (obj) => {
           await Order.updateOne({ _id: mongoose.Types.ObjectId(obj._id) },
             {
               $set: {
                 orderStatus: 'placed'
+              }
+            })
+          await Order.updateOne({ _id: mongoose.Types.ObjectId(obj._id) },
+            {
+              $push: {
+                trackOrder: trackObj
               }
             })
         })
@@ -498,11 +516,11 @@ module.exports = {
       }
     } catch (err) {
       console.log(err);
+      res.redirect('/not-found')
     }
   },
   successPage: async (req, res) => {
     try {
-      const user = await User.findById(req.session.user._id)
       const orders = await Order.find()
       const currentOrders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
       let sum = 0;
@@ -520,7 +538,7 @@ module.exports = {
       }
       const date = new Date()
       let expectedDate = date.setDate(date.getDate() + 10)
-      res.render('user/order-success', { user, cartCount: 0, currentOrders, orders, date, total, address, paymentMethod, expectedDate, totalAmount: 0 })
+      res.render('user/order-success', { user: req.session.user, cartCount: 0, currentOrders, orders, date, total, address, paymentMethod, expectedDate, totalAmount: 0 })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

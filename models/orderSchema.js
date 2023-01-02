@@ -36,8 +36,11 @@ const orderSchema = new mongoose.Schema({
         orderedDate: {
                 type: String,
                 require: true
+        },
+        trackOrder: {
+                type: Array,
         }
-})
+}, { timestamps: true })
 
 const Order = mongoose.model('Order', orderSchema)
 module.exports = Order

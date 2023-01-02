@@ -7,17 +7,24 @@ const bcrypt = require("bcrypt")
 const checkOtp = require("../utils/otp-auth")
 const Address = require('../models/addressSchema')
 const Order = require("../models/orderSchema")
+const Wishlist = require("../models/wishlistSchema")
 let userSignup
 
 module.exports = {
   errorPage: async (req, res) => {
-    res.render("user/404")
+    try {
+      res.render('user/404')
+    } catch (err) {
+      console.log(err);
+    }
   },
   home: async (req, res) => {
     try {
-      const products = await Product.find()
+      const products = await Product.find().sort({ createdAt: -1 }).limit(6)
+      const alloys = await Product.find({ productCategory: 'Alloy Wheels' }).limit(8)
+      const tyres = await Product.find({ productCategory: 'Tyres' }).limit(8)
+      const helmets = await Product.find({ productCategory: 'Helmets' }).limit(8)
       if (req.session.loggedIn) {
-        const user = req.session.user
         const cart = await Cart.findOne({ user: req.session.user._id })
         let cartCount
         if (cart) {
@@ -70,21 +77,21 @@ module.exports = {
         } else {
           totalAmount = 0
         }
+
         const orders = await Order.find()
-        res.render("user/home", { user, products, cartCount, totalAmount, orders })
+        res.render("user/home", { user: req.session.user, products, cartCount, totalAmount, orders, alloys, tyres, helmets })
       } else {
-        res.render("user/home", { user: false, products })
+        res.render("user/home", { user: false, products, alloys, tyres, helmets })
       }
     } catch (err) {
       console.log(err)
-      res.redirect("/not-found")
+      res.redirect('/not-found')
     }
   },
   goToShop: async (req, res) => {
     try {
       const products = await Product.find()
       if (req.session.loggedIn) {
-        const user = req.session.user
         const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
         let cartCount;
         if (cart) {
@@ -137,19 +144,18 @@ module.exports = {
           totalAmount = 0
         }
         const orders = await Order.find()
-        res.render("user/shop", { products, user, cartCount, cart, totalAmount, orders })
+        res.render("user/shop", { products, user: req.session.user, cartCount, cart, totalAmount, orders })
       } else {
         res.render("user/shop", { user: false, products })
       }
     } catch (err) {
       console.log(err);
-      res.redirect("/not-found")
+      res.redirect('/not-found')
     }
   },
   orderList: async (req, res) => {
     try {
-      const user = User.findById(req.session.user._id)
-      const orders = await Order.find()
+      const orders = await Order.find().sort({ createdAt: -1 })
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
       if (cart) {
@@ -201,7 +207,135 @@ module.exports = {
       } else {
         totalAmount = 0
       }
-      res.render('user/order-list', { user, totalAmount, orders, cartCount })
+      res.render('user/order-list', { user: req.session.user, totalAmount, orders, cartCount })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  addToWishlist: async (req, res) => {
+    try {
+      console.log(req.body, '=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=');
+      const proObj = {
+        item: mongoose.Types.ObjectId(req.body.prodId)
+      }
+      const wishlist = await Wishlist.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      if (wishlist) {
+        const existItem = wishlist.products.findIndex(product => product.item == req.body.prodId)
+        if (existItem != -1) {
+          await Wishlist.updateOne(
+            { user: mongoose.Types.ObjectId(req.session.user._id) },
+            {
+              $pull: {
+                products: proObj
+              }
+            }
+          )
+          res.json({ itemExist: true })
+        } else {
+          await Wishlist.updateOne(
+            { user: mongoose.Types.ObjectId(req.session.user._id) },
+            {
+              $push: {
+                products: proObj
+              }
+            }
+          )
+          res.json({ status: true })
+        }
+      } else {
+        await Wishlist.create({
+          user: mongoose.Types.ObjectId(req.session.user._id),
+          products: proObj
+        })
+        res.json({ status: true })
+      }
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  wishlist: async (req, res) => {
+    try {
+      const wishItems = await Wishlist.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        }
+      ])
+      const orders = await Order.find()
+      let cartCount;
+      const cart = await Cart.findOne({ user: req.session.user._id })
+      if (cart) {
+        cartCount = cart.products.length
+      } else {
+        cartCount = 0
+      }
+      let totalAmount = await Cart.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item',
+            quantity: '$products.quantity'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            item: 1,
+            quantity: 1,
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: {
+                $multiply: ['$quantity', '$product.productPrice']
+              }
+            }
+          }
+        }
+      ])
+      if (totalAmount[0]) {
+        totalAmount = totalAmount[0].total;
+      } else {
+        totalAmount = 0
+      }
+      res.render('user/wishlist', { user: req.session.user, cartCount, orders, totalAmount, wishItems })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
@@ -224,8 +358,7 @@ module.exports = {
       const id = req.query.id
       const product = await Product.findById({ _id: id })
       if (product) {
-        const user = req.session.user
-        const products = await Product.find()
+        const relatedProducts = await Product.find({ productCategory: product.productCategory }).limit(6)
         const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
         let cartCount;
         if (cart) {
@@ -277,7 +410,7 @@ module.exports = {
         } else {
           totalAmount = 0
         }
-        res.render("user/view-product", { product, user, products, cartCount, cart, orders, totalAmount })
+        res.render("user/view-product", { relatedProducts, user: req.session.user, product, cartCount, cart, orders, totalAmount })
       } else {
         res.redirect("/")
       }
@@ -332,13 +465,13 @@ module.exports = {
       let err_msg = ""
       if (user[0]) {
         err_msg = "This email is already registered"
-        res.render("user/register", { err_msg: err_msg })
+        res.render("user/register", { err_msg })
       } else if (userWithPhone) {
         err_msg = "This mobile number is already registered"
-        res.render("user/register", { err_msg: err_msg })
+        res.render("user/register", { err_msg })
       } else if (req.body.password !== req.body.confirmPassword) {
         err_msg = "Password and confirm password must be same"
-        res.render("user/register", { err_msg: err_msg })
+        res.render("user/register", { err_msg })
       } else {
         const userDetails = req.body
         const number = parseInt(userDetails.phone)
@@ -347,6 +480,7 @@ module.exports = {
         res.render("user/otp-page")
       }
     } catch (err) {
+      console.log(err);
       res.redirect("/not-fount")
     }
   },
@@ -361,7 +495,7 @@ module.exports = {
     let otpStatus = await checkOtp.verifyOtp(number, OTP)
     if (otpStatus.valid) {
       userDetails.password = await bcrypt.hash(userDetails.password, 10)
-      const user = await User.create(userDetails)
+      await User.create(userDetails)
       req.session.user = userDetails
       req.session.loggedIn = true
       res.redirect("/")
@@ -371,7 +505,6 @@ module.exports = {
   },
   profile: async (req, res) => {
     try {
-      const user = await User.findById(req.session.user._id)
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
       if (cart) {
@@ -425,7 +558,7 @@ module.exports = {
       }
       const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       console.log(typeof (addresses));
-      res.render('user/profile', { user, cartCount, cart, addresses, totalAmount })
+      res.render('user/profile', { user: req.session.user, cartCount, cart, addresses, totalAmount })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

@@ -12,108 +12,144 @@
             <%- include ('../partials/admin-leftside') %>
                 <!-- Page Sidebar Ends-->
 
-                <!-- Right sidebar Start-->
-                <%- include ('../partials/admin-right-sidebar') %>
-                    <!-- Right sidebar Ends-->
 
-                    <div class="page-body">
-                        <!-- Container-fluid starts-->
-                        <div class="container-fluid">
-                            <div class="page-header">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="page-header-left">
-                                            <h3>Order List
-                                                <small>legnutz Admin panel</small>
-                                            </h3>
-                                        </div>
+                <div class="page-body">
+                    <!-- Container-fluid starts-->
+                    <div class="container-fluid">
+                        <div class="page-header">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="page-header-left">
+                                        <h3>Order List
+                                            <small>legnutz Admin panel</small>
+                                        </h3>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <ol class="breadcrumb pull-right">
-                                            <li class="breadcrumb-item">
-                                                <a href="/admin">
-                                                    <i data-feather="home"></i>
-                                                </a>
-                                            </li>
-                                            <li class="breadcrumb-item">Menus</li>
-                                            <li class="breadcrumb-item active">Order List</li>
-                                        </ol>
-                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <ol class="breadcrumb pull-right">
+                                        <li class="breadcrumb-item">
+                                            <a href="/admin">
+                                                <i data-feather="home"></i>
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item">Menus</li>
+                                        <li class="breadcrumb-item active">Order List</li>
+                                    </ol>
                                 </div>
                             </div>
                         </div>
-                        <!-- Container-fluid Ends-->
+                    </div>
+                    <!-- Container-fluid Ends-->
 
-                        <!-- Container-fluid starts-->
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <form class="form-inline search-form search-box">
-                                                <div class="form-group">
-                                                    <input class="form-control-plaintext" type="search"
-                                                        placeholder="Search..">
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive table-desi">
-                                                <table class="table all-package" id="editableTable">
-                                                    <thead>
+                    <!-- Container-fluid starts-->
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive table-desi">
+                                            <table class="table all-package display" id="editableTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order Image</th>
+                                                        <th>Order Code</th>
+                                                        <th>Date</th>
+                                                        <th>Quantity</th>
+                                                        <th>Delivery Status</th>
+                                                        <th>Amount</th>
+                                                        <th>Options</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <% orders.forEach(obj=> { %>
                                                         <tr>
-                                                            <th>Order Image</th>
-                                                            <th>Order Code</th>
-                                                            <th>Date</th>
-                                                            <th>Quantity</th>
-                                                            <th>Delivery Status</th>
-                                                            <th>Amount</th>
-                                                        </tr>
-                                                    </thead>
+                                                            <td>
+                                                                <img src="/images/<%= obj.productDetails.productImg[0] %> "
+                                                                    alt="users">
+                                                            </td>
 
-                                                    <tbody>
-                                                        <% orders.forEach(obj=> { %>
-                                                            <tr>
-                                                                <td>
-                                                                    <img src="/images/<%= obj.productDetails.productImg[0] %> "
-                                                                        alt="users">
-                                                                </td>
+                                                            <td data-field="number">
+                                                                <%= obj._id %>
+                                                            </td>
 
-                                                                <td data-field="number">
-                                                                    <%= obj._id %>
-                                                                </td>
+                                                            <td data-field="date">
+                                                                <%= obj.orderedDate %>
+                                                            </td>
 
-                                                                <td data-field="date">
-                                                                    <%= obj.orderedDate %>
-                                                                </td>
+                                                            <td data-field="text">
+                                                                <%= obj.quantity %>
+                                                            </td>
 
-                                                                <td data-field="text">
-                                                                    <%= obj.quantity %>
-                                                                </td>
-
-                                                                <td class="order-success">
+                                                            <% if (obj.orderStatus=='placed' ) { %>
+                                                                <td id="status<%= obj._id %>" class="order-success">
                                                                     <span>
                                                                         <%= obj.orderStatus %>
                                                                     </span>
                                                                 </td>
+                                                                <% } else if (obj.orderStatus=='payment pending' ) { %>
+                                                                    <td id="status<%= obj._id %>" class="order-pending">
+                                                                        <span>
+                                                                            <%= obj.orderStatus %>
+                                                                        </span>
+                                                                    </td>
 
-                                                                <td data-field="number">$<%= obj.totalAmount %>
-                                                                </td>
-                                                            </tr>
-                                                            <% }) %>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                                    <% } else if(obj.orderStatus=='shipped' ) { %>
+                                                                        <td id="status<%= obj._id %>"
+                                                                            class="order-warning">
+                                                                            <span>
+                                                                                <%= obj.orderStatus %>
+                                                                            </span>
+                                                                        </td>
+                                                                        <% } else if(obj.orderStatus=='delivered' ) { %>
+                                                                            <td id="status<%= obj._id %>"
+                                                                                class="order-success">
+                                                                                <span>
+                                                                                    <%= obj.orderStatus %>
+                                                                                </span>
+                                                                            </td>
+                                                                            <% } %>
+                                                                                <td data-field="number">$<%=
+                                                                                        obj.totalAmount %>
+                                                                                </td>
+
+                                                                                <td data-field="number">
+                                                                                    <div class="dropdown">
+                                                                                        <a class="dropdown-toggle"
+                                                                                            type="button"
+                                                                                            id="dropdownMenuButton"
+                                                                                            data-toggle="dropdown"
+                                                                                            aria-haspopup="true"
+                                                                                            aria-expanded="false">
+                                                                                            <i class="fa fa-edit"
+                                                                                                title="Edit"></i>
+                                                                                        </a>
+                                                                                        <div class="dropdown-menu"
+                                                                                            aria-labelledby="dropdownMenuButton">
+                                                                                            <a class="dropdown-item"
+                                                                                                style="cursor: pointer;"
+                                                                                                onclick="shipped('<%= obj._id %>')">shipped</a>
+                                                                                            <a class="dropdown-item"
+                                                                                                style="cursor: pointer;"
+                                                                                                onclick="delivered('<%= obj._id %>')">delivered</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                        </tr>
+                                                        <% }) %>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Container-fluid Ends-->
                     </div>
+                    <!-- Container-fluid Ends-->
+                </div>
 
-                    <!-- footer start-->
-                    <%- include ('../partials/admin-footer') %>
-                        <!-- footer end-->
+                <!-- footer start-->
+                <%- include ('../partials/admin-footer') %>
+                    <!-- footer end-->
         </div>
 </div>

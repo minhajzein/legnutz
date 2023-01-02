@@ -1,283 +1,177 @@
 <div class="page-wrapper">
   <!-- Page Header Start-->
   <%- include ('../partials/admin-header') %>
-  <!-- Page Header Ends -->
+    <!-- Page Header Ends -->
 
-  <!-- Page Body Start-->
-  <div class="page-body-wrapper">
-    <!-- Page Sidebar Start-->
-    <%- include ('../partials/admin-leftside') %>
-    <!-- Page Sidebar Ends-->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+      <!-- Page Sidebar Start-->
+      <%- include ('../partials/admin-leftside') %>
+        <!-- Page Sidebar Ends-->
 
-    <!-- Right sidebar Start-->
-    <%- include ('../partials/admin-right-sidebar') %>
-    <!-- Right sidebar Ends-->
 
-    <div class="page-body">
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="page-header">
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="page-header-left">
-                <h3>
-                  Edit Product
-                  <small>Legnutz Admin panel</small>
-                </h3>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <ol class="breadcrumb pull-right">
-                <li class="breadcrumb-item">
-                  <a href="/admin/home">
-                    <i data-feather="home"></i>
-                  </a>
-                </li>
-                <li class="breadcrumb-item active">Edit product</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Container-fluid Ends-->
-
-      <!-- Container-fluid starts-->
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <form
-                class="needs-validation add-product-form"
-                novalidate=""
-                action="/admin/editProduct?id=<%= product._id %> "
-                method="post"
-                enctype="multipart/form-data"
-              >
-                <div class="card-body">
-                  <div class="row product-adding">
-                    <div class="col-xl-5">
-                      <div class="add-product">
-                        <div class="row">
-                          <div class="col-xl-9 xl-50 col-sm-6 col-9">
-                            <img
-                              id="imgView"
-                              src="/images/<%= product.productImg[0] %>"
-                              alt=""
-                              class="img-fluid image_zoom_1 blur-up lazyloaded"
-                            />
-                          </div>
-                          <div class="col-xl-3 xl-50 col-sm-6 col-3">
-                            <ul class="file-upload-product">
-                              <li>
-                                <div class="box-input-file">
-                                  <input
-                                    name="productImg"
-                                    class="upload form-control"
-                                    onchange="viewImage(event)"
-                                    type="file"
-                                    multiple
-                                  /><i class="fa fa-plus"></i>
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xl-7">
-                      <div class="form">
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustom01"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Title :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              value="<%= product.productName %> "
-                              class="form-control"
-                              name="productName"
-                              id="validationCustom01"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustom02"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Price :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              class="form-control"
-                              value="<%= product.productPrice %> "
-                              name="productPrice"
-                              id="validationCustom02"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustom02"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Original Price :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              class="form-control"
-                              value="<%= product.oldPrice %> "
-                              name="oldPrice"
-                              id="validationCustom02"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustom02"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Brand :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              class="form-control"
-                              value="<%= product.productBrand %> "
-                              name="productBrand"
-                              id="validationCustom02"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustom02"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Color :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              class="form-control"
-                              value="<%= product.productColor %> "
-                              name="productColor"
-                              id="validationCustom02"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustom02"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Discount :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              class="form-control"
-                              value="<%= product.productDiscount %> "
-                              name="productDiscount"
-                              id="validationCustom02"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group mb-3 row">
-                          <label
-                            for="validationCustomUsername"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Category :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <select
-                              class="form-control digits"
-                              name="productCategory"
-                              id="exampleFormControlSelect1"
-                            >
-                            <% categories.forEach(element => { %>
-                              <option><%= element.category %> </option>
-                            <% }) %>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form">
-                        <div class="form-group row">
-                          <label
-                            for="exampleFormControlSelect1"
-                            class="col-xl-3 col-sm-4 mb-0"
-                            >Product Size :</label
-                          >
-                          <div class="col-xl-8 col-sm-7">
-                            <input
-                              name="productSize"
-                              value="<%= product.productSize %> "
-                              class="form-control"
-                              id="validationCustomUsername"
-                              type="text"
-                              required=""
-                            />
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-xl-3 col-sm-4 mb-0"
-                            >Total Products :</label
-                          >
-                          <fieldset class="qty-box col-xl-9 col-xl-8 col-sm-7">
-                            <div class="input-group">
-                              <input
-                                name="productStock"
-                                class="touchspin"
-                                type="text"
-                                value="<%= product.productStock %> "
-                              />
-                            </div>
-                          </fieldset>
-                        </div>
-                        <div class="form-group row">
-                          <label class="col-xl-3 col-sm-4"
-                            >Add Description:</label
-                          >
-                          <div class="col-xl-8 col-sm-7 description-sm">
-                            <textarea
-                              id="editor1"
-                              name="productDescription"
-                              placeholder="<%= product.productDescription %> "
-                              cols="10"
-                              rows="4"
-                            ></textarea>
-                          </div>
-                          <div class="offset-xl-3 offset-sm-4 mt-4">
-                            <button type="submit" class="btn btn-primary">
-                              Add
-                            </button>
-                            <button type="button" class="btn btn-light">
-                              Discard
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+        <div class="page-body">
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="page-header">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="page-header-left">
+                    <h3>
+                      Edit Product
+                      <small>Legnutz Admin panel</small>
+                    </h3>
                   </div>
                 </div>
-              </form>
+                <div class="col-lg-6">
+                  <ol class="breadcrumb pull-right">
+                    <li class="breadcrumb-item">
+                      <a href="/admin">
+                        <i data-feather="home"></i>
+                      </a>
+                    </li>
+                    <li class="breadcrumb-item active">Edit product</li>
+                  </ol>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- Container-fluid Ends-->
-    </div>
+          <!-- Container-fluid Ends-->
 
-    <!-- footer start-->
-    <%- include ('../partials/admin-footer') %>
-    <!-- footer end-->
-  </div>
+          <!-- Container-fluid starts-->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <form class="needs-validation add-product-form" novalidate=""
+                    action="/admin/editProduct?id=<%= product._id %> " method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                      <div class="row product-adding">
+                        <div class="col-xl-5">
+                          <div class="add-product">
+                            <div class="row">
+                              <div class="col-xl-9 xl-50 col-sm-6 col-9">
+                                <img id="imgView" src="/images/<%= product.productImg[0] %>" alt=""
+                                  class="img-fluid image_zoom_1 blur-up lazyloaded" />
+                              </div>
+                              <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                                <ul class="file-upload-product">
+                                  <li>
+                                    <div class="box-input-file">
+                                      <input name="productImg" class="upload form-control" onchange="viewImage(event)"
+                                        type="file" multiple /><i class="fa fa-plus"></i>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xl-7">
+                          <div class="form">
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Title :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input value="<%= product.productName %> " class="form-control" name="productName"
+                                  id="validationCustom01" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Price :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input class="form-control" value="<%= product.productPrice %> " name="productPrice"
+                                  id="validationCustom02" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Original Price :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input class="form-control" value="<%= product.oldPrice %> " name="oldPrice"
+                                  id="validationCustom02" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Brand :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input class="form-control" value="<%= product.productBrand %> " name="productBrand"
+                                  id="validationCustom02" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Color :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input class="form-control" value="<%= product.productColor %> " name="productColor"
+                                  id="validationCustom02" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Discount :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input class="form-control" value="<%= product.productDiscount %> "
+                                  name="productDiscount" id="validationCustom02" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                              <label for="validationCustomUsername" class="col-xl-3 col-sm-4 mb-0">Category :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <select class="form-control digits" name="productCategory"
+                                  id="exampleFormControlSelect1">
+                                  <% categories.forEach(element=> { %>
+                                    <option>
+                                      <%= element.category %>
+                                    </option>
+                                    <% }) %>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form">
+                            <div class="form-group row">
+                              <label for="exampleFormControlSelect1" class="col-xl-3 col-sm-4 mb-0">Product Size
+                                :</label>
+                              <div class="col-xl-8 col-sm-7">
+                                <input name="productSize" value="<%= product.productSize %> " class="form-control"
+                                  id="validationCustomUsername" type="text" required="" />
+                              </div>
+                            </div>
+                            <div class="form-group row">
+                              <label class="col-xl-3 col-sm-4 mb-0">Total Products :</label>
+                              <fieldset class="qty-box col-xl-9 col-xl-8 col-sm-7">
+                                <div class="input-group">
+                                  <input name="productStock" class="touchspin" type="text"
+                                    value="<%= product.productStock %> " />
+                                </div>
+                              </fieldset>
+                            </div>
+                            <div class="form-group row">
+                              <label class="col-xl-3 col-sm-4">Add Description:</label>
+                              <div class="col-xl-8 col-sm-7 description-sm">
+                                <textarea id="editor1" name="productDescription"
+                                  placeholder="<%= product.productDescription %> " cols="10" rows="4"></textarea>
+                              </div>
+                              <div class="offset-xl-3 offset-sm-4 mt-4">
+                                <button type="submit" class="btn btn-primary">Edit</button>
+                                <button type="button" class="btn btn-light">
+                                  Discard
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Container-fluid Ends-->
+        </div>
+
+        <!-- footer start-->
+        <%- include ('../partials/admin-footer') %>
+          <!-- footer end-->
+    </div>
 </div>
 
 <script>

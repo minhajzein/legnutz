@@ -12,6 +12,9 @@ router.get('/go-to-shop', controller.goToShop)
 
 router.get('/orderList', userCheck.sessionUser, controller.orderList)
 
+router.get('/wishlist', userCheck.sessionUser, controller.wishlist)
+router.post('/addToWishlist', userCheck.sessionUser, controller.addToWishlist)
+
 router.get('/productDetails', controller.productDetails)
 
 router.get('/cartPage', userCheck.sessionUser, cart.goToCart)

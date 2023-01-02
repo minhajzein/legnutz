@@ -29,155 +29,178 @@
 		<section class="tracking-page section-b-space">
 			<div class="container">
 				<div class="row">
-					<% orders.forEach(obj=> { %>
-						<div class="col-sm-12 mt-5">
-							<h3 class="text-success">status for order no: <%= obj._id %>
-							</h3>
-							<div class="row border-part">
-								<div class="col-xl-2 col-md-3 col-sm-4">
-									<div class="product-detail">
-										<img src="/images/<%= obj.productDetails.productImg[0] %>"
-											class="img-fluid blur-up lazyload" alt="" />
+					<% if (orders) { %>
+						<% orders.forEach(obj=> { %>
+							<div class="col-sm-12 mt-5">
+								<h3 class="text-success">status for order no: <%= obj._id %>
+								</h3>
+								<div class="row border-part">
+									<div class="col-xl-2 col-md-3 col-sm-4">
+										<div class="product-detail">
+											<img src="/images/<%= obj.productDetails.productImg[0] %>"
+												class="img-fluid blur-up lazyload" alt="" />
+										</div>
+									</div>
+									<div class="col-xl-4 col-lg-5 col-sm-8">
+										<div class="tracking-detail">
+											<ul>
+												<li>
+													<div class="left">
+														<span>Order name</span>
+													</div>
+													<div class="right">
+														<span>
+															<%= obj.productDetails.productName %>
+														</span>
+													</div>
+												</li>
+												<li>
+													<div class="left">
+														<span>quantity</span>
+													</div>
+													<div class="right">
+														<span>
+															<%= obj.quantity %>
+														</span>
+													</div>
+												</li>
+												<li>
+													<div class="left">
+														<span>order date</span>
+													</div>
+													<div class="right">
+														<span>
+															<%= obj.orderedDate %>
+														</span>
+													</div>
+												</li>
+												<li>
+													<div class="left">
+														<span>order status</span>
+													</div>
+													<div class="right">
+														<span>
+															<%= obj.orderStatus %>
+														</span>
+													</div>
+												</li>
+												<li>
+													<div class="left">
+														<span>shipping address</span>
+													</div>
+													<div class="right">
+														<span>
+															<%= obj.shippingAddress.firstName %>
+																<%= obj.shippingAddress.lastName %> <br />
+																	<%= obj.shippingAddress.address %> <br />
+																		<%=obj.shippingAddress.townOrCity %>,
+																			<%= obj.shippingAddress.stateOrDistrict %>,
+																				<%= obj.shippingAddress.postalCode %>
+														</span>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-lg-6 col-sm-12">
+										<div class="order-table table-responsive-sm">
+											<table class="table mb-0 table-striped table-borderless">
+												<thead class="">
+													<tr>
+														<th scope="col">Date</th>
+														<th scope="col">Time</th>
+														<th scope="col">Description</th>
+													</tr>
+												</thead>
+												<tbody>
+													<% obj.trackOrder.forEach(obj=> { %>
+														<tr>
+															<td>
+																<%= obj.date %>
+															</td>
+															<td>
+																<%= obj.time %>
+															</td>
+															<td>
+																<%= obj.status %>
+															</td>
+														</tr>
+														<% }) %>
+												</tbody>
+											</table>
+										</div>
+										<div class="col-12 mt-3">
+											<% if (obj.orderStatus=='delivered' ) { %>
+												<a href=" /writeReview?prodId=<%= obj.productDetails._id %>"
+													class="btn btn-solid me-3">write
+													a
+													review</a>
+												<a onclick="returnOrder('<%= obj._id %>')"
+													class="btn btn-solid">return</a>
+												<% } else if (obj.orderStatus=='payment pending' ) { %>
+													<a href=" /payAgain?prodId=<%= obj._id %>"
+														class="btn btn-solid me-3">pay
+														again</a>
+													<a onclick="cancelOrder('<%= obj._id %>')"
+														class="btn btn-solid">cancel</a>
+													<% } else if (obj.orderStatus=='placed' ) { %>
+														<a onclick="cancelOrder('<%= obj._id %>')"
+															class="btn btn-solid">cancel</a>
+														<% } else if (obj.orderStatus=='shipped' ) { %>
+															<a onclick="cancelOrder('<%= obj._id %>')"
+																class="btn btn-solid">cancel</a>
+															<% } %>
+
+										</div>
 									</div>
 								</div>
-								<div class="col-xl-4 col-lg-5 col-sm-8">
-									<div class="tracking-detail">
-										<ul>
-											<li>
-												<div class="left">
-													<span>Order name</span>
-												</div>
-												<div class="right">
-													<span>
-														<%= obj.productDetails.productName %>
-													</span>
-												</div>
-											</li>
-											<li>
-												<div class="left">
-													<span>quantity</span>
-												</div>
-												<div class="right">
-													<span>
-														<%= obj.quantity %>
-													</span>
-												</div>
-											</li>
-											<li>
-												<div class="left">
-													<span>order date</span>
-												</div>
-												<div class="right">
-													<span>
-														<%= obj.orderedDate %>
-													</span>
-												</div>
-											</li>
-											<li>
-												<div class="left">
-													<span>order status</span>
-												</div>
-												<div class="right">
-													<span>
-														<%= obj.orderStatus %>
-													</span>
-												</div>
-											</li>
-											<li>
-												<div class="left">
-													<span>shipping address</span>
-												</div>
-												<div class="right">
-													<span>
-														<%= obj.shippingAddress.firstName %>
-															<%= obj.shippingAddress.lastName %> <br />
-																<%= obj.shippingAddress.address %> <br />
-																	<%=obj.shippingAddress.townOrCity %>,
-																		<%= obj.shippingAddress.stateOrDistrict %>,
-																			<%= obj.shippingAddress.postalCode %>
-													</span>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div class="col-lg-6 col-sm-12">
-									<div class="order-table table-responsive-sm">
-										<table class="table mb-0 table-striped table-borderless">
-											<thead class="">
-												<tr>
-													<th scope="col">Date</th>
-													<th scope="col">Time</th>
-													<th scope="col">Description</th>
-													<th scope="col">Location</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>20 Nov 2020</td>
-													<td>12.00 AM</td>
-													<td>shipped</td>
-													<td>california</td>
-												</tr>
-												<tr>
-													<td>20 Nov 2020</td>
-													<td>12.00 AM</td>
-													<td>shipping info received</td>
-													<td>california</td>
-												</tr>
-												<tr>
-													<td>20 Nov 2020</td>
-													<td>12.00 AM</td>
-													<td>origin scan</td>
-													<td>california</td>
-												</tr>
-												<tr>
-													<td>20 Nov 2020</td>
-													<td>12.00 AM</td>
-													<td>shipping info received</td>
-													<td>california</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-							<div class="wrapper">
-								<% if ( obj.orderStatus=='payment pending' ) { %>
-									<div class="arrow-steps clearfix">
-										<div class="step current"><span>payment pending</span></div>
-										<div class="step"><span> order not placed</span></div>
-										<div class="step"><span>preparing to ship</span></div>
-										<div class="step"><span> shipped</span></div>
-										<div class="step"><span>delivered</span></div>
-									</div>
-									<% } else if (obj.orderStatus=='placed' ) { %>
+								<div class="wrapper">
+									<% if ( obj.orderStatus=='payment pending' ) { %>
 										<div class="arrow-steps clearfix">
-											<div class="step done"><span> order placed</span></div>
-											<div class="step current"><span>preparing to ship</span></div>
+											<div class="step current"><span>payment pending</span></div>
+											<div class="step"><span> order not placed</span></div>
+											<div class="step"><span>preparing to ship</span></div>
 											<div class="step"><span> shipped</span></div>
 											<div class="step"><span>delivered</span></div>
 										</div>
-										<% } else if (obj.orderStatus=='shipped' ) { %>
+										<% } else if (obj.orderStatus=='placed' ) { %>
 											<div class="arrow-steps clearfix">
 												<div class="step done"><span> order placed</span></div>
-												<div class="step done"><span>preparing to ship</span></div>
-												<div class="step done"><span> shipped</span></div>
-												<div class="step current"><span>near your place</span></div>
+												<div class="step current"><span>preparing to ship</span>
+												</div>
+												<div class="step"><span> shipped</span></div>
 												<div class="step"><span>delivered</span></div>
 											</div>
-											<% } else if (obj.orderStatus=='delivered' ) { %>
+											<% } else if (obj.orderStatus=='shipped' ) { %>
 												<div class="arrow-steps clearfix">
-													<div class="step done"><span> order placed</span></div>
-													<div class="step done"><span>preparing to ship</span></div>
+													<div class="step done"><span> order placed</span>
+													</div>
+													<div class="step done"><span>preparing to
+															ship</span></div>
 													<div class="step done"><span> shipped</span></div>
-													<div class="step done"><span>delivered</span></div>
+													<div class="step current"><span>near your
+															place</span></div>
+													<div class="step"><span>delivered</span></div>
 												</div>
-												<% } %>
+												<% } else if (obj.orderStatus=='delivered' ) { %>
+													<div class="arrow-steps clearfix">
+														<div class="step done"><span> order
+																placed</span></div>
+														<div class="step done"><span>preparing to
+																ship</span></div>
+														<div class="step done"><span> shipped</span>
+														</div>
+														<div class="step done"><span>delivered</span>
+														</div>
+													</div>
+													<% } %>
 
+								</div>
 							</div>
-						</div>
-						<% }) %>
+							<% }) %>
+								<% } else { %>
+									<h4>You haven't ordered anything yet</h4>
+									<% } %>
 				</div>
 			</div>
 		</section>
