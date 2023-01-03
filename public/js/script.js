@@ -214,7 +214,7 @@
         console.log("click");
         $('.top-panel-adv').addClass("hide");
     });
-    
+
 
     /*=========================
      09. left category slider height
@@ -1571,11 +1571,11 @@
 
     $('.left-arrow').click(function () {
         $('.custom-arrow-3').slick('slickPrev');
-      })
-      
-      $('.right-arrow').click(function () {
+    })
+
+    $('.right-arrow').click(function () {
         $('.custom-arrow-3').slick('slickNext');
-      })
+    })
 
 
     /*=====================
@@ -1872,7 +1872,7 @@
             offset: 20,
             spacing: 10,
             z_index: 1031,
-            delay: 5000,
+            delay: 1000,
             animate: {
                 enter: 'animated fadeInDown',
                 exit: 'animated fadeOutUp'
@@ -1915,7 +1915,7 @@
             offset: 20,
             spacing: 10,
             z_index: 1031,
-            delay: 5000,
+            delay: 1000,
             animate: {
                 enter: 'animated fadeInDown',
                 exit: 'animated fadeOutUp'

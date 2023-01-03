@@ -8,6 +8,7 @@ const checkOtp = require("../utils/otp-auth")
 const Address = require('../models/addressSchema')
 const Order = require("../models/orderSchema")
 const Wishlist = require("../models/wishlistSchema")
+const Category = require("../models/categorySchema")
 let userSignup
 
 module.exports = {
@@ -89,8 +90,15 @@ module.exports = {
     }
   },
   goToShop: async (req, res) => {
+    const allProducts = await Product.find()
+    const latest1 = await Product.find().sort({ createdAt: -1 }).limit(3)
+    const latest2 = await Product.find().sort({ createdAt: -1 }).skip(3).limit(3)
+    const brands = await Product.aggregate(
+      [{ $group: { _id: "$productBrand" } }]
+    )
+    const categories = await Category.find()
+    console.log(brands);
     try {
-      const products = await Product.find()
       if (req.session.loggedIn) {
         const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
         let cartCount;
@@ -144,9 +152,9 @@ module.exports = {
           totalAmount = 0
         }
         const orders = await Order.find()
-        res.render("user/shop", { products, user: req.session.user, cartCount, cart, totalAmount, orders })
+        res.render("user/shop", { allProducts, user: req.session.user, cartCount, cart, totalAmount, orders, latest1, latest2, brands, categories })
       } else {
-        res.render("user/shop", { user: false, products })
+        res.render("user/shop", { user: false, allProducts, latest1, latest2, brands, categories })
       }
     } catch (err) {
       console.log(err);

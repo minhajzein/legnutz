@@ -31,6 +31,10 @@ router.route('/addProduct')
 
 router.get('/productList', checkSession.sessionAdmin, productControl.getProductList)
 
+router.route('/createCoupon')
+    .get(control.couponCreationPage)
+    .post(control.createCoupon)
+
 router.route('/editProduct')
     .get(productControl.editPage)
     .post(fileupload.uploadImages, fileupload.resizeImages, productControl.editProduct)

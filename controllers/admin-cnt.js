@@ -163,6 +163,22 @@ module.exports = {
             console.log(err);
             res.redirect('/admin/not-available')
         }
+    },
+    couponCreationPage: async (req, res) => {
+        try {
+            res.render('admin/create-coupon')
+        } catch (err) {
+            console.log(err);
+            res.redirect('/admin/not-available')
+        }
+    },
+    createCoupon: async (req, res) => {
+        try {
+            console.log(req.body);
+        } catch (err) {
+            console.log(err);
+            res.redirect('/admin/not-available')
+        }
     }
 }
 
