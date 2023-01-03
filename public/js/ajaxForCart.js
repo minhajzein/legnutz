@@ -2,10 +2,13 @@ const { response } = require("express");
 const { count } = require("../../models/userSchema");
 const { post } = require("../../routes/user");
 
-function addToCart(id, userId) {
+function addToCart(id, userId, checker) {
     let total = parseInt(document.getElementById('totalAmount').innerHTML)
     let price = parseInt(document.getElementById(`price${id}`).innerHTML)
     document.getElementById('totalAmount').innerHTML = total + price
+    if (checker == 'wish') {
+        deleteItem(id)
+    }
     $.ajax({
         url: `/addToCart?id=${id}&&userId=${userId}`,
         method: 'get',
@@ -14,6 +17,25 @@ function addToCart(id, userId) {
                 let cartCount = $('#cartCount').html()
                 cartCount = parseInt(cartCount) + 1
                 $('#cartCount').html(cartCount)
+            }
+        }
+    })
+}
+
+function deleteItem(id) {
+    $.ajax({
+        url: `deleteFromWish?id=${id}`,
+        method: 'get',
+        success: (response) => {
+            if (response.status) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'item added to cart',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                location.reload()
             }
         }
     })
@@ -80,12 +102,12 @@ function removeItem(cartId, prodId) {
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.reload()
                         Swal.fire(
                             'Deleted!',
                             `Order's status has been changed.`,
                             'success'
                         )
+                        location.reload()
                     }
                 })
             }

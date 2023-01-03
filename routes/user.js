@@ -14,6 +14,7 @@ router.get('/orderList', userCheck.sessionUser, controller.orderList)
 
 router.get('/wishlist', userCheck.sessionUser, controller.wishlist)
 router.post('/addToWishlist', userCheck.sessionUser, controller.addToWishlist)
+router.get('/deleteFromWish', userCheck.sessionUser, controller.deleteFromWish)
 
 router.get('/productDetails', controller.productDetails)
 

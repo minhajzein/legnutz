@@ -321,7 +321,11 @@ module.exports = {
         totalAmount = 0
       }
       const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
-      res.render('user/checkout', { user: req.session.user, cartCount, cart, totalAmount, cartItems, addresses, orders })
+      if (cartItems) {
+        res.render('user/checkout', { user: req.session.user, cartCount, cart, totalAmount, cartItems, addresses, orders })
+      } else {
+        res.redirect('/not-found')
+      }
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

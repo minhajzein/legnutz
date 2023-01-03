@@ -73,7 +73,9 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <h2>$<%= obj.product.productPrice %>
+                                                <h2>$<span id="price<%= obj.product._id %>">
+                                                        <%= obj.product.productPrice %>
+                                                    </span>
                                                 </h2>
                                             </td>
                                             <td>
@@ -81,8 +83,14 @@
                                                     <%= obj.product.productStock %>
                                                 </p>
                                             </td>
-                                            <td><a href="#" class="icon me-3"><i class="ti-close"></i> </a><a href="#"
-                                                    class="cart"><i class="ti-shopping-cart"></i></a></td>
+                                            <td><a style="cursor: pointer;"
+                                                    onclick="deleteItem('<%= obj.product._id %>')" class="icon me-3"><i
+                                                        class="ti-trash"></i>
+                                                </a><a
+                                                    onclick="addToCart('<%= obj.product._id %>','<%= user._id %>','wish')"
+                                                    class="cart"><i style="cursor: pointer;"
+                                                        class="ti-shopping-cart"></i></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     <% }) %>

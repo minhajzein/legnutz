@@ -215,7 +215,6 @@ module.exports = {
   },
   addToWishlist: async (req, res) => {
     try {
-      console.log(req.body, '=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=');
       const proObj = {
         item: mongoose.Types.ObjectId(req.body.prodId)
       }
@@ -336,6 +335,24 @@ module.exports = {
         totalAmount = 0
       }
       res.render('user/wishlist', { user: req.session.user, cartCount, orders, totalAmount, wishItems })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  deleteFromWish: async (req, res) => {
+    try {
+      await Wishlist.updateOne(
+        { user: mongoose.Types.ObjectId(req.session.user._id) },
+        {
+          $pull: {
+            products: {
+              item: mongoose.Types.ObjectId(req.query.id)
+            }
+          }
+        }
+      )
+      res.json({ status: true })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
@@ -477,14 +494,14 @@ module.exports = {
         const number = parseInt(userDetails.phone)
         checkOtp.sendOtp(number)
         userSignup = userDetails
-        res.render("user/otp-page")
+        res.redirect("/get-otp")
       }
     } catch (err) {
       console.log(err);
-      res.redirect("/not-fount")
+      res.redirect("/not-found")
     }
   },
-  otpPage: (req, res) => {
+  otpPage: async (req, res) => {
     res.render("user/otp-page", { errorMsg: false })
   },
   otpVerification: async (req, res) => {

@@ -315,12 +315,12 @@
                                 class="img-fluid blur-up lazyload bg-img" alt="" /></a>
                           </div>
                           <div class="cart-info cart-wrap">
-                            <button onclick="addToCart('<%= obj._id %>','<%= user._id %>')" data-bs-toggle="modal"
-                              data-bs-target="#addtocart" title="Add to cart">
+                            <button onclick="addToCart('<%= obj._id %>','<%= user._id %>','home')"
+                              data-bs-toggle="modal" data-bs-target="#addtocart" title="Add to cart">
                               <i class="ti-shopping-cart"></i>
                             </button>
-                            <a onclick="addToWishlist('<%= obj._id %>')" title="Add to Wishlist"><i class="ti-heart"
-                                aria-hidden="true"></i></a>
+                            <a style="cursor: pointer;" onclick="addToWishlist('<%= obj._id %>')"
+                              title="Add to Wishlist"><i class="ti-heart" aria-hidden="true"></i></a>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#quick-view" title="Quick View"><i
                                 class="ti-search" aria-hidden="true"></i></a>
                           </div>
