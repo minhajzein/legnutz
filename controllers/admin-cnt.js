@@ -173,7 +173,7 @@ module.exports = {
             await Coupon.create({
                 couponTitle: req.body.couponTitle,
                 couponCode: req.body.couponCode,
-                couponStatus: 'used',
+                couponStatus: 'active',
                 couponType: req.body.couponType,
                 startDate: req.body.startDate,
                 endDate: req.body.endDate,
