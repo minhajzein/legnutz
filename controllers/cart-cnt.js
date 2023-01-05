@@ -4,6 +4,8 @@ const Product = require("../models/productSchema")
 const Address = require('../models/addressSchema')
 const Order = require('../models/orderSchema')
 const Razorpay = require('razorpay')
+const Coupon = require('../models/couponSchema')
+const { json } = require("express")
 
 const instance = new Razorpay({
   key_id: 'rzp_test_jk6BVykF0sfMd7',
@@ -425,8 +427,8 @@ module.exports = {
       } else {
         address = await Address.findById(req.body.ORIGIN)
       }
-      const date = new Date()
       let orderStatus = req.body.paymentMethod === 'COD' ? 'placed' : 'payment pending'
+      const date = new Date()
       if (req.body.paymentMethod == 'COD') {
         cartItems.forEach(async (obj) => {
           await Order.create({
@@ -546,6 +548,53 @@ module.exports = {
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
+    }
+  },
+  applyCoupon: async (req, res) => {
+    try {
+      if (req.body.couponCode != '') {
+        const coupon = await Coupon.findOne({ couponCode: req.body.couponCode })
+        if (coupon) {
+          if (coupon.couponStatus == 'active') {
+            if (coupon.couponType == 'percent') {
+              totalAmount = totalAmount - (totalAmount / 100) * parseInt(coupon.amountOrPercent)
+              if (coupon.quantity > 0) {
+                await Coupon.updateOne({ _id: coupon._id }, {
+                  $set: {
+                    couponStatus: 'used',
+                    quantity: parseInt(coupon.quantity) - 1
+                  }
+                })
+                res.json({ coupon: true })
+              } else {
+                res.json({ notExist: true })
+              }
+            } else {
+              totalAmount = totalAmount - parseInt(coupon.amountOrPercent)
+              if (coupon.quantity > 0) {
+                await Coupon.updateOne({ _id: coupon._id }, {
+                  $set: {
+                    couponStatus: 'used',
+                    quantity: parseInt(coupon.quantity) - 1
+                  }
+                })
+                res.json({ coupon: true })
+              } else {
+                res.json({ notExist: true })
+              }
+            }
+          } else if (coupon.couponStatus == 'used') {
+            res.json({ used: true })
+          } else if (coupon.couponStatus == 'expired') {
+            res.json({ expired: true })
+          }
+        } else {
+          res.json({ notExist: true })
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      res.redirect('/admin/not-available')
     }
   }
 }

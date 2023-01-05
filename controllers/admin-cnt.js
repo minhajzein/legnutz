@@ -5,6 +5,7 @@ const Admin = require('../models/adminSchema')
 const Category = require('../models/categorySchema')
 const Order = require('../models/orderSchema')
 const Product = require('../models/productSchema')
+const Coupon = require('../models/couponSchema')
 
 module.exports = {
     errPage: (res, req) => {
@@ -12,11 +13,7 @@ module.exports = {
     },
     home: async (req, res) => {
         try {
-            if (req.session.adminLoggedIn) {
-                res.render('admin/home', { adminData: req.session.adminData })
-            } else {
-                res.redirect('/admin/login')
-            }
+            res.render('admin/home', { adminData: req.session.adminData })
         } catch {
             res.redirect("/admin/not-available")
         }
@@ -57,7 +54,7 @@ module.exports = {
     categoryPage: async (req, res) => {
         try {
             const categories = await Category.find()
-            res.render('admin/category', { categories, err_msg: false })
+            res.render('admin/category', { categories, err_msg: false, adminData: req.session.adminData })
         } catch {
             res.redirect('/admin/not-available')
         }
@@ -81,14 +78,13 @@ module.exports = {
     },
     deleteCategory: async (req, res) => {
         try {
-            const id = req.query.id
-            const category = await Category.findById({ _id: id })
+            const category = await Category.findById({ _id: req.query.id })
             const listedIn = await Product.findOne({ productCategory: category.category })
             if (listedIn) {
                 const categories = await Category.find()
                 res.render('admin/category', { categories, err_msg: `Cannot delete ${category.category} category, some products still in this category` })
             } else {
-                await Category.deleteOne({ _id: id })
+                await Category.deleteOne({ _id: req.query.id })
                 res.redirect('/admin/category-page')
             }
         } catch {
@@ -97,9 +93,8 @@ module.exports = {
     },
     orderManage: async (req, res) => {
         try {
-            const adminData = req.session.adminData
             const orders = await Order.find().sort({ createdAt: -1 })
-            res.render('admin/order-management', { orders, adminData })
+            res.render('admin/order-management', { orders, adminData: req.session.adminData })
         } catch (err) {
             console.log(err);
             res.redirect('/admin/not-available')
@@ -166,7 +161,7 @@ module.exports = {
     },
     couponCreationPage: async (req, res) => {
         try {
-            res.render('admin/create-coupon')
+            res.render('admin/create-coupon', { adminData: req.session.adminData })
         } catch (err) {
             console.log(err);
             res.redirect('/admin/not-available')
@@ -175,6 +170,26 @@ module.exports = {
     createCoupon: async (req, res) => {
         try {
             console.log(req.body);
+            await Coupon.create({
+                couponTitle: req.body.couponTitle,
+                couponCode: req.body.couponCode,
+                couponStatus: 'used',
+                couponType: req.body.couponType,
+                startDate: req.body.startDate,
+                endDate: req.body.endDate,
+                quantity: req.body.quantity,
+                amountOrPercent: req.body.amountOrPercent
+            })
+            res.redirect('/admin/couponList')
+        } catch (err) {
+            console.log(err);
+            res.redirect('/admin/not-available')
+        }
+    },
+    couponList: async (req, res) => {
+        try {
+            const coupons = await Coupon.find()
+            res.render('admin/couponlist', { coupons, adminData: req.session.adminData })
         } catch (err) {
             console.log(err);
             res.redirect('/admin/not-available')

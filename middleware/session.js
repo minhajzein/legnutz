@@ -2,29 +2,27 @@ const mongoose = require('mongoose')
 const User = require('../models/userSchema')
 
 module.exports = {
-    sessionUser : async (req,res,next) => {
-        try{
-            if(req.session.loggedIn){
+    sessionUser: async (req, res, next) => {
+        try {
+            if (req.session.loggedIn) {
                 next()
-            }else{
+            } else {
                 res.redirect('/login')
             }
-        }catch (err) {
+        } catch (err) {
             res.redirect('/not-found')
         }
-        
+
     },
-    sessionAdmin : async (req,res,next) => {
-        
-        try{ 
-            if(req.session.adminLoggedIn){
+    sessionAdmin: async (req, res, next) => {
+        try {
+            if (req.session.adminLoggedIn) {
                 next()
-            }else{
+            } else {
                 res.redirect('/admin/login')
             }
-        }catch (err) {
+        } catch (err) {
             res.redirect('/admin/not-available')
         }
     },
-    
 }

@@ -7,7 +7,7 @@ function addToCart(id, userId, checker) {
     let price = parseInt(document.getElementById(`price${id}`).innerHTML)
     document.getElementById('totalAmount').innerHTML = total + price
     if (checker == 'wish') {
-        deleteItem(id)
+        deleteItem(id, checker)
     }
     $.ajax({
         url: `/addToCart?id=${id}&&userId=${userId}`,
@@ -22,20 +22,31 @@ function addToCart(id, userId, checker) {
     })
 }
 
-function deleteItem(id) {
+function deleteItem(id, checker) {
     $.ajax({
         url: `deleteFromWish?id=${id}`,
         method: 'get',
         success: (response) => {
             if (response.status) {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'item added to cart',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-                location.reload()
+                if (checker == 'wish') {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'item added to cart',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    location.reload()
+                } else {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'item removed from wishlist',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    location.reload()
+                }
             }
         }
     })

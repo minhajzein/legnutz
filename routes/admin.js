@@ -8,7 +8,7 @@ const fileupload = require('../middleware/multer')
 
 //==========================================================================================
 
-router.get('/', control.home)
+router.get('/', checkSession.sessionAdmin, control.home)
 
 router.get('/orderManage', checkSession.sessionAdmin, control.orderManage)
 
@@ -18,12 +18,12 @@ router.route('/login')
 
 router.get('/users-list', checkSession.sessionAdmin, userControl.usersList)
 
-router.post('/shipped', control.statusToShipped)
-router.post('/delivered', control.statusToDelivered)
+router.post('/shipped', checkSession.sessionAdmin, control.statusToShipped)
+router.post('/delivered', checkSession.sessionAdmin, control.statusToDelivered)
 
-router.get('/block-user', userControl.blockUser)
+router.get('/block-user', checkSession.sessionAdmin, userControl.blockUser)
 
-router.get('/unBlock-user', userControl.unBlockUser)
+router.get('/unBlock-user', checkSession.sessionAdmin, userControl.unBlockUser)
 
 router.route('/addProduct')
     .get(productControl.addProduct)
@@ -31,9 +31,11 @@ router.route('/addProduct')
 
 router.get('/productList', checkSession.sessionAdmin, productControl.getProductList)
 
+router.get('/couponList', checkSession.sessionAdmin, control.couponList)
+
 router.route('/createCoupon')
-    .get(control.couponCreationPage)
-    .post(control.createCoupon)
+    .get(checkSession.sessionAdmin, control.couponCreationPage)
+    .post(checkSession.sessionAdmin, control.createCoupon)
 
 router.route('/editProduct')
     .get(productControl.editPage)

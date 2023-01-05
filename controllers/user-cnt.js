@@ -490,13 +490,13 @@ module.exports = {
       let err_msg = ""
       if (user[0]) {
         err_msg = "This email is already registered"
-        res.render("user/register", { err_msg })
+        res.render("user/register", { err_msg, user: false })
       } else if (userWithPhone) {
         err_msg = "This mobile number is already registered"
-        res.render("user/register", { err_msg })
+        res.render("user/register", { err_msg, user: false })
       } else if (req.body.password !== req.body.confirmPassword) {
         err_msg = "Password and confirm password must be same"
-        res.render("user/register", { err_msg })
+        res.render("user/register", { err_msg, user: false })
       } else {
         const userDetails = req.body
         const number = parseInt(userDetails.phone)
@@ -510,7 +510,7 @@ module.exports = {
     }
   },
   otpPage: async (req, res) => {
-    res.render("user/otp-page", { errorMsg: false })
+    res.render("user/otp-page", { errorMsg: false, user: false })
   },
   otpVerification: async (req, res) => {
     let Otp = req.body
@@ -525,7 +525,7 @@ module.exports = {
       req.session.loggedIn = true
       res.redirect("/")
     } else {
-      res.render("user/otp-page", { errorMsg: "Entered OTP is incorrect" })
+      res.render("user/otp-page", { errorMsg: "Entered OTP is incorrect", user: false })
     }
   },
   profile: async (req, res) => {
