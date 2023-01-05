@@ -188,7 +188,7 @@ module.exports = {
     },
     couponList: async (req, res) => {
         try {
-            const coupons = await Coupon.find()
+            const coupons = await Coupon.find().sort({ createdAt: -1 })
             res.render('admin/couponlist', { coupons, adminData: req.session.adminData })
         } catch (err) {
             console.log(err);

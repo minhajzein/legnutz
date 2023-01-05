@@ -26,6 +26,7 @@
 								<%= user.username %>
 									<ul class="onhover-show-div">
 										<li><a href="/profile">Profile</a></li>
+										<li><a href="/coupons">Coupons</a></li>
 										<% if (orders) { %>
 											<li><a href="/orderList">orders</a></li>
 											<% } %>
@@ -113,23 +114,19 @@
 								<ul>
 									<li class="onhover-div mobile-search">
 										<div>
-											<img src="/images/icon/search.png" onclick="openSearch()"
-												class="img-fluid lazyload" alt="" />
+											<img src="/images/icon/search.png" onclick="openSearch()" class="img-fluid lazyload" alt="" />
 											<i class="ti-search" onclick="openSearch()"></i>
 										</div>
 										<div id="search-overlay" class="search-overlay">
 											<div>
-												<span class="closebtn" onclick="closeSearch()"
-													title="Close Overlay">×</span>
+												<span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
 												<div class="overlay-content">
 													<div class="container">
 														<div class="row">
 															<div class="col-xl-12">
 																<form>
 																	<div class="form-group">
-																		<input type="text" class="form-control"
-																			id="exampleInputPassword1"
-																			placeholder="Search a Product" />
+																		<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Search a Product" />
 																	</div>
 																	<button type="submit" class="btn btn-primary">
 																		<i class="fa fa-search"></i>
@@ -160,8 +157,7 @@
 									</li>
 									<% if (user) { %>
 										<li class="onhover-div mobile-cart">
-											<div><img src="/images/icon/cart.png" class="img-fluid blur-up lazyload"
-													alt=""> <i class="ti-shopping-cart"></i>
+											<div><img src="/images/icon/cart.png" class="img-fluid blur-up lazyload" alt=""> <i class="ti-shopping-cart"></i>
 											</div>
 											<span id="cartCount" class="cart_qty_cls">
 												<%= cartCount %>

@@ -9,6 +9,8 @@ const Address = require('../models/addressSchema')
 const Order = require("../models/orderSchema")
 const Wishlist = require("../models/wishlistSchema")
 const Category = require("../models/categorySchema")
+const Coupon = require('../models/couponSchema')
+
 let userSignup
 
 module.exports = {
@@ -216,6 +218,73 @@ module.exports = {
         totalAmount = 0
       }
       res.render('user/order-list', { user: req.session.user, totalAmount, orders, cartCount })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  coupons: async (req, res) => {
+    try {
+      const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      let cartCount;
+      if (cart) {
+        cartCount = cart.products.length
+      } else {
+        cartCount = 0
+      }
+      let totalAmount = await Cart.aggregate([
+        {
+          $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+        },
+        {
+          $unwind: '$products',
+        },
+        {
+          $project: {
+            item: '$products.item',
+            quantity: '$products.quantity'
+          }
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'item',
+            foreignField: '_id',
+            as: 'product'
+          }
+        },
+        {
+          $project: {
+            item: 1,
+            quantity: 1,
+            product: { $arrayElemAt: ["$product", 0] }
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            total: {
+              $sum: {
+                $multiply: ['$quantity', '$product.productPrice']
+              }
+            }
+          }
+        }
+      ])
+      if (totalAmount[0]) {
+        totalAmount = totalAmount[0].total;
+      } else {
+        totalAmount = 0
+      }
+      let coupons = await Coupon.find().sort({ createdAt: -1 })
+      if (coupons[0]) {
+        coupons = coupons
+      } else {
+        coupons = null
+      }
+      console.log(coupons);
+      const orders = await Order.find()
+      res.render('user/coupons', { user: req.session.user, cartCount, totalAmount, coupons, orders })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')
@@ -460,19 +529,19 @@ module.exports = {
             res.redirect("/")
           } else {
             res.render("user/login", {
-              err_msg: "You have been temporarily blocked by admin",
+              err_msg: "You have been temporarily blocked by admin", user: false
             })
           }
         } else {
-          ails
           res.render("user/login", {
-            err_msg: "Entered password is incorrect",
+            err_msg: "Entered password is incorrect", user: false
           })
         }
       } else {
-        res.render("user/login", { err_msg: "Entered Email is incorrect" })
+        res.render("user/login", { err_msg: "Entered Email is incorrect", user: false })
       }
-    } catch {
+    } catch (err) {
+      console.log(err);
       res.redirect("/not-found")
     }
   },
@@ -480,6 +549,7 @@ module.exports = {
     try {
       res.render("user/register", { err_msg: false, user: false })
     } catch (err) {
+      console.log(err);
       res.redirect("/not-found")
     }
   },
@@ -529,6 +599,7 @@ module.exports = {
     }
   },
   profile: async (req, res) => {
+    const orders = await Order.find()
     try {
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
@@ -583,7 +654,7 @@ module.exports = {
       }
       const addresses = await Address.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       console.log(typeof (addresses));
-      res.render('user/profile', { user: req.session.user, cartCount, cart, addresses, totalAmount })
+      res.render('user/profile', { user: req.session.user, cartCount, cart, addresses, totalAmount, orders })
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

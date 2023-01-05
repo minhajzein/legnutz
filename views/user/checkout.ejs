@@ -198,7 +198,9 @@
 																	</ul>
 																	<ul class="sub-total">
 																		<li>
-																			Subtotal<span class="count">$<%= totalAmount %></span>
+																			Subtotal<span class="count">$<span id="subtotal">
+																					<%= totalAmount %>
+																				</span></span>
 																		</li>
 																		<li>
 																			Shipping
@@ -216,7 +218,7 @@
 																	</ul>
 																	<ul class="total">
 																		<li>
-																			Total<span class="count">$<%= totalAmount %></span>
+																			Total<span id="afterCoupon" class="count">$<%= totalAmount %></span>
 																		</li>
 																	</ul>
 																</div>
@@ -243,9 +245,9 @@
 																			</ul>
 																		</div>
 																	</div>
-																	<div class="input-group mb-3 form-group col-md-12 col-sm-6 col-xs-12">
+																	<div class="mb-3 form-group col-md-12 col-sm-6 col-xs-12">
 																		<div class="field-label">Coupon Code</div>
-																		<input name="couponCode" type="text" class="form-control" placeholder="optional" aria-label="Recipient's username" aria-describedby="button-addon2">
+																		<input id="couponcode" name="couponCode" type="text" class="form-control" placeholder="optional" aria-label="Recipient's username" aria-describedby="button-addon2">
 																		<button onclick="applyCoupon()" class="btn btn-outline-secondary mt-3" type="button" id="button-addon2">apply coupon</button>
 																	</div>
 																	<div class="text-end">
@@ -367,6 +369,34 @@
 					}).then((result) => {
 						location.reload()
 					})
+				}
+			}
+		})
+	}
+	function applyCoupon() {
+		const couponCode = document.getElementById('couponcode').value
+		console.log(couponCode);
+		$.ajax({
+			url: '/applyCoupon',
+			method: 'post',
+			data: { couponCode },
+			success: (response) => {
+				if (response.coupon) {
+					document.getElementById('afterCoupon').innerHTML = '$' + response.totalAmount
+					document.getElementById('subtotal').innerHTML = response.totalAmount
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'coupon activated succesfully',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				} else if (response.used) {
+					Swal.fire('this coupon is already used')
+				} else if (response.expired) {
+					Swal.fire('Coupon has been expired')
+				} else if (response.notExist) {
+					Swal.fire('Enter a valid coupon code')
 				}
 			}
 		})

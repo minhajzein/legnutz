@@ -551,13 +551,59 @@ module.exports = {
     }
   },
   applyCoupon: async (req, res) => {
+    let totalAmount = await Cart.aggregate([
+      {
+        $match: { user: mongoose.Types.ObjectId(req.session.user._id) }
+      },
+      {
+        $unwind: '$products',
+      },
+      {
+        $project: {
+          item: '$products.item',
+          quantity: '$products.quantity'
+        }
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'item',
+          foreignField: '_id',
+          as: 'product'
+        }
+      },
+      {
+        $project: {
+          item: 1,
+          quantity: 1,
+          product: { $arrayElemAt: ["$product", 0] }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          total: {
+            $sum: {
+              $multiply: ['$quantity', '$product.productPrice']
+            }
+          }
+        }
+      }
+    ])
+    if (totalAmount[0]) {
+      totalAmount = totalAmount[0].total;
+    } else {
+      totalAmount = 0
+    }
+    console.log(req.body);
     try {
       if (req.body.couponCode != '') {
         const coupon = await Coupon.findOne({ couponCode: req.body.couponCode })
         if (coupon) {
           if (coupon.couponStatus == 'active') {
             if (coupon.couponType == 'percent') {
-              totalAmount = totalAmount - (totalAmount / 100) * parseInt(coupon.amountOrPercent)
+              const saved = (totalAmount / 100) * parseInt(coupon.amountOrPercent)
+              totalAmount = totalAmount - saved
               if (coupon.quantity > 0) {
                 await Coupon.updateOne({ _id: coupon._id }, {
                   $set: {
@@ -565,7 +611,7 @@ module.exports = {
                     quantity: parseInt(coupon.quantity) - 1
                   }
                 })
-                res.json({ coupon: true })
+                res.json({ coupon: true, totalAmount, saved })
               } else {
                 res.json({ notExist: true })
               }
@@ -578,7 +624,7 @@ module.exports = {
                     quantity: parseInt(coupon.quantity) - 1
                   }
                 })
-                res.json({ coupon: true })
+                res.json({ coupon: true, totalAmount, saved: parseInt(coupon.amountOrPercent) })
               } else {
                 res.json({ notExist: true })
               }
@@ -591,6 +637,8 @@ module.exports = {
         } else {
           res.json({ notExist: true })
         }
+      } else {
+        res.json({ notExist: true })
       }
     } catch (err) {
       console.log(err);

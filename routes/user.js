@@ -12,6 +12,8 @@ router.get('/go-to-shop', controller.goToShop)
 
 router.get('/orderList', userCheck.sessionUser, controller.orderList)
 
+router.get('/coupons', userCheck.sessionUser, controller.coupons)
+
 router.get('/wishlist', userCheck.sessionUser, controller.wishlist)
 router.post('/addToWishlist', userCheck.sessionUser, controller.addToWishlist)
 router.get('/deleteFromWish', userCheck.sessionUser, controller.deleteFromWish)
@@ -25,6 +27,7 @@ router.post('/removeItem', userCheck.sessionUser, cart.removeItem)
 
 
 router.get('/checkOut', userCheck.sessionUser, cart.checkOut)
+router.post('/applyCoupon', userCheck.sessionUser, cart.applyCoupon)
 router.post('/placeOrder', userCheck.sessionUser, cart.placeOrder)
 router.post('/verifyPayment', userCheck.sessionUser, cart.verifyPayment)
 router.get('/successPage', userCheck.sessionUser, cart.successPage)
