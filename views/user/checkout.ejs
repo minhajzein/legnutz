@@ -245,7 +245,7 @@
 																			</ul>
 																		</div>
 																	</div>
-																	<div class="mb-3 form-group col-md-12 col-sm-6 col-xs-12">
+																	<div id="couponSession" class="mb-3 form-group col-md-12 col-sm-6 col-xs-12">
 																		<div class="field-label">Coupon Code</div>
 																		<input id="couponcode" name="couponCode" type="text" class="form-control" placeholder="optional" aria-label="Recipient's username" aria-describedby="button-addon2">
 																		<button onclick="applyCoupon()" class="btn btn-outline-secondary mt-3" type="button" id="button-addon2">apply coupon</button>
@@ -384,6 +384,8 @@
 				if (response.coupon) {
 					document.getElementById('afterCoupon').innerHTML = '$' + response.totalAmount
 					document.getElementById('subtotal').innerHTML = response.totalAmount
+					let aaa = `<h3 class="text-success">you saved $ ${response.saved}</h3>`
+					$(`#couponSession`).html(aaa)
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',

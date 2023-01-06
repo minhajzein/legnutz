@@ -6,6 +6,7 @@ const Category = require('../models/categorySchema')
 const Order = require('../models/orderSchema')
 const Product = require('../models/productSchema')
 const Coupon = require('../models/couponSchema')
+const User = require('../models/userSchema')
 
 module.exports = {
     errPage: (res, req) => {
@@ -13,7 +14,17 @@ module.exports = {
     },
     home: async (req, res) => {
         try {
-            res.render('admin/home', { adminData: req.session.adminData })
+            const users = await User.find().count()
+            const products = await Product.find().count()
+            const orders = await Order.find().sort({ createdAt: -1 }).limit(4)
+            // let monthlyIncome = await Order.aggregate([
+            //     {
+            //         $match: {
+
+            //         }
+            //     }
+            // ])
+            res.render('admin/home', { adminData: req.session.adminData, orders, users, products, })
         } catch {
             res.redirect("/admin/not-available")
         }
