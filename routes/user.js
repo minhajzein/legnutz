@@ -32,6 +32,8 @@ router.post('/placeOrder', userCheck.sessionUser, cart.placeOrder)
 router.post('/verifyPayment', userCheck.sessionUser, cart.verifyPayment)
 router.get('/successPage', userCheck.sessionUser, cart.successPage)
 
+router.get('/profile', userCheck.sessionUser, controller.profile)
+
 router.route('/login')
     .get(controller.loginPage)
     .post(controller.postLogin)
@@ -40,7 +42,6 @@ router.route('/register')
     .get(controller.signup)
     .post(controller.doSignup)
 
-router.get('/profile', userCheck.sessionUser, controller.profile)
 
 router.get('/get-otp', controller.otpPage)
 

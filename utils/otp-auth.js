@@ -8,6 +8,7 @@ module.exports = {
             .create({ friendlyName: "legnutz OTP verification" })
             .then((service) => {
                 SID = service.sid;
+                console.log('-=-=-=-=-=-==-=-=-=-=-=-=-=-');
                 client.verify.v2
                     .services(service.sid)
                     .verifications.create({ to: "+91" + phone, channel: "sms" })

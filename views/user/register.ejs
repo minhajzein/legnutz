@@ -1,84 +1,51 @@
 <div class="theme-color-1">
   <%- include('../partials/user-header') %>
-  
-  <!-- breadcrumb End -->
 
-  <!--section start-->
-  <section class="register-page section-b-space">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3>create account</h3>
-          <div class="theme-card">
-            <form class="theme-form" action="/register" method="post">
-              <div class="form-row row">
-                <div class="col-md-6">
-                  <label for="email">Username</label>
-                  <input
-                    type="text"
-                    name="username"
-                    class="form-control"
-                    id="fname"
-                    placeholder=" enter username"
-                    required=""
-                  />
+    <!-- breadcrumb End -->
+
+    <!--section start-->
+    <section class="register-page section-b-space">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3>create account</h3>
+            <% if (err_msg) { %>
+              <label class="text-danger" for="formCard">
+                <%= err_msg %>
+              </label>
+              <% } %>
+                <div id="formCard" class="theme-card">
+                  <form class="theme-form" action="/register" method="post">
+                    <div class="form-row row">
+                      <div class="col-md-6">
+                        <label for="email">Username</label>
+                        <input type="text" name="username" class="form-control" id="fname" placeholder=" enter username" required="" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="review">Mobile No</label>
+                        <input type="number" minlength="10" maxlength="10" class="form-control" name="phone" id="lname" placeholder="enter Mobile No" required="" />
+                      </div>
+                    </div>
+                    <div class="form-row row">
+                      <div class="col-md-6">
+                        <label for="email">email</label>
+                        <input type="text" name="Email" class="form-control" id="email" placeholder="enter Email address" required="" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="review">Password</label>
+                        <input minlength="8" maxlength="16" type="password" name="password" class="form-control" id="review" placeholder="minimum 8 charecters" required="" />
+                      </div>
+                      <div class="col-md-6">
+                        <label for="review">confirm Password</label>
+                        <input minlength="8" maxlength="16" type="password" name="confirmPassword" class="form-control" id="review" placeholder="Re-enter password" required="" />
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Get OTP</button>
+                  </form>
                 </div>
-                <div class="col-md-6">
-                  <label for="review">Mobile No</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="phone"
-                    id="lname"
-                    placeholder="enter Mobile No"
-                    required=""
-                  />
-                </div>
-              </div>
-              <div class="form-row row">
-                <div class="col-md-6">
-                  <label for="email">email</label>
-                  <input
-                    type="text"
-                    name="Email"
-                    class="form-control"
-                    id="email"
-                    placeholder="enter Email address"
-                    required=""
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label for="review">Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    class="form-control"
-                    id="review"
-                    placeholder="Enter your password"
-                    required=""
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label for="review">confirm Password</label>
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    class="form-control"
-                    id="review"
-                    placeholder="Re-enter password"
-                    required=""
-                  />
-                  <% if (err_msg) { %>
-                    <label for="fl"> <%= err_msg %>  </label>
-                  <% } %>
-                </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Get OTP</button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+</div>
+</section>
 </div>

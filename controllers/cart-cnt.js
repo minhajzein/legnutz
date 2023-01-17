@@ -19,7 +19,7 @@ module.exports = {
     let cartCount
     try {
       const cart = await Cart.findOne({ user: req.session.user._id })
-      const orders = await Order.find()
+      const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartItems;
       if (cart) {
         cartCount = cart.products.length
@@ -241,7 +241,7 @@ module.exports = {
   checkOut: async (req, res) => {
     try {
       const cart = await Cart.findOne({ user: req.session.user._id })
-      const orders = await Order.find()
+      const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
       let cartItems;
       if (cart) {
@@ -525,31 +525,6 @@ module.exports = {
       res.redirect('/not-found')
     }
   },
-  successPage: async (req, res) => {
-    try {
-      const orders = await Order.find()
-      const currentOrders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
-      let sum = 0;
-      let total = currentOrders.map((obj) => {
-        sum = sum + obj.totalAmount
-        return sum
-      })
-      total = total[total.length - 1]
-      const address = currentOrders[0].shippingAddress
-      let paymentMethod;
-      if (currentOrders[0].paymentMethod == 'COD') {
-        paymentMethod = 'Cash on delivery'
-      } else {
-        paymentMethod = 'Prepaid'
-      }
-      const date = new Date()
-      let expectedDate = date.setDate(date.getDate() + 10)
-      res.render('user/order-success', { user: req.session.user, cartCount: 0, currentOrders, orders, date, total, address, paymentMethod, expectedDate, totalAmount: 0 })
-    } catch (err) {
-      console.log(err);
-      res.redirect('/not-found')
-    }
-  },
   applyCoupon: async (req, res) => {
     let totalAmount = await Cart.aggregate([
       {
@@ -595,7 +570,6 @@ module.exports = {
     } else {
       totalAmount = 0
     }
-    console.log(req.body);
     try {
       if (req.body.couponCode != '') {
         const coupon = await Coupon.findOne({ couponCode: req.body.couponCode })
@@ -643,6 +617,31 @@ module.exports = {
     } catch (err) {
       console.log(err);
       res.redirect('/admin/not-available')
+    }
+  },
+  successPage: async (req, res) => {
+    try {
+      const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      const currentOrders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) }).sort({ createdAt: -1 }).limit(lastAdded)
+      let sum = 0;
+      let total = currentOrders.map((obj) => {
+        sum = sum + obj.totalAmount
+        return sum
+      })
+      total = total[total.length - 1]
+      const address = currentOrders[0].shippingAddress
+      let paymentMethod;
+      if (currentOrders[0].paymentMethod == 'COD') {
+        paymentMethod = 'Cash on delivery'
+      } else {
+        paymentMethod = 'Prepaid'
+      }
+      const date = new Date()
+      let expectedDate = date.setDate(date.getDate() + 10)
+      res.render('user/order-success', { user: req.session.user, cartCount: 0, currentOrders, orders, date, total, address, paymentMethod, expectedDate, totalAmount: 0 })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
     }
   }
 }

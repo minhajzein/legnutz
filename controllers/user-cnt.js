@@ -81,7 +81,7 @@ module.exports = {
           totalAmount = 0
         }
 
-        const orders = await Order.find()
+        const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
         res.render("user/home", { user: req.session.user, products, cartCount, totalAmount, orders, alloys, tyres, helmets })
       } else {
         res.render("user/home", { user: false, products, alloys, tyres, helmets })
@@ -153,7 +153,7 @@ module.exports = {
         } else {
           totalAmount = 0
         }
-        const orders = await Order.find()
+        const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
         res.render("user/shop", { allProducts, user: req.session.user, cartCount, cart, totalAmount, orders, latest1, latest2, brands, categories })
       } else {
         res.render("user/shop", { user: false, allProducts, latest1, latest2, brands, categories })
@@ -165,7 +165,7 @@ module.exports = {
   },
   orderList: async (req, res) => {
     try {
-      const orders = await Order.find().sort({ createdAt: -1 })
+      const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) }).sort({ createdAt: -1 })
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
       if (cart) {
@@ -283,7 +283,9 @@ module.exports = {
         coupons = null
       }
       console.log(coupons);
-      const orders = await Order.find()
+      const orders = await Order.find({
+        user: mongoose.Types.ObjectId(req.session.user._id)
+      })
       res.render('user/coupons', { user: req.session.user, cartCount, totalAmount, coupons, orders })
     } catch (err) {
       console.log(err);
@@ -359,7 +361,7 @@ module.exports = {
           }
         }
       ])
-      const orders = await Order.find()
+      const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
       const cart = await Cart.findOne({ user: req.session.user._id })
       if (cart) {
@@ -448,7 +450,7 @@ module.exports = {
   },
   productDetails: async (req, res) => {
     try {
-      const orders = await Order.find()
+      const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       const id = req.query.id
       const product = await Product.findById({ _id: id })
       if (product) {
@@ -580,11 +582,16 @@ module.exports = {
     }
   },
   otpPage: async (req, res) => {
-    res.render("user/otp-page", { errorMsg: false, user: false })
+    try {
+      res.render("user/otp-page", { errorMsg: false, user: false })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+
   },
   otpVerification: async (req, res) => {
-    let Otp = req.body
-    const OTP = Otp.otp
+    const OTP = req.body.otp
     const userDetails = userSignup
     const number = parseInt(userDetails.phone)
     let otpStatus = await checkOtp.verifyOtp(number, OTP)
@@ -599,7 +606,7 @@ module.exports = {
     }
   },
   profile: async (req, res) => {
-    const orders = await Order.find()
+    const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
     try {
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;

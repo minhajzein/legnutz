@@ -17,13 +17,13 @@ module.exports = {
             const users = await User.find().count()
             const products = await Product.find().count()
             const orders = await Order.find().sort({ createdAt: -1 }).limit(4)
-            // let monthlyIncome = await Order.aggregate([
-            //     {
-            //         $match: {
-
-            //         }
-            //     }
-            // ])
+            let monthlyIncome = await Order.aggregate([
+                {
+                    $match: {
+                        orderStatus: 'delivered'
+                    }
+                }
+            ])
             res.render('admin/home', { adminData: req.session.adminData, orders, users, products, })
         } catch {
             res.redirect("/admin/not-available")
