@@ -103,9 +103,6 @@
 										</div>
 									</li>
 									<li><a href="/">Home</a></li>
-									<li>
-										<a href="/go-to-shop">shop</a>
-									</li>
 								</ul>
 							</nav>
 						</div>
@@ -146,18 +143,15 @@
 										</div>
 										<div class="show-div setting">
 											<ul>
-												<li><a href="/profile">Edit
-														profile</a>
-												</li>
-												<li><a href="/profile">Edit
-														address
-													</a></li>
+												<li><a href="/profile">Edit profile</a></li>
+												<li><a href="/profile">Edit address</a></li>
 											</ul>
 										</div>
 									</li>
 									<% if (user) { %>
 										<li class="onhover-div mobile-cart">
-											<div><img src="/images/icon/cart.png" class="img-fluid blur-up lazyload" alt=""> <i class="ti-shopping-cart"></i>
+											<div>
+												<img src="/images/icon/cart.png" class="img-fluid blur-up lazyload" alt=""><i class="ti-shopping-cart"></i>
 											</div>
 											<span id="cartCount" class="cart_qty_cls">
 												<%= cartCount %>

@@ -44,14 +44,7 @@
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-header">
-                    <form class="form-inline search-form search-box">
-                      <div class="form-group">
-                        <input class="form-control-plaintext" type="search" placeholder="Search.." />
-                      </div>
-                    </form>
-
-                    <button type="button" data-toggle="modal" data-target="#exampleModal"
-                      class="btn btn-primary mt-md-0 mt-2">
+                    <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-primary mt-md-0 mt-2">
                       Add Category
                     </button>
                   </div>
@@ -62,7 +55,7 @@
                     <% } %>
                       <div class="card-body">
                         <div class="table-responsive table-desi">
-                          <table class="table all-package table-category" id="editableTable">
+                          <table class="table all-package table-category" id="myTable">
                             <thead>
                               <tr>
                                 <th>No</th>
@@ -81,8 +74,7 @@
                                     <td>
                                       <%= obj.category %>
                                     </td>
-                                    <td><a href="/admin/deleteCategory?id=<%= obj._id %> "><i class="btn fa fa-trash"
-                                          title="Delete"></i></a></td>
+                                    <td><a href="/admin/deleteCategory?id=<%= obj._id %> "><i class="btn fa fa-trash" title="Delete"></i></a></td>
                                     <% x++;}); %>
                                   </tr>
                             </tbody>
@@ -103,8 +95,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form action="/admin/add-category" method="post">
       <div class="modal-content">
@@ -127,3 +118,11 @@
     </form>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    debugger;
+    $('#myTable').DataTable()
+
+  });
+</script>

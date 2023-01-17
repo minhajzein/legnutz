@@ -48,7 +48,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive table-desi">
-                                            <table class="table all-package display" id="editableTable">
+                                            <table class="table all-package display" id="myTable">
                                                 <thead>
                                                     <tr>
                                                         <th>Order Image</th>
@@ -65,8 +65,7 @@
                                                     <% orders.forEach(obj=> { %>
                                                         <tr>
                                                             <td>
-                                                                <img src="/images/<%= obj.productDetails.productImg[0] %> "
-                                                                    alt="users">
+                                                                <img src="/images/<%= obj.productDetails.productImg[0] %> " alt="users">
                                                             </td>
 
                                                             <td data-field="number">
@@ -95,43 +94,29 @@
                                                                     </td>
 
                                                                     <% } else if(obj.orderStatus=='shipped' ) { %>
-                                                                        <td id="status<%= obj._id %>"
-                                                                            class="order-warning">
+                                                                        <td id="status<%= obj._id %>" class="order-warning">
                                                                             <span>
                                                                                 <%= obj.orderStatus %>
                                                                             </span>
                                                                         </td>
                                                                         <% } else if(obj.orderStatus=='delivered' ) { %>
-                                                                            <td id="status<%= obj._id %>"
-                                                                                class="order-success">
+                                                                            <td id="status<%= obj._id %>" class="order-success">
                                                                                 <span>
                                                                                     <%= obj.orderStatus %>
                                                                                 </span>
                                                                             </td>
                                                                             <% } %>
-                                                                                <td data-field="number">$<%=
-                                                                                        obj.totalAmount %>
+                                                                                <td data-field="number">$<%= obj.totalAmount %>
                                                                                 </td>
 
                                                                                 <td data-field="number">
                                                                                     <div class="dropdown">
-                                                                                        <a class="dropdown-toggle"
-                                                                                            type="button"
-                                                                                            id="dropdownMenuButton"
-                                                                                            data-toggle="dropdown"
-                                                                                            aria-haspopup="true"
-                                                                                            aria-expanded="false">
-                                                                                            <i class="fa fa-edit"
-                                                                                                title="Edit"></i>
+                                                                                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                                            <i class="fa fa-edit" title="Edit"></i>
                                                                                         </a>
-                                                                                        <div class="dropdown-menu"
-                                                                                            aria-labelledby="dropdownMenuButton">
-                                                                                            <a class="dropdown-item"
-                                                                                                style="cursor: pointer;"
-                                                                                                onclick="shipped('<%= obj._id %>')">shipped</a>
-                                                                                            <a class="dropdown-item"
-                                                                                                style="cursor: pointer;"
-                                                                                                onclick="delivered('<%= obj._id %>')">delivered</a>
+                                                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                            <a class="dropdown-item" style="cursor: pointer;" onclick="shipped('<%= obj._id %>')">shipped</a>
+                                                                                            <a class="dropdown-item" style="cursor: pointer;" onclick="delivered('<%= obj._id %>')">delivered</a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </td>
@@ -153,3 +138,11 @@
                     <!-- footer end-->
         </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        $('#myTable').DataTable()
+
+    });
+</script>
