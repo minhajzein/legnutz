@@ -110,44 +110,43 @@ module.exports = {
         item: mongoose.Types.ObjectId(req.query.id),
         quantity: 1,
       }
-      if (req.session.loggedIn) {
-        const cart = await Cart.findOne({ user: req.session.user._id })
-        if (cart) {
-          let itemExist = cart.products.findIndex(
-            product => product.item == req.query.id
-          )
-          if (itemExist != -1) {
-            await Cart.updateOne(
-              {
-                user: mongoose.Types.ObjectId(req.session.user._id),
-                "products.item": mongoose.Types.ObjectId(req.query.id),
+      const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      if (cart) {
+        let itemExist = cart.products.findIndex(
+          product => product.item == req.query.id
+        )
+        if (itemExist != -1) {
+          await Cart.updateOne(
+            {
+              user: mongoose.Types.ObjectId(req.session.user._id),
+              "products.item": mongoose.Types.ObjectId(req.query.id),
+            },
+            {
+              $inc: {
+                "products.$.quantity": 1,
               },
-              {
-                $inc: {
-                  "products.$.quantity": 1,
-                },
-              }
-            )
-            req.json({ status: false })
-          } else {
-            await Cart.updateOne(
-              { user: mongoose.Types.ObjectId(req.session.user._id) },
-              {
-                $push: {
-                  products: proObj,
-                },
-              }
-            )
-            res.json({ status: true })
-          }
+            }
+          )
+          req.json({ status: false })
         } else {
-          await Cart.create({
-            user: mongoose.Types.ObjectId(req.session.user._id),
-            products: proObj,
-          })
+          await Cart.updateOne(
+            { user: mongoose.Types.ObjectId(req.session.user._id) },
+            {
+              $push: {
+                products: proObj,
+              },
+            }
+          )
           res.json({ status: true })
         }
+      } else {
+        await Cart.create({
+          user: mongoose.Types.ObjectId(req.session.user._id),
+          products: proObj,
+        })
+        res.json({ status: true })
       }
+
     } catch {
       res.redirect("/not-found")
     }

@@ -126,6 +126,26 @@
                 </div>
               </div>
               <div class="col-xl-6 xl-100">
+                <!-- <div id="user-acquisition" class="card card-default">
+                  <div class="card-header">
+                    <h2>Sales Report</h2>
+                  </div>
+                  <div class="card-body">
+                    <ul class="nav nav-tabs nav-style-border justify-content-between justify-content-lg-start border-bottom" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#monthly" role="tab" aria-selected="false">Weekly </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content pt-4" id="salesReport">
+                      <div class="tab-pane fade show active" id="source-medium" role="tabpanel">
+                        <div class="mb-6" style="max-height:247px">
+                          <canvas id="linechart1" class="chartjs2"></canvas>
+                          <div id="acqLegend" class="customLegend mb-2"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
                 <div class="card">
                   <div class="card-header">
                     <h5>Weekly Report</h5>
@@ -263,4 +283,15 @@
     <%- include('../partials/admin-footer') %>
       <!-- footer end-->
 </div>
-</div>
+
+<script>
+  let revenueDate = '<%= revenueDate %>'
+  revenueDate = revenueDate.replace(/&#34;/gi, "'");
+  let revenueAmount = '<%= revenueAmount %>'
+  revenueAmount = revenueAmount.replace(/&#34;/gi, "'");
+  let countOrder = '<%= countOrder %>'
+  countOrder = countOrder.replace(/&#34;/gi, "'");
+  console.log(revenueAmount + revenueAmount + countOrder);
+
+
+</script>

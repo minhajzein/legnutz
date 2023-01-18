@@ -33,40 +33,37 @@ module.exports = {
                 }
             ])
             totalIncome = totalIncome[0].sum
-            let today = new Date();
-            let lastWeekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-            let lastWeekEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-            let start = new Date(lastWeekStart.setHours(0, 0, 0, 0));
-            let end = new Date(lastWeekEnd.setHours(23, 59, 59, 999));
-
-            const lastWeekIncome = await Order.aggregate([
+            let OneWeekBefore = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
+            let weekRevenue = await Order.aggregate([
                 {
-                    $match: {
-                        orderStatus: 'delivered'
-                    }
+                    $match: { createdAt: { $gt: OneWeekBefore } },
+                },
+                {
+                    $project: { 'createdAt': 1, 'totalAmount': 1 }
                 },
                 {
                     $group: {
-                        _id: null,
-                        Week: {
-                            $sum: {
-                                "$cond": [
-                                    {
-                                        "$and": [
-                                            { "$gte": ["$timeStamp", start] },
-                                            { "$lte": ["$timeStamp", end] }
-                                        ]
-                                    },
-                                    1,
-                                    0
-                                ]
-                            }
-                        }
+                        _id: { $dateToString: { format: "%Y-%m-%d", date: '$createdAt' } },
+                        totalAmount: { $sum: '$totalAmount' },
+                        count: { $sum: 1 }
+
                     }
                 }
-            ])
-            console.log(lastWeekIncome);
-            res.render('admin/home', { adminData: req.session.adminData, orders, users, products, totalIncome })
+            ]).sort({ _id: 1 })
+
+            console.log(weekRevenue + '-=-=-=-=-=-=-=-=-=-=-=-=-');
+
+            let revenueDate = []
+            let revenueAmount = []
+            let countOrder = []
+
+            weekRevenue.forEach((e) => {
+                revenueDate.push(e._id)
+                revenueAmount.push(e.totalAmount)
+                countOrder.push(e.count)
+            });
+            console.log(revenueAmount, revenueDate, countOrder);
+            res.render('admin/home', { adminData: req.session.adminData, orders, users, products, totalIncome, revenueDate, revenueAmount, countOrder })
         } catch (err) {
             console.log(err);
             res.redirect("/admin/not-available")
