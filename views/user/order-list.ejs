@@ -37,8 +37,7 @@
 								<div class="row border-part">
 									<div class="col-xl-2 col-md-3 col-sm-4">
 										<div class="product-detail">
-											<img src="/images/<%= obj.productDetails.productImg[0] %>"
-												class="img-fluid blur-up lazyload" alt="" />
+											<img src="/images/<%= obj.productDetails.productImg[0] %>" class="img-fluid blur-up lazyload" alt="" />
 										</div>
 									</div>
 									<div class="col-xl-4 col-lg-5 col-sm-8">
@@ -131,24 +130,18 @@
 										</div>
 										<div class="col-12 mt-3">
 											<% if (obj.orderStatus=='delivered' ) { %>
-												<a href=" /writeReview?prodId=<%= obj.productDetails._id %>"
-													class="btn btn-solid me-3">write
+												<a href=" /writeReview?prodId=<%= obj.productDetails._id %>" class="btn btn-solid me-3">write
 													a
 													review</a>
-												<a onclick="returnOrder('<%= obj._id %>')"
-													class="btn btn-solid">return</a>
+												<a onclick="returnOrder('<%= obj._id %>')" class="btn btn-solid">return</a>
 												<% } else if (obj.orderStatus=='payment pending' ) { %>
-													<a href=" /payAgain?prodId=<%= obj._id %>"
-														class="btn btn-solid me-3">pay
+													<a href=" /payAgain?prodId=<%= obj._id %>" class="btn btn-solid me-3">pay
 														again</a>
-													<a onclick="cancelOrder('<%= obj._id %>')"
-														class="btn btn-solid">cancel</a>
+													<a onclick="cancelOrder('<%= obj._id %>')" class="btn btn-solid">cancel</a>
 													<% } else if (obj.orderStatus=='placed' ) { %>
-														<a onclick="cancelOrder('<%= obj._id %>')"
-															class="btn btn-solid">cancel</a>
+														<a onclick="cancelOrder('<%= obj._id %>')" class="btn btn-solid">cancel</a>
 														<% } else if (obj.orderStatus=='shipped' ) { %>
-															<a onclick="cancelOrder('<%= obj._id %>')"
-																class="btn btn-solid">cancel</a>
+															<a onclick="cancelOrder('<%= obj._id %>')" class="btn btn-solid">cancel</a>
 															<% } %>
 
 										</div>
@@ -184,14 +177,10 @@
 												</div>
 												<% } else if (obj.orderStatus=='delivered' ) { %>
 													<div class="arrow-steps clearfix">
-														<div class="step done"><span> order
-																placed</span></div>
-														<div class="step done"><span>preparing to
-																ship</span></div>
-														<div class="step done"><span> shipped</span>
-														</div>
-														<div class="step done"><span>delivered</span>
-														</div>
+														<div class="step done"><span> order placed</span></div>
+														<div class="step done"><span>preparing to ship</span></div>
+														<div class="step done"><span> shipped</span></div>
+														<div class="step done"><span>delivered</span></div>
 													</div>
 													<% } %>
 
