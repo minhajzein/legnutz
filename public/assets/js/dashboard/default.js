@@ -1,10 +1,10 @@
 //market-chart
+let labels = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+let series = [[1, 3, 3, 9, 2, 5, 4]]
+
 new Chartist.Bar('.market-chart', {
-    labels: ['100', '200', '300', '400', '500', '600', '700', '800'],
-    series: [
-        [2.5, 3, 3, 0.9, 1.3, 1.8, 3.8, 1.5],
-        [3.8, 1.8, 4.3, 2.3, 3.6, 2.8, 2.8, 2.8]
-    ]
+    labels,
+    series
 }, {
     seriesBarDistance: 2,
     chartPadding: {
@@ -73,27 +73,27 @@ Chart.defaults.global = {
     tooltipCaretSize: 8,
     tooltipCornerRadius: 6,
     tooltipXOffset: 5,
-    onAnimationProgress: function () {},
-    onAnimationComplete: function () {}
+    onAnimationProgress: function () { },
+    onAnimationComplete: function () { }
 };
 var pieData = [{
-        value: 300,
-        color: "#ab8ce4",
-        highlight: "#ab8ce4",
-        label: "Primary"
-    },
-    {
-        value: 50,
-        color: "#26c6da",
-        highlight: "#26c6da",
-        label: "Secondary"
-    },
-    {
-        value: 100,
-        color: "#FF5370",
-        highlight: "#FF5370",
-        label: "Danger"
-    }
+    value: 300,
+    color: "#ab8ce4",
+    highlight: "#ab8ce4",
+    label: "Primary"
+},
+{
+    value: 50,
+    color: "#26c6da",
+    highlight: "#26c6da",
+    label: "Secondary"
+},
+{
+    value: 100,
+    color: "#FF5370",
+    highlight: "#FF5370",
+    label: "Danger"
+}
 ];
 var pieOptions = {
     segmentShowStroke: true,
@@ -109,23 +109,23 @@ var pieOptions = {
 
 
 var doughnutData = [{
-        value: 300,
-        color: "#ff4c3b",
-        highlight: "#ff4c3b",
-        label: "Saint Lucia"
-    },
-    {
-        value: 50,
-        color: "#02cccd",
-        highlight: "#02cccd",
-        label: "Kenya"
-    },
-    {
-        value: 100,
-        color: "#a5a5a5",
-        highlight: "#a5a5a5",
-        label: "Liberia"
-    }
+    value: 300,
+    color: "#ff4c3b",
+    highlight: "#ff4c3b",
+    label: "Saint Lucia"
+},
+{
+    value: 50,
+    color: "#02cccd",
+    highlight: "#02cccd",
+    label: "Kenya"
+},
+{
+    value: 100,
+    color: "#a5a5a5",
+    highlight: "#a5a5a5",
+    label: "Liberia"
+}
 ];
 var doughnutOptions = {
     segmentShowStroke: true,
@@ -196,8 +196,8 @@ Chart.defaults.global = {
     tooltipCaretSize: 8,
     tooltipCornerRadius: 6,
     tooltipXOffset: 5,
-    onAnimationProgress: function () {},
-    onAnimationComplete: function () {}
+    onAnimationProgress: function () { },
+    onAnimationComplete: function () { }
 };
 var lineGraphData = {
     labels: ["1 min.", "10 min.", "20 min.", "30 min.", "40 min.", "50 min."],
