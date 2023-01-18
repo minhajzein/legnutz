@@ -111,7 +111,6 @@ module.exports = {
         quantity: 1,
       }
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
-      console.log(cart + '-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=--=-=-=');
       if (cart) {
         let itemExist = cart.products.findIndex(
           product => product.item == req.query.id
