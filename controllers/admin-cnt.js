@@ -22,11 +22,53 @@ module.exports = {
                     $match: {
                         orderStatus: 'delivered'
                     }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        sum: {
+                            $sum: "$totalAmount"
+                        }
+                    }
                 }
             ])
-            console.log(totalIncome);
-            res.render('admin/home', { adminData: req.session.adminData, orders, users, products, })
-        } catch {
+            totalIncome = totalIncome[0].sum
+            let today = new Date();
+            let lastWeekStart = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+            let lastWeekEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+            let start = new Date(lastWeekStart.setHours(0, 0, 0, 0));
+            let end = new Date(lastWeekEnd.setHours(23, 59, 59, 999));
+
+            const lastWeekIncome = await Order.aggregate([
+                {
+                    $match: {
+                        orderStatus: 'delivered'
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        Week: {
+                            $sum: {
+                                "$cond": [
+                                    {
+                                        "$and": [
+                                            { "$gte": ["$timeStamp", start] },
+                                            { "$lte": ["$timeStamp", end] }
+                                        ]
+                                    },
+                                    1,
+                                    0
+                                ]
+                            }
+                        }
+                    }
+                }
+            ])
+            console.log(lastWeekIncome);
+            res.render('admin/home', { adminData: req.session.adminData, orders, users, products, totalIncome })
+        } catch (err) {
+            console.log(err);
             res.redirect("/admin/not-available")
         }
     },
