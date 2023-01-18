@@ -92,7 +92,7 @@
 															<%= obj.shippingAddress.firstName %>
 																<%= obj.shippingAddress.lastName %> <br />
 																	<%= obj.shippingAddress.address %> <br />
-																		<%=obj.shippingAddress.townOrCity %>,
+																		<%= obj.shippingAddress.townOrCity %>,
 																			<%= obj.shippingAddress.stateOrDistrict %>,
 																				<%= obj.shippingAddress.postalCode %>
 														</span>
@@ -137,11 +137,11 @@
 												<% } else if (obj.orderStatus=='payment pending' ) { %>
 													<a href=" /payAgain?prodId=<%= obj._id %>" class="btn btn-solid me-3">pay
 														again</a>
-													<a onclick="cancelOrder('<%= obj._id %>')" class="btn btn-solid">cancel</a>
+													<a href="/cancelOrder?id=<%= obj._id %>" class="btn btn-solid">cancel</a>
 													<% } else if (obj.orderStatus=='placed' ) { %>
-														<a onclick="cancelOrder('<%= obj._id %>')" class="btn btn-solid">cancel</a>
+														<a href="/cancelOrder?id=<%= obj._id %>" class="btn btn-solid">cancel</a>
 														<% } else if (obj.orderStatus=='shipped' ) { %>
-															<a onclick="cancelOrder('<%= obj._id %>')" class="btn btn-solid">cancel</a>
+															<a href="/cancelOrder?id=<%= obj._id %>" class="btn btn-solid">cancel</a>
 															<% } %>
 
 										</div>
@@ -182,7 +182,11 @@
 														<div class="step done"><span> shipped</span></div>
 														<div class="step done"><span>delivered</span></div>
 													</div>
-													<% } %>
+													<% } else if (obj.orderStatus=='canceled' ) { %>
+														<div class="arrow-steps clearfix">
+															<div class="step done"><span>order canceled</span></div>
+														</div>
+														<% } %>
 
 								</div>
 							</div>

@@ -8,7 +8,6 @@ module.exports = {
             .create({ friendlyName: "legnutz OTP verification" })
             .then((service) => {
                 SID = service.sid;
-                console.log('-=-=-=-=-=-==-=-=-=-=-=-=-=-');
                 client.verify.v2
                     .services(service.sid)
                     .verifications.create({ to: "+91" + phone, channel: "sms" })
@@ -17,12 +16,10 @@ module.exports = {
     },
     verifyOtp: async (phone, otp) => {
         let validation;
-        console.log("otp check", phone, otp);
         await client.verify.v2
             .services(SID)
             .verificationChecks.create({ to: "+91" + phone, code: otp })
             .then((verification_check) => {
-                console.log(verification_check);
                 validation = verification_check
             });
         return validation

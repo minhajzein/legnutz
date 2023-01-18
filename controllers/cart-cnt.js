@@ -18,9 +18,9 @@ module.exports = {
   goToCart: async (req, res) => {
     let cartCount
     try {
-      const cart = await Cart.findOne({ user: req.session.user._id })
       const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartItems;
+      const cart = await Cart.findOne({ user: req.session.user._id })
       if (cart) {
         cartCount = cart.products.length
         cartItems = await Cart.aggregate([
@@ -111,6 +111,7 @@ module.exports = {
         quantity: 1,
       }
       const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
+      console.log(cart + '-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=--=-=-=');
       if (cart) {
         let itemExist = cart.products.findIndex(
           product => product.item == req.query.id
@@ -146,8 +147,8 @@ module.exports = {
         })
         res.json({ status: true })
       }
-
-    } catch {
+    } catch (err) {
+      console.log(err);
       res.redirect("/not-found")
     }
   },
@@ -214,7 +215,8 @@ module.exports = {
         res.json({ status: false })
       }
 
-    } catch {
+    } catch (err) {
+      console.log(err);
       res.redirect('/not-found')
     }
   },
@@ -239,7 +241,7 @@ module.exports = {
   },
   checkOut: async (req, res) => {
     try {
-      const cart = await Cart.findOne({ user: req.session.user._id })
+      const cart = await Cart.findOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
       const orders = await Order.find({ user: mongoose.Types.ObjectId(req.session.user._id) })
       let cartCount;
       let cartItems;
@@ -422,7 +424,18 @@ module.exports = {
           stateOrDistrict: req.body.stateOrDistrict,
           postalCode: req.body.postalCode
         }
-        await Address.create(address)
+        await Address.create({
+          user: mongoose.Types.ObjectId(req.session.user._id),
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          mobileNumber: req.body.mobileNumber,
+          Email: req.body.Email,
+          country: req.body.country,
+          address: req.body.address,
+          townOrCity: req.body.townOrCity,
+          stateOrDistrict: req.body.stateOrDistrict,
+          postalCode: req.body.postalCode
+        })
       } else {
         address = await Address.findById(req.body.ORIGIN)
       }
@@ -468,7 +481,7 @@ module.exports = {
             }
           })
         })
-        await Cart.deleteOne({ user: req.session.user._id })
+        await Cart.deleteOne({ user: mongoose.Types.ObjectId(req.session.user._id) })
         const justOrders = await Order.find().sort({ createdAt: -1 }).limit(lastAdded)
         const orderId = justOrders[0]._id
         const options = {
@@ -638,6 +651,32 @@ module.exports = {
       const date = new Date()
       let expectedDate = date.setDate(date.getDate() + 10)
       res.render('user/order-success', { user: req.session.user, cartCount: 0, currentOrders, orders, date, total, address, paymentMethod, expectedDate, totalAmount: 0 })
+    } catch (err) {
+      console.log(err);
+      res.redirect('/not-found')
+    }
+  },
+  cancelOrder: async (req, res) => {
+    try {
+      const date = new Date()
+      const trackObj = {
+        date: date.toLocaleDateString(),
+        time: date.toLocaleTimeString(),
+        status: 'canceled'
+      }
+      await Order.updateOne({ _id: req.query.id },
+        {
+          $set: {
+            orderStatus: 'canceled'
+          }
+        })
+      await Order.updateOne({ _id: mongoose.Types.ObjectId(req.query.id) },
+        {
+          $push: {
+            trackOrder: trackObj
+          }
+        })
+      res.redirect('/orderList')
     } catch (err) {
       console.log(err);
       res.redirect('/not-found')

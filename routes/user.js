@@ -32,6 +32,8 @@ router.post('/placeOrder', userCheck.sessionUser, cart.placeOrder)
 router.post('/verifyPayment', userCheck.sessionUser, cart.verifyPayment)
 router.get('/successPage', userCheck.sessionUser, cart.successPage)
 
+router.get('/cancelOrder', userCheck.sessionUser, cart.cancelOrder)
+
 router.get('/profile', userCheck.sessionUser, controller.profile)
 
 router.route('/login')
