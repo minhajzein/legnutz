@@ -105,7 +105,12 @@
                                                                                     <%= obj.orderStatus %>
                                                                                 </span>
                                                                             </td>
-                                                                            <% } %>
+                                                                            <% }else if(obj.orderStatus=='canceled' ) { %>
+                                                                                <td id="status<%= obj._id %>" class="order-pending">
+                                                                                    <span>
+                                                                                        <%= obj.orderStatus %>
+                                                                                    </span>
+                                                                                    <% } %>
                                                                                 <td data-field="number">$<%= obj.totalAmount %>
                                                                                 </td>
 
