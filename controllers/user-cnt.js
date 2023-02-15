@@ -593,13 +593,15 @@ module.exports = {
   otpVerification: async (req, res) => {
     const OTP = req.body.otp
     const userDetails = userSignup
+    console.log(userDetails);
     const number = parseInt(userDetails.phone)
     let otpStatus = await checkOtp.verifyOtp(number, OTP)
     if (otpStatus.valid) {
       userDetails.password = await bcrypt.hash(userDetails.password, 10)
       await User.create(userDetails)
-      req.session.user = userDetails
       req.session.loggedIn = true
+      const user = await User.findOne({ Email: userDetails.Email })
+      req.session.user = user
       res.redirect("/")
     } else {
       res.render("user/otp-page", { errorMsg: "Entered OTP is incorrect", user: false })
