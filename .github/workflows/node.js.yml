@@ -29,6 +29,3 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - run: |
-      touch .env
-      echo "${{ secrets.ENV_VARIABLES }}" > .env
